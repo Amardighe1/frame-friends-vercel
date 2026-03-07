@@ -114,19 +114,36 @@ def _parse_class_name(class_name: str) -> tuple[str, str]:
 # GEMINI VISION API — Image Classification + Advice
 # ============================================================================
 
-def _analyze_with_gemini(image_bytes: bytes) -> dict:
-    """Use Gemini Vision API to classify crop disease from image AND provide advice."""
-    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("Gemini_API_KEY")
-    if not api_key:
-        raise HTTPException(503, "Gemini API key not configured on server")
+# Models to try in order (vision-capable, cheapest first)
+_MODELS_TO_TRY = [
+    "gemini-2.0-flash",
+    "gemini-1.5-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-1.5-flash-8b",
+]
 
-    from google import genai
 
-    client = genai.Client(api_key=api_key)
+def _get_api_keys() -> list[str]:
+    """
+    Load API keys from env. Supports multiple comma-separated keys for rotation.
+    Env vars checked: GEMINI_API_KEYS (plural), GEMINI_API_KEY, Gemini_API_KEY.
+    Example:  GEMINI_API_KEYS=AIza...aaa,AIza...bbb,AIza...ccc
+    """
+    raw = os.getenv("GEMINI_API_KEYS") or os.getenv("GEMINI_API_KEY") or os.getenv("Gemini_API_KEY") or ""
+    keys = [k.strip() for k in raw.split(",") if k.strip()]
+    return keys
+
+
+_PROMPT_TEMPLATE: str | None = None
+
+
+def _build_prompt() -> str:
+    global _PROMPT_TEMPLATE
+    if _PROMPT_TEMPLATE:
+        return _PROMPT_TEMPLATE
 
     class_list = ", ".join(_CLASS_NAMES)
-
-    prompt = f"""You are an expert agricultural scientist and plant pathologist.
+    _PROMPT_TEMPLATE = f"""You are an expert agricultural scientist and plant pathologist.
 
 Analyze this crop leaf image and classify it into EXACTLY ONE of these classes:
 {class_list}
@@ -159,6 +176,21 @@ Respond in this EXACT JSON format (no markdown fences):
 }}
 
 IMPORTANT: predicted_class MUST be exactly one of the listed classes. Confidence should reflect your certainty (0-100)."""
+    return _PROMPT_TEMPLATE
+
+
+def _analyze_with_gemini(image_bytes: bytes) -> dict:
+    """
+    Use Gemini Vision API to classify crop disease from image AND provide advice.
+    Rotates through multiple API keys and model variants for resilience.
+    """
+    api_keys = _get_api_keys()
+    if not api_keys:
+        raise HTTPException(503, "Gemini API key not configured on server")
+
+    from google import genai
+
+    prompt = _build_prompt()
 
     # Encode image for Gemini
     img_b64 = base64.b64encode(image_bytes).decode("utf-8")
@@ -169,58 +201,72 @@ IMPORTANT: predicted_class MUST be exactly one of the listed classes. Confidence
     mime_map = {"JPEG": "image/jpeg", "JPG": "image/jpeg", "PNG": "image/png", "WEBP": "image/webp"}
     mime_type = mime_map.get(fmt.upper(), "image/jpeg")
 
-    models_to_try = ["gemini-2.0-flash", "gemini-2.0-flash-lite"]
+    contents = [
+        {
+            "role": "user",
+            "parts": [
+                {"inline_data": {"mime_type": mime_type, "data": img_b64}},
+                {"text": prompt},
+            ],
+        }
+    ]
+
     last_error = None
 
-    for model_name in models_to_try:
-        try:
-            response = client.models.generate_content(
-                model=model_name,
-                contents=[
-                    {
-                        "role": "user",
-                        "parts": [
-                            {"inline_data": {"mime_type": mime_type, "data": img_b64}},
-                            {"text": prompt},
-                        ],
-                    }
-                ],
-            )
+    # Try every key × every model combination
+    for key_idx, api_key in enumerate(api_keys):
+        client = genai.Client(api_key=api_key)
+        for model_name in _MODELS_TO_TRY:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=contents,
+                )
 
-            text = response.text.strip()
-            if text.startswith("```"):
-                text = text.split("\n", 1)[1]
-                if text.endswith("```"):
-                    text = text[:-3]
-                text = text.strip()
+                text = response.text.strip()
+                if text.startswith("```"):
+                    text = text.split("\n", 1)[1]
+                    if text.endswith("```"):
+                        text = text[:-3]
+                    text = text.strip()
 
-            result = json.loads(text)
+                result = json.loads(text)
 
-            # Validate predicted_class is in our list
-            if result.get("predicted_class") not in _CLASS_NAMES:
-                # Find closest match
-                pred = result.get("predicted_class", "")
-                for cls in _CLASS_NAMES:
-                    if pred.lower().replace(" ", "_") == cls.lower().replace(" ", "_"):
-                        result["predicted_class"] = cls
-                        break
-                else:
-                    # Default to first match or healthy
-                    logger.warning(f"Gemini returned unknown class: {pred}")
+                # Validate predicted_class is in our list
+                if result.get("predicted_class") not in _CLASS_NAMES:
+                    pred = result.get("predicted_class", "")
+                    for cls in _CLASS_NAMES:
+                        if pred.lower().replace(" ", "_") == cls.lower().replace(" ", "_"):
+                            result["predicted_class"] = cls
+                            break
+                    else:
+                        logger.warning(f"Gemini returned unknown class: {pred}")
 
-            logger.info(f"Gemini Vision classified: {result.get('predicted_class')} using {model_name}")
-            return result
+                logger.info(
+                    f"Gemini Vision classified: {result.get('predicted_class')} "
+                    f"using {model_name} (key #{key_idx + 1})"
+                )
+                return result
 
-        except json.JSONDecodeError as e:
-            logger.error(f"Gemini ({model_name}) returned non-JSON: {e}")
-            last_error = e
-            continue
-        except Exception as e:
-            last_error = e
-            logger.warning(f"Gemini model {model_name} failed: {e}")
-            continue
+            except json.JSONDecodeError as e:
+                logger.error(f"Gemini ({model_name}, key#{key_idx + 1}) returned non-JSON: {e}")
+                last_error = e
+                continue
+            except Exception as e:
+                err_str = str(e)
+                last_error = e
+                # If quota/rate-limit error, skip remaining models for this key
+                if "RESOURCE_EXHAUSTED" in err_str or "429" in err_str:
+                    logger.warning(f"Key #{key_idx + 1} quota exhausted, trying next key...")
+                    break
+                logger.warning(f"Gemini {model_name} (key#{key_idx + 1}) failed: {e}")
+                continue
 
-    raise HTTPException(503, f"AI analysis temporarily unavailable: {last_error}")
+    raise HTTPException(
+        503,
+        "सर्व AI मॉडेल्स सध्या व्यस्त आहेत. कृपया 1 मिनिटानंतर पुन्हा प्रयत्न करा. "
+        "/ All AI models are currently busy. Please try again in 1 minute.",
+    )
 
 
 # ============================================================================
