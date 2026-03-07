@@ -116,7 +116,7 @@ def _parse_class_name(class_name: str) -> tuple[str, str]:
 
 def _analyze_with_gemini(image_bytes: bytes) -> dict:
     """Use Gemini Vision API to classify crop disease from image AND provide advice."""
-    api_key = os.getenv("Gemini_API_KEY")
+    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("Gemini_API_KEY")
     if not api_key:
         raise HTTPException(503, "Gemini API key not configured on server")
 
