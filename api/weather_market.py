@@ -232,8 +232,53 @@ async def get_weather_forecast(
 # MARKET ANALYTICS — Live Mandi Prices from Data.gov.in
 # ============================================================================
 
+_historical_fallback_df = None
+_historical_fallback_date = None
+
+
+def _get_historical_fallback():
+    """
+    Build a fallback DataFrame from the historical parquet when live API has no
+    Maharashtra data.  Returns the latest available trading day's records.
+    """
+    global _historical_fallback_df, _historical_fallback_date
+    if _historical_fallback_df is not None:
+        return _historical_fallback_df, _historical_fallback_date
+
+    try:
+        from api.main import _get_mandi_df
+        df = _get_mandi_df()
+        # Take the last 7 unique trading days to give a rich dataset
+        latest_dates = sorted(df["arrival_date"].dropna().unique())[-7:]
+        fallback = df[df["arrival_date"].isin(latest_dates)].copy()
+        # Strip " APMC" from market names for consistency
+        if "market" in fallback.columns:
+            import re
+            def _strip(n):
+                n = str(n).strip()
+                if n.endswith(" APMC"):
+                    n = n[:-5].strip()
+                n = re.sub(r'(\w)\(', r'\1 (', n)
+                return n
+            fallback["market"] = fallback["market"].apply(_strip)
+        latest_str = str(pd.Timestamp(latest_dates[-1]).date()) if len(latest_dates) else "unknown"
+        _historical_fallback_df = fallback
+        _historical_fallback_date = latest_str
+        logger.info(
+            f"Historical fallback ready: {len(fallback)} records, "
+            f"{fallback['commodity'].nunique()} commodities, latest={latest_str}"
+        )
+        return fallback, latest_str
+    except Exception as e:
+        logger.error(f"Failed to build historical fallback: {e}")
+        return None, None
+
+
 def _get_live_df():
-    """Get the live prices DataFrame from main module."""
+    """
+    Get market price DataFrame.
+    Priority: live Data.gov.in → disk cache → historical parquet fallback.
+    """
     from api.main import live_prices_df, live_prices_date, refresh_live_prices
 
     if live_prices_df is None or live_prices_df.empty:
@@ -242,7 +287,11 @@ def _get_live_df():
         except Exception as e:
             logger.warning(f"Live price refresh failed in _get_live_df: {e}")
         from api.main import live_prices_df as refreshed_df, live_prices_date as refreshed_date
-        return refreshed_df, refreshed_date
+        if refreshed_df is not None and not refreshed_df.empty:
+            return refreshed_df, refreshed_date
+        # Fallback to historical parquet data
+        logger.info("Live data unavailable, using historical parquet fallback")
+        return _get_historical_fallback()
 
     return live_prices_df, live_prices_date
 
