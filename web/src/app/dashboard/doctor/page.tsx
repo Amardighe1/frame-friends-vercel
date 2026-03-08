@@ -444,7 +444,7 @@ export default function DoctorDashboard() {
 
           {/* Tabs */}
           {isVerified && (
-            <div className="flex gap-1 -mb-px overflow-x-auto no-scrollbar">
+            <div className="flex gap-1 -mb-px overflow-x-auto">
               {tabs.map((t) => (
                 <button
                   key={t.key}

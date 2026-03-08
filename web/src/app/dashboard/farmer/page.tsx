@@ -285,7 +285,7 @@ export default function FarmerDashboard() {
             </div>
           </div>
 
-          <div className="flex gap-1 -mb-px">
+          <div className="flex gap-1 -mb-px overflow-x-auto">
             {tabItems.map((t) => (
               <button
                 key={t.key}

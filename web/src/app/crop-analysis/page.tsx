@@ -277,7 +277,7 @@ export default function CropAnalysisPage() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-8">
+        <div className="grid lg:grid-cols-5 gap-4 lg:gap-8">
           {/* ───── LEFT: Upload Panel (3 cols) ───── */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -477,18 +477,18 @@ export default function CropAnalysisPage() {
                     ? 'bg-gradient-to-r from-emerald-50 via-green-50 to-emerald-50'
                     : 'bg-gradient-to-r from-red-50 via-orange-50 to-red-50'
                 }`}>
-                  <div className="flex items-start gap-5">
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-inner ${
+                  <div className="flex items-start gap-3 sm:gap-5">
+                    <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-inner ${
                       result.is_healthy ? 'bg-emerald-100' : 'bg-red-100'
                     }`}>
                       {result.is_healthy
-                        ? <ShieldCheck className="w-8 h-8 text-emerald-600" />
-                        : <Bug className="w-8 h-8 text-red-600" />
+                        ? <ShieldCheck className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-600" />
+                        : <Bug className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" />
                       }
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <h2 className={`text-2xl font-extrabold ${result.is_healthy ? 'text-emerald-800' : 'text-red-800'}`}>
+                        <h2 className={`text-xl sm:text-2xl font-extrabold ${result.is_healthy ? 'text-emerald-800' : 'text-red-800'}`}>
                           {result.is_healthy ? 'पीक निरोगी आहे! 🎉' : result.advice.disease_name || result.disease}
                         </h2>
                         {!result.is_healthy && result.advice.severity && (
@@ -534,7 +534,7 @@ export default function CropAnalysisPage() {
                         <span className="text-sm text-slate-700 flex-1 truncate font-medium">
                           {pred.class.replace(/___/g, ' → ').replace(/_/g, ' ')}
                         </span>
-                        <div className="w-32 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="w-20 sm:w-32 h-2.5 bg-slate-100 rounded-full overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${pred.confidence}%` }}

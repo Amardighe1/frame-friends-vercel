@@ -333,12 +333,12 @@ export default function WeatherPage() {
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                   <div>
-                    <div className="text-7xl sm:text-8xl mb-1">{weather.current.weather_emoji}</div>
+                    <div className="text-5xl sm:text-7xl md:text-8xl mb-1">{weather.current.weather_emoji}</div>
                     <p className="text-white/60 text-sm">{weather.current.weather_description}</p>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-baseline gap-2">
-                      <span className={`text-6xl sm:text-7xl font-light ${getTempColor(weather.current.temperature)}`}>
+                      <span className={`text-5xl sm:text-6xl md:text-7xl font-light ${getTempColor(weather.current.temperature)}`}>
                         {Math.round(weather.current.temperature)}°
                       </span>
                       <span className="text-white/40 text-lg">C</span>

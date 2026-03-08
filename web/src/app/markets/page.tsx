@@ -245,22 +245,22 @@ export default function MarketsPage() {
           >
             <div className="rounded-xl bg-white/5 border border-white/10 p-4">
               <Database className="w-5 h-5 text-blue-400 mb-2" />
-              <p className="text-2xl font-bold text-white">{(summary.total_records ?? 0).toLocaleString()}</p>
+              <p className="text-xl sm:text-2xl font-bold text-white">{(summary.total_records ?? 0).toLocaleString()}</p>
               <p className="text-white/40 text-xs">ऐकूण नोंदी</p>
             </div>
             <div className="rounded-xl bg-white/5 border border-white/10 p-4">
               <Package className="w-5 h-5 text-emerald-400 mb-2" />
-              <p className="text-2xl font-bold text-white">{summary.total_commodities}</p>
+              <p className="text-xl sm:text-2xl font-bold text-white">{summary.total_commodities}</p>
               <p className="text-white/40 text-xs">माल</p>
             </div>
             <div className="rounded-xl bg-white/5 border border-white/10 p-4">
               <Store className="w-5 h-5 text-orange-400 mb-2" />
-              <p className="text-2xl font-bold text-white">{summary.total_markets}</p>
+              <p className="text-xl sm:text-2xl font-bold text-white">{summary.total_markets}</p>
               <p className="text-white/40 text-xs">बाजार</p>
             </div>
             <div className="rounded-xl bg-white/5 border border-white/10 p-4">
               <MapPin className="w-5 h-5 text-purple-400 mb-2" />
-              <p className="text-2xl font-bold text-white">{summary.total_districts}</p>
+              <p className="text-xl sm:text-2xl font-bold text-white">{summary.total_districts}</p>
               <p className="text-white/40 text-xs">जिल्हे</p>
             </div>
           </motion.div>
@@ -338,7 +338,7 @@ export default function MarketsPage() {
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
-                      className="absolute z-50 top-full mt-2 right-0 w-72 bg-slate-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden"
+                      className="absolute z-50 top-full mt-2 left-0 sm:left-auto sm:right-0 w-64 sm:w-72 bg-slate-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden"
                     >
                       <div className="p-3 border-b border-white/10">
                         <input

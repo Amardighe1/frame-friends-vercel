@@ -126,7 +126,7 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
           <h2 className="text-base font-bold text-slate-800">सेवा</h2>
           <span className="text-xs text-slate-400">सर्व वैशिष्ट्ये</span>
         </div>
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-2 sm:gap-3">
           {quickActions.map((action, i) => (
             <Link key={action.href} href={action.href} className="group">
               <motion.div
@@ -135,8 +135,8 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
                 transition={{ delay: i * 0.05 }}
                 className="flex flex-col items-center"
               >
-                <div className={`w-14 h-14 bg-gradient-to-br ${action.color} rounded-2xl flex items-center justify-center shadow-md mb-1.5 group-active:scale-95 transition-transform`}>
-                  <action.icon className="w-6 h-6 text-white" />
+                <div className={`w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br ${action.color} rounded-2xl flex items-center justify-center shadow-md mb-1.5 group-active:scale-95 transition-transform`}>
+                  <action.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <span className="text-[11px] font-medium text-slate-700 text-center leading-tight">
                   {action.label}

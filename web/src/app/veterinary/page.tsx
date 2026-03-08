@@ -369,7 +369,7 @@ export default function VeterinaryPage() {
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-1 border-b border-slate-200 overflow-x-auto no-scrollbar">
+          <div className="flex gap-1 border-b border-slate-200 overflow-x-auto">
             {tabItems.map((t) => (
               <button
                 key={t.key}

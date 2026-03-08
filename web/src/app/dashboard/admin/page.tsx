@@ -284,7 +284,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-1 -mb-px overflow-x-auto no-scrollbar">
+          <div className="flex gap-1 -mb-px overflow-x-auto">
             {tabs.map((t) => (
               <button
                 key={t.key}
@@ -331,7 +331,7 @@ export default function AdminDashboard() {
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${colorMap[s.color]}`}>
                         <s.icon className="w-5 h-5" />
                       </div>
-                      <div className="text-2xl font-bold text-slate-900">{s.value}</div>
+                      <div className="text-xl sm:text-2xl font-bold text-slate-900">{s.value}</div>
                       <div className="flex items-center justify-between mt-0.5">
                         <span className="text-xs text-slate-500">{s.label}</span>
                         {s.trend && (

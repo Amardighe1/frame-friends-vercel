@@ -134,7 +134,7 @@ export default function SignupPage() {
         </div>
 
         {/* Role Cards */}
-        <div className="grid grid-cols-3 gap-2.5 mb-4">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5 mb-4">
           {([
             { key: 'farmer' as Role, label: 'शेतकरी', icon: User, color: 'emerald' },
             { key: 'doctor' as Role, label: 'डॉक्टर', icon: Stethoscope, color: 'blue' },
