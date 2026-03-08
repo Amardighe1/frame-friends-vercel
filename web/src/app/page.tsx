@@ -16,7 +16,6 @@ import {
   Sun,
   Droplets,
   Wind,
-  ChevronRight,
   Bell,
   Search,
 } from 'lucide-react';
@@ -147,33 +146,7 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
         </div>
       </div>
 
-      {/* ── Market Summary Card ─────────────────────── */}
-      {weather && (
-        <div className="px-4 mt-6">
-          <Link href="/markets" className="block">
-            <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-bold text-slate-800">📊 बाजार सारांश</h3>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="text-center p-2 bg-emerald-50 rounded-xl">
-                  <p className="text-lg font-bold text-emerald-700">{weather.total_commodities || '—'}</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">पिके</p>
-                </div>
-                <div className="text-center p-2 bg-amber-50 rounded-xl">
-                  <p className="text-lg font-bold text-amber-700">{weather.total_markets || '—'}</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">बाजार</p>
-                </div>
-                <div className="text-center p-2 bg-blue-50 rounded-xl">
-                  <p className="text-lg font-bold text-blue-700">{weather.total_records || '—'}</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">नोंदी</p>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </div>
-      )}
+
 
       {/* ── Feature Highlight Cards ─────────────────── */}
       <div className="px-4 mt-6 space-y-3">

@@ -20,7 +20,6 @@ import {
   CheckCircle,
   Loader2,
   X,
-  Info,
   ArrowLeft,
   Microscope,
   Sprout,
@@ -415,34 +414,7 @@ export default function CropAnalysisPage() {
               </div>
             </div>
 
-            {/* Model Info Card */}
-            <div className="bg-gradient-to-br from-emerald-600 to-green-500 rounded-3xl p-6 text-white shadow-lg shadow-emerald-500/20">
-              <h3 className="text-sm font-bold mb-4 flex items-center gap-2 opacity-90">
-                <Info className="w-4 h-4" />
-                आमच्या AI बद्दल
-              </h3>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="bg-white/15 rounded-xl p-3 backdrop-blur-sm">
-                  <p className="text-2xl font-extrabold">93.5%</p>
-                  <p className="text-xs opacity-75">अचूकता</p>
-                </div>
-                <div className="bg-white/15 rounded-xl p-3 backdrop-blur-sm">
-                  <p className="text-2xl font-extrabold">13.3K</p>
-                  <p className="text-xs opacity-75">प्रशिक्षण इमेजेस</p>
-                </div>
-                <div className="bg-white/15 rounded-xl p-3 backdrop-blur-sm">
-                  <p className="text-2xl font-extrabold">17</p>
-                  <p className="text-xs opacity-75">रोग वर्ग</p>
-                </div>
-                <div className="bg-white/15 rounded-xl p-3 backdrop-blur-sm">
-                  <p className="text-2xl font-extrabold">5</p>
-                  <p className="text-xs opacity-75">पीक प्रकार</p>
-                </div>
-              </div>
-              <p className="text-xs opacity-75 leading-relaxed">
-                MobileNetV2 डीप लर्निंग आणि Google Gemini AI द्वारे बुद्धिमान उपचार शिफारसींसाठी संचालित.
-              </p>
-            </div>
+
           </motion.div>
         </div>
 
