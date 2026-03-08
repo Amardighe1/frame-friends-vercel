@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
@@ -25,14 +25,16 @@ export default function LoginPage() {
   const [adminStep, setAdminStep] = useState<1 | 2>(1);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const sessionCleared = useRef(false);
 
-  // Clear any existing session when visiting login page
+  // Clear any existing session ONCE when visiting login page (not after a fresh login)
   useEffect(() => {
-    if (user && !authLoading) {
-      logout();
+    if (!authLoading && !sessionCleared.current) {
+      sessionCleared.current = true;
+      if (user) logout();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, authLoading]);
+  }, [authLoading]);
 
   const resetForm = () => {
     setEmail('');

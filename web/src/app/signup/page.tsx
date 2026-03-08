@@ -33,14 +33,16 @@ export default function SignupPage() {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const sessionCleared = useRef(false);
 
-  // Clear any existing session when visiting signup page
+  // Clear any existing session ONCE when visiting signup page (not after a fresh signup)
   useEffect(() => {
-    if (user && !authLoading) {
-      logout();
+    if (!authLoading && !sessionCleared.current) {
+      sessionCleared.current = true;
+      if (user) logout();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, authLoading]);
+  }, [authLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
