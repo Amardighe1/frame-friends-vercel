@@ -233,11 +233,9 @@ export default function VeterinaryPage() {
     }
   };
 
-  // Auto-detect GPS when SOS modal opens
-  useEffect(() => {
-    if (!showSOS) return;
+  // Request GPS coordinates
+  const requestGPS = () => {
     setGpsStatus('loading');
-    setSosResult(null);
     if (!navigator.geolocation) {
       setGpsStatus('error');
       return;
@@ -248,9 +246,20 @@ export default function VeterinaryPage() {
         setSosLon(pos.coords.longitude);
         setGpsStatus('success');
       },
-      () => setGpsStatus('error'),
-      { enableHighAccuracy: true, timeout: 10000 }
+      (err) => {
+        console.error('[GPS] Error:', err.code, err.message);
+        setGpsStatus('error');
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
     );
+  };
+
+  // Auto-detect GPS when SOS modal opens
+  useEffect(() => {
+    if (!showSOS) return;
+    setSosResult(null);
+    requestGPS();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showSOS]);
 
   const handleSOS = async () => {
@@ -829,17 +838,24 @@ export default function VeterinaryPage() {
                 </div>
 
                 {/* GPS Status */}
-                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${
+                <div className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm ${
                   gpsStatus === 'success' ? 'bg-emerald-50 text-emerald-700' :
                   gpsStatus === 'loading' ? 'bg-amber-50 text-amber-700' :
                   gpsStatus === 'error' ? 'bg-red-50 text-red-700' :
                   'bg-slate-50 text-slate-600'
                 }`}>
-                  <MapPin className={`w-4 h-4 ${gpsStatus === 'loading' ? 'animate-pulse' : ''}`} />
-                  {gpsStatus === 'loading' && 'तुमचे स्थान शोधत आहे...'}
-                  {gpsStatus === 'success' && `स्थान सापडले (${sosLat?.toFixed(4)}, ${sosLon?.toFixed(4)})`}
-                  {gpsStatus === 'error' && 'स्थान सापडले नाही. कृपया GPS सुरू करा.'}
-                  {gpsStatus === 'idle' && 'GPS ची वाट पाहत आहे...'}
+                  <div className="flex items-center gap-2">
+                    <MapPin className={`w-4 h-4 ${gpsStatus === 'loading' ? 'animate-pulse' : ''}`} />
+                    {gpsStatus === 'loading' && 'तुमचे स्थान शोधत आहे...'}
+                    {gpsStatus === 'success' && `स्थान सापडले (${sosLat?.toFixed(4)}, ${sosLon?.toFixed(4)})`}
+                    {gpsStatus === 'error' && 'स्थान सापडले नाही. कृपया GPS सुरू करा.'}
+                    {gpsStatus === 'idle' && 'GPS ची वाट पाहत आहे...'}
+                  </div>
+                  {gpsStatus === 'error' && (
+                    <button onClick={requestGPS} className="px-2 py-1 bg-red-100 hover:bg-red-200 rounded text-xs font-medium transition-colors">
+                      पुन्हा प्रयत्न करा
+                    </button>
+                  )}
                 </div>
 
                 {/* Success message after assignment */}
