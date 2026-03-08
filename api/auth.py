@@ -28,7 +28,7 @@ from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel, Field
-from passlib.hash import bcrypt
+import bcrypt as _bcrypt
 import jwt as pyjwt
 
 from api.database import get_db, utcnow
@@ -172,7 +172,7 @@ async def signup(req: SignupRequest):
 
     try:
         uid = str(uuid.uuid4())
-        password_hash = bcrypt.hash(req.password)
+        password_hash = _bcrypt.hashpw(req.password.encode(), _bcrypt.gensalt()).decode()
 
         # Build profile document
         profile = {
@@ -240,7 +240,7 @@ async def login(req: LoginRequest):
             raise HTTPException(401, "Invalid email or password")
 
         # Verify password
-        if not bcrypt.verify(req.password, user_doc.get("password_hash", "")):
+        if not _bcrypt.checkpw(req.password.encode(), user_doc.get("password_hash", "").encode()):
             raise HTTPException(401, "Invalid email or password")
 
         uid = user_doc["id"]
@@ -297,7 +297,7 @@ async def admin_login(req: AdminLoginRequest):
         if not user_doc:
             raise HTTPException(401, "Invalid admin credentials")
 
-        if not bcrypt.verify(req.password, user_doc.get("password_hash", "")):
+        if not _bcrypt.checkpw(req.password.encode(), user_doc.get("password_hash", "").encode()):
             raise HTTPException(401, "Invalid admin credentials")
 
         if user_doc.get("role") != "admin":
@@ -367,7 +367,7 @@ async def seed_admin() -> None:
 
     try:
         uid = str(uuid.uuid4())
-        password_hash = bcrypt.hash(password)
+        password_hash = _bcrypt.hashpw(password.encode(), _bcrypt.gensalt()).decode()
         await db.profiles.insert_one({
             "id": uid,
             "email": email,
