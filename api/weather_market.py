@@ -237,7 +237,10 @@ def _get_live_df():
     from api.main import live_prices_df, live_prices_date, refresh_live_prices
 
     if live_prices_df is None or live_prices_df.empty:
-        refresh_live_prices()
+        try:
+            refresh_live_prices()
+        except Exception as e:
+            logger.warning(f"Live price refresh failed in _get_live_df: {e}")
         from api.main import live_prices_df as refreshed_df, live_prices_date as refreshed_date
         return refreshed_df, refreshed_date
 

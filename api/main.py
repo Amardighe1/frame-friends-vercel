@@ -859,6 +859,12 @@ async def startup_event():
         await seed_admin()
     except Exception as e:
         logger.warning(f"Admin seed skipped: {e}")
+    # Eagerly load live mandi prices so /api/market/* endpoints work immediately
+    try:
+        refresh_live_prices()
+        logger.info(f"Live prices loaded: {len(live_prices_df) if live_prices_df is not None else 0} records")
+    except Exception as e:
+        logger.warning(f"Initial live price load failed (will retry in background): {e}")
     # Start background auto-refresh task
     asyncio.create_task(_auto_refresh_loop())
     logger.info("✅ MANDIMITRA API ready — serving real ML predictions")

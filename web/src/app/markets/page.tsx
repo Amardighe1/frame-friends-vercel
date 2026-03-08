@@ -114,12 +114,16 @@ export default function MarketsPage() {
   useEffect(() => {
     setSummaryLoading(true);
     Promise.all([
-      fetch(apiUrl('/api/market/summary')).then(r => r.json()),
-      fetch(apiUrl('/api/market/commodities')).then(r => r.json()),
+      fetch(apiUrl('/api/market/summary')).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch(apiUrl('/api/market/commodities')).then(r => r.ok ? r.json() : null).catch(() => null),
     ])
       .then(([sumData, comData]) => {
-        setSummary(sumData);
-        setCommoditiesList(comData.commodities || []);
+        if (sumData && typeof sumData.total_records === 'number') {
+          setSummary(sumData);
+        }
+        if (comData && Array.isArray(comData.commodities)) {
+          setCommoditiesList(comData.commodities);
+        }
       })
       .catch(() => {})
       .finally(() => setSummaryLoading(false));
@@ -241,7 +245,7 @@ export default function MarketsPage() {
           >
             <div className="rounded-xl bg-white/5 border border-white/10 p-4">
               <Database className="w-5 h-5 text-blue-400 mb-2" />
-              <p className="text-2xl font-bold text-white">{summary.total_records.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-white">{(summary.total_records ?? 0).toLocaleString()}</p>
               <p className="text-white/40 text-xs">ऐकूण नोंदी</p>
             </div>
             <div className="rounded-xl bg-white/5 border border-white/10 p-4">
@@ -392,7 +396,7 @@ export default function MarketsPage() {
             {/* Results Info */}
             <div className="flex items-center justify-between mb-3 text-sm">
               <p className="text-white/40">
-                Showing {prices.length} of {totalRecords.toLocaleString()} नोंदी
+                Showing {prices.length} of {(totalRecords ?? 0).toLocaleString()} नोंदी
                 {selectedCommodity && <span className="text-emerald-400"> • {selectedCommodity}</span>}
               </p>
             </div>

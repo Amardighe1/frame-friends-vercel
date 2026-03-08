@@ -371,7 +371,7 @@ export default function BuyerDashboard() {
                       <div className="flex items-center gap-3">
                         <div className="text-right">
                           <p className="text-2xl font-bold text-purple-600">
-                            ₹{p.price_per_quintal.toLocaleString('en-IN')}
+                            ₹{p.price_per_quintal?.toLocaleString('en-IN') ?? '—'}
                           </p>
                           <p className="text-xs text-slate-400">प्रति क्विंटल</p>
                         </div>
