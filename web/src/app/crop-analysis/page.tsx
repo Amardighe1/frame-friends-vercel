@@ -144,7 +144,7 @@ export default function CropAnalysisPage() {
     setResult(null);
     setInferenceMode('');
 
-    // Strategy: cloud API (Gemini Vision on EC2)
+    // Strategy 1: Try cloud API (Gemini Vision on EC2)
     const baseUrl = apiUrl('/api/crop-disease/analyze');
 
     try {
@@ -152,7 +152,7 @@ export default function CropAnalysisPage() {
       const formData = new FormData();
       formData.append('file', file);
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 30000); // 30s for Gemini Vision
+      const timeout = setTimeout(() => controller.abort(), 30000);
       const res = await fetch(baseUrl, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
@@ -165,8 +165,41 @@ export default function CropAnalysisPage() {
       setResult(data);
       setInferenceMode('cloud');
       setShowDetails(true);
+      setLoading(false);
+      return;
     } catch (err: any) {
-      setError(err.message || 'पीक विश्लेषण अयशस्वी. कृपया पुन्हा प्रयत्न करा.');
+      console.warn('[CropDisease] Cloud API failed, trying on-device fallback:', err.message);
+    }
+
+    // Strategy 2: On-device TF.js model + server knowledge base
+    try {
+      const localResult = await analyzeLocally(file);
+      // Fetch rich treatment data from server knowledge base
+      try {
+        const token = getToken();
+        const treatRes = await fetch(apiUrl(`/api/crop-disease/treatment/${encodeURIComponent(localResult.predicted_class)}`), {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (treatRes.ok) {
+          const treatData = await treatRes.json();
+          localResult.treatment = treatData;
+          // Also build richer advice from KB data if available
+          const kbAdviceRes = await fetch(apiUrl(`/api/crop-disease/kb-advice/${encodeURIComponent(localResult.predicted_class)}`), {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          if (kbAdviceRes.ok) {
+            const kbAdvice = await kbAdviceRes.json();
+            localResult.advice = kbAdvice;
+          }
+        }
+      } catch {
+        // KB fetch failed — use generic local advice (already set)
+      }
+      setResult(localResult as any);
+      setInferenceMode('on-device');
+      setShowDetails(true);
+    } catch (localErr: any) {
+      setError('पीक विश्लेषण अयशस्वी. कृपया पुन्हा प्रयत्न करा. / Crop analysis failed.');
     }
 
     setLoading(false);

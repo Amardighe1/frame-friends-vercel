@@ -210,6 +210,7 @@ export interface LocalDiseaseResult {
   advice: any;
   model_accuracy: number;
   inference_mode: 'on-device';
+  treatment?: any;
 }
 
 /**

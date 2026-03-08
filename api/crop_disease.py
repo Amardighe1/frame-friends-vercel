@@ -61,6 +61,71 @@ def _get_disease_treatment(predicted_class: str) -> dict | None:
         "soil_minerals": entry.get("soil_minerals"),
     }
 
+
+def _build_advice_from_kb(predicted_class: str) -> dict:
+    """Build an advice response from the knowledge base (no Gemini needed)."""
+    _load_knowledge_base()
+    entry = _disease_kb.get(predicted_class, {})
+    crop, disease = _parse_class_name(predicted_class)
+    is_healthy = "healthy" in disease.lower()
+
+    if is_healthy:
+        summary_mr = entry.get("summary_mr", f"तुमचे {entry.get('crop_mr', crop)} पीक निरोगी दिसत आहे.")
+        return {
+            "status": "healthy",
+            "summary": entry.get("summary_en", f"Your {crop} crop appears healthy."),
+            "description": summary_mr,
+            "preventive_tips": entry.get("medicines", {}).get("prevention_mr", [
+                "नियमित पाणी आणि खत व्यवस्थापन सुरू ठेवा",
+                "पानांचा रंग आणि पोत यातील बदलांवर लक्ष ठेवा",
+                "हवा खेळती राहण्यासाठी झाडांमध्ये योग्य अंतर ठेवा",
+            ]),
+            "recommended_actions": entry.get("medicines", {}).get("prevention", [
+                "Continue current farming practices",
+                "Monitor regularly for disease symptoms",
+            ]),
+        }
+
+    # Diseased — build rich advice from KB
+    display_disease = disease.replace("_", " ")
+    disease_mr = entry.get("disease_name_mr", display_disease)
+    pathogen = entry.get("pathogen", "")
+    severity = entry.get("severity", "Moderate")
+    summary_en = entry.get("summary_en", f"{display_disease} detected in {crop}.")
+    summary_mr = entry.get("summary_mr", f"{disease_mr} आढळला.")
+
+    # Build treatment list from medicines
+    treatments = []
+    medicines = entry.get("medicines", {})
+    for t in medicines.get("treatments", []):
+        treatments.append({
+            "method": t.get("type", "Chemical"),
+            "name": f"{t.get('name', '')} ({t.get('name_mr', '')})",
+            "details": f"{t.get('application_mr', t.get('application', ''))} - मात्रा: {t.get('dosage_mr', t.get('dosage', ''))}"
+        })
+
+    # Build symptom list from summary
+    symptoms = [summary_mr]
+
+    # Prevention tips in Marathi
+    prevention_mr = medicines.get("prevention_mr", medicines.get("prevention", []))
+
+    return {
+        "status": "diseased",
+        "disease_name": display_disease,
+        "summary": summary_en,
+        "description": summary_mr,
+        "causes": f"कारक: {pathogen}" if pathogen else None,
+        "symptoms": symptoms,
+        "treatment": treatments,
+        "preventive_tips": prevention_mr,
+        "severity": severity.lower() if severity else "moderate",
+        "recommended_actions": medicines.get("prevention", [
+            "Consult nearest agricultural extension office",
+            "Apply recommended fungicides promptly",
+        ]),
+    }
+
 # ============================================================================
 # CLASS NAMES (17 classes from trained MobileNetV2 model)
 # ============================================================================
@@ -374,3 +439,11 @@ async def get_treatment_info(disease_class: str):
     if treatment is None:
         raise HTTPException(404, f"No treatment info for class '{disease_class}'")
     return treatment
+
+
+@router.get("/kb-advice/{disease_class}")
+async def get_kb_advice(disease_class: str):
+    """Return structured advice built from the knowledge base (no Gemini needed)."""
+    if disease_class not in _CLASS_NAMES:
+        raise HTTPException(404, f"Unknown disease class: '{disease_class}'")
+    return _build_advice_from_kb(disease_class)
