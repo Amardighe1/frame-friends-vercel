@@ -25,10 +25,7 @@ interface NavbarProps {
   isScrolled: boolean;
 }
 
-const navLinks = [
-  { name: 'वैशिष्ट्ये', href: '#features' },
-  { name: 'कसे काम करते', href: '#how-it-works' },
-];
+const navLinks: { name: string; href: string }[] = [];
 
 const productLinks = [
   { name: 'पीक जोखीम सल्लागार', href: '/crop-risk', icon: Shield, description: 'AI-आधारित पीक जोखीम मूल्यांकन' },
