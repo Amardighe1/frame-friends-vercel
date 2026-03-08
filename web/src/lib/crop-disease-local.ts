@@ -130,11 +130,10 @@ async function preprocessImage(imageFile: File | Blob): Promise<tf.Tensor4D> {
           const resized = tf.image.resizeBilinear(raw, [IMG_SIZE, IMG_SIZE]);
           // Cast to float32 (values 0-255)
           const float32 = resized.toFloat();
-          // MobileNetV2 preprocessing: scale from [0, 255] to [-1, 1]
-          // tf.keras.applications.mobilenet_v2.preprocess_input does: x / 127.5 - 1
-          const preprocessed = float32.div(127.5).sub(1);
+          // preprocess_input (÷127.5 − 1) is baked into the model graph,
+          // so feed raw [0, 255] pixels — no manual scaling needed.
           // Add batch dimension
-          return preprocessed.expandDims(0) as tf.Tensor4D;
+          return float32.expandDims(0) as tf.Tensor4D;
         });
         resolve(tensor);
       } catch (err) {

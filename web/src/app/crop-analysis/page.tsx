@@ -199,6 +199,7 @@ export default function CropAnalysisPage() {
       setInferenceMode('on-device');
       setShowDetails(true);
     } catch (localErr: any) {
+      console.error('[CropDisease] Local TF.js fallback also failed:', localErr);
       setError('पीक विश्लेषण अयशस्वी. कृपया पुन्हा प्रयत्न करा. / Crop analysis failed.');
     }
 
