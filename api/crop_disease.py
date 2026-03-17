@@ -1,8 +1,13 @@
 """
 MANDIMITRA — Crop Disease Detection API
 ========================================
-POST /api/crop-disease/analyze   Upload crop image → Gemini Vision classification + advice
+POST /api/crop-disease/analyze   Upload crop image → classification + advice
 GET  /api/crop-disease/classes   List supported crops and diseases
+
+Classification pipeline:
+    1. Try Gemini Vision API (cloud, best quality advice)
+    2. If Gemini is unavailable/invalid key → TFLite model on-server (93.5% accuracy)
+    3. Advice always enriched from disease knowledge base
 """
 
 import base64
@@ -13,6 +18,7 @@ import os
 from pathlib import Path
 from typing import Optional
 
+import numpy as np
 from dotenv import load_dotenv
 from fastapi import APIRouter, File, Header, HTTPException, UploadFile
 from PIL import Image
@@ -151,6 +157,78 @@ _CLASS_NAMES = [
 ]
 
 _MODEL_ACCURACY = 93.5  # Reported accuracy of the trained model
+
+
+# ============================================================================
+# TFLITE MODEL — Server-side inference fallback (no Gemini needed)
+# ============================================================================
+
+_TFLITE_MODEL_PATH = Path(__file__).resolve().parent.parent / "models" / "crop_disease_detector" / "crop_disease.tflite"
+_tflite_interpreter = None
+
+
+def _load_tflite_model():
+    """Load the TFLite model interpreter (lazy singleton)."""
+    global _tflite_interpreter
+    if _tflite_interpreter is not None:
+        return _tflite_interpreter
+    if not _TFLITE_MODEL_PATH.exists():
+        logger.warning(f"TFLite model not found at {_TFLITE_MODEL_PATH}")
+        return None
+    try:
+        from ai_edge_litert import interpreter as tflite
+        _tflite_interpreter = tflite.Interpreter(model_path=str(_TFLITE_MODEL_PATH))
+        _tflite_interpreter.allocate_tensors()
+        logger.info(f"TFLite crop disease model loaded ({_TFLITE_MODEL_PATH.stat().st_size / 1024 / 1024:.1f} MB)")
+        return _tflite_interpreter
+    except Exception as e:
+        logger.error(f"TFLite model load failed: {e}")
+        return None
+
+
+def _classify_with_tflite(image_bytes: bytes) -> dict | None:
+    """Classify crop disease using the TFLite model. Returns None on failure."""
+    interpreter = _load_tflite_model()
+    if interpreter is None:
+        return None
+
+    try:
+        # Preprocess image: resize to 224x224, keep [0, 255] range
+        # (MobileNetV2 preprocess_input is baked into the Keras model graph)
+        img = Image.open(io.BytesIO(image_bytes)).convert("RGB").resize((224, 224))
+        img_array = np.array(img, dtype=np.float32)
+        img_array = np.expand_dims(img_array, axis=0)  # batch dimension
+
+        # Run inference
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
+        interpreter.set_tensor(input_details[0]['index'], img_array)
+        interpreter.invoke()
+        predictions = interpreter.get_tensor(output_details[0]['index'])[0]
+
+        # Get top prediction
+        top_idx = int(np.argmax(predictions))
+        confidence = float(predictions[top_idx]) * 100
+
+        # Get top 3
+        top3_idx = np.argsort(predictions)[::-1][:3]
+        top_predictions = [
+            {"class": _CLASS_NAMES[i], "confidence": round(float(predictions[i]) * 100, 1)}
+            for i in top3_idx
+        ]
+
+        predicted_class = _CLASS_NAMES[top_idx]
+        logger.info(f"TFLite classified: {predicted_class} ({confidence:.1f}%)")
+
+        return {
+            "predicted_class": predicted_class,
+            "confidence": confidence,
+            "top_predictions": top_predictions,
+            "advice": _build_advice_from_kb(predicted_class),
+        }
+    except Exception as e:
+        logger.error(f"TFLite inference error: {e}")
+        return None
 
 
 # ============================================================================
@@ -320,12 +398,19 @@ def _analyze_with_gemini(image_bytes: bytes) -> dict:
             except Exception as e:
                 err_str = str(e)
                 last_error = e
+                # Invalid key usually fails on all models for this key; move to next key immediately.
+                if "API_KEY_INVALID" in err_str or "API key not found" in err_str or "INVALID_ARGUMENT" in err_str:
+                    logger.warning(f"Gemini API key #{key_idx + 1} invalid, trying next key...")
+                    break
                 # If quota/rate-limit error, skip remaining models for this key
                 if "RESOURCE_EXHAUSTED" in err_str or "429" in err_str:
                     logger.warning(f"Key #{key_idx + 1} quota exhausted, trying next key...")
                     break
                 logger.warning(f"Gemini {model_name} (key#{key_idx + 1}) failed: {e}")
                 continue
+
+    if last_error:
+        logger.warning(f"All Gemini attempts failed, falling back if possible: {last_error}")
 
     raise HTTPException(
         503,
@@ -365,8 +450,8 @@ async def analyze_crop_disease(
     authorization: str = Header(None),
 ):
     """
-    Upload a crop leaf image -> Gemini Vision classification + advice.
-    Returns crop name, disease (or healthy), confidence, and detailed treatment guidance.
+    Upload a crop leaf image -> classification + advice.
+    Pipeline: Gemini Vision (cloud) → TFLite (on-server) → error.
     """
     user = await _require_user(authorization)
 
@@ -379,8 +464,24 @@ async def analyze_crop_disease(
     if len(content) > 10 * 1024 * 1024:
         raise HTTPException(400, "Image must be under 10 MB")
 
-    # Classify with Gemini Vision API
-    gemini_result = _analyze_with_gemini(content)
+    # ── Strategy 1: Gemini Vision API (best quality) ──
+    inference_source = "gemini"
+    try:
+        gemini_result = _analyze_with_gemini(content)
+    except HTTPException:
+        gemini_result = None
+        inference_source = "tflite"
+
+    # ── Strategy 2: TFLite on-server (when Gemini is down) ──
+    if gemini_result is None:
+        logger.info("Gemini unavailable, falling back to TFLite model")
+        gemini_result = _classify_with_tflite(content)
+        if gemini_result is None:
+            raise HTTPException(
+                503,
+                "पीक रोग विश्लेषण सध्या उपलब्ध नाही. कृपया नंतर प्रयत्न करा. "
+                "/ Crop disease analysis temporarily unavailable.",
+            )
 
     predicted_class = gemini_result.get("predicted_class", _CLASS_NAMES[2])
     confidence = gemini_result.get("confidence", 0)
@@ -392,7 +493,7 @@ async def analyze_crop_disease(
     is_healthy = "healthy" in disease.lower()
 
     logger.info(
-        f"Crop disease analysis: {predicted_class} ({confidence}%) "
+        f"Crop disease analysis [{inference_source}]: {predicted_class} ({confidence}%) "
         f"for user {user.get('full_name', user['id'])}"
     )
 
@@ -404,6 +505,7 @@ async def analyze_crop_disease(
         "disease": disease.replace("_", " ") if not is_healthy else None,
         "is_healthy": is_healthy,
         "predicted_class": predicted_class,
+        "inference_source": inference_source,
         "confidence": round(confidence, 1),
         "top_predictions": top_predictions,
         "advice": advice,

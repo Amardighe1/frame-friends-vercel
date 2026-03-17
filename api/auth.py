@@ -143,6 +143,19 @@ def _build_user_response(user_id: str, email: str, profile: Optional[dict]) -> d
     }
 
 
+def _get_password_hash_bytes(user_doc: dict) -> bytes:
+    """Normalize password hash from MongoDB into bcrypt-compatible bytes."""
+    raw_hash = user_doc.get("password_hash")
+    if raw_hash is None:
+        raise HTTPException(401, "Invalid email or password")
+    if isinstance(raw_hash, bytes):
+        return raw_hash
+    if isinstance(raw_hash, str):
+        return raw_hash.encode()
+    logger.warning(f"Unexpected password_hash type: {type(raw_hash)}")
+    raise HTTPException(401, "Invalid email or password")
+
+
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
@@ -240,7 +253,8 @@ async def login(req: LoginRequest):
             raise HTTPException(401, "Invalid email or password")
 
         # Verify password
-        if not _bcrypt.checkpw(req.password.encode(), user_doc.get("password_hash", "").encode()):
+        stored_hash = _get_password_hash_bytes(user_doc)
+        if not _bcrypt.checkpw(req.password.encode(), stored_hash):
             raise HTTPException(401, "Invalid email or password")
 
         uid = user_doc["id"]
@@ -268,6 +282,9 @@ async def login(req: LoginRequest):
         }
     except HTTPException:
         raise
+    except ValueError as e:
+        logger.warning(f"Invalid bcrypt hash format for {req.email}: {e}")
+        raise HTTPException(401, "Invalid email or password")
     except Exception as e:
         logger.error(f"❌ Login error: {e}")
         raise HTTPException(
@@ -297,7 +314,8 @@ async def admin_login(req: AdminLoginRequest):
         if not user_doc:
             raise HTTPException(401, "Invalid admin credentials")
 
-        if not _bcrypt.checkpw(req.password.encode(), user_doc.get("password_hash", "").encode()):
+        stored_hash = _get_password_hash_bytes(user_doc)
+        if not _bcrypt.checkpw(req.password.encode(), stored_hash):
             raise HTTPException(401, "Invalid admin credentials")
 
         if user_doc.get("role") != "admin":
@@ -314,6 +332,9 @@ async def admin_login(req: AdminLoginRequest):
         }
     except HTTPException:
         raise
+    except ValueError as e:
+        logger.warning(f"Invalid admin bcrypt hash format for {req.email}: {e}")
+        raise HTTPException(401, "Invalid admin credentials")
     except Exception as e:
         logger.error(f"Admin login error: {e}")
         raise HTTPException(500, f"Login failed: {e}")
