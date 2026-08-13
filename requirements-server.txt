@@ -13,6 +13,7 @@ pyarrow>=14.0.0
 requests>=2.31.0
 urllib3>=2.0.0
 httpx>=0.25.0
+certifi>=2024.0.0   # Required for MongoDB Atlas TLS on Docker/OpenSSL 3.x
 
 # Environment variables
 python-dotenv>=1.0.0

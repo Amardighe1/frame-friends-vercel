@@ -1,5 +1,5 @@
 """
-MANDIMITRA - MongoDB Database Module
+FarmFriend - MongoDB Database Module
 ======================================
 Async MongoDB connection via Motor. Collections mirror the old Supabase tables:
   - profiles     (users with role, verification, location)
@@ -13,15 +13,16 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 from dotenv import load_dotenv
+import certifi
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(PROJECT_ROOT / ".env")
 
-logger = logging.getLogger("mandimitra-db")
+logger = logging.getLogger("farmfriend-db")
 
 MONGODB_URI = os.getenv("MONGODB_URI", "")
-MONGODB_DB_NAME = os.getenv("MONGODB_DB_NAME", "mandimitra")
+MONGODB_DB_NAME = os.getenv("MONGODB_DB_NAME", "farmfriend")
 
 if not MONGODB_URI:
     logger.error("MONGODB_URI not set in .env — database operations will fail")
@@ -53,7 +54,12 @@ async def connect_db() -> AsyncIOMotorDatabase:
 
     logger.info("Connecting to MongoDB Atlas …")
     try:
-        _client = AsyncIOMotorClient(MONGODB_URI, serverSelectionTimeoutMS=15000)
+        _client = AsyncIOMotorClient(
+            MONGODB_URI,
+            serverSelectionTimeoutMS=15000,
+            # Explicit TLS CA bundle — fixes SSL handshake errors on Docker/OpenSSL 3.x
+            tlsCAFile=certifi.where(),
+        )
         _db = _client[MONGODB_DB_NAME]
         # Quick ping to validate connection
         await _client.admin.command("ping")
@@ -61,7 +67,13 @@ async def connect_db() -> AsyncIOMotorDatabase:
     except Exception as e:
         _client = None
         _db = None
-        logger.error(f"❌ MongoDB connection failed: {e}")
+        error_text = str(e)
+        if "All nameservers failed" in error_text or "getaddrinfo" in error_text:
+            logger.warning(
+                "MongoDB DNS/network unavailable in this environment; continuing without DB."
+            )
+        else:
+            logger.error(f"❌ MongoDB connection failed: {e}")
         raise DatabaseConfigError(
             "Unable to connect to the database. The server may be starting up — please try again in a moment."
         ) from e
