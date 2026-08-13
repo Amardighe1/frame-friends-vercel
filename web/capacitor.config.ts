@@ -1,17 +1,28 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
+const isLocalBuild = process.env.CAPACITOR_LOCAL_BUILD === 'true';
+
 const config: CapacitorConfig = {
-  appId: 'com.mandimitra.app',
-  appName: 'MANDIMITRA',
+  appId: 'com.farmfriend.app',
+  appName: 'FarmFriend',
   webDir: 'out',
-  server: {
-    url: 'https://mandimitra-rose.vercel.app',
-    androidScheme: 'https',
-    allowNavigation: ['mandimitra-rose.vercel.app', '*.vercel.app'],
-  },
+  ...(isLocalBuild
+    ? {}
+    : {
+        server: {
+          url: 'https://mandimitra-rose.vercel.app',
+          androidScheme: 'https',
+          allowNavigation: [
+            'mandimitra-rose.vercel.app',
+            '*.vercel.app',
+            'frame-friends.onrender.com',
+            '*.onrender.com',
+          ],
+        },
+      }),
   android: {
     backgroundColor: '#FFFFFF',
-    allowMixedContent: false,
+    allowMixedContent: isLocalBuild,
     webContentsDebuggingEnabled: false,
   },
   plugins: {
