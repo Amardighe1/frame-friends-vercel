@@ -1,9 +1,9 @@
-# render.yaml - Render Blueprint for MANDIMITRA Backend
+# render.yaml - Render Blueprint for FarmFriend Backend
 # This file auto-configures the service when you connect the repo
 
 services:
   - type: web
-    name: mandimitra-api
+    name: farmfriend-api
     runtime: docker
     dockerfilePath: ./Dockerfile
     plan: free

@@ -1,5 +1,5 @@
 """
-MANDIMITRA - FastAPI Backend for ML Models
+FarmFriend - FastAPI Backend for ML Models
 ==========================================
 Production-ready API serving REAL trained Crop Risk Advisor and Price Intelligence Engine.
 All predictions come from the actual LightGBM models trained on 3.5M+ mandi records.
@@ -44,10 +44,10 @@ try:
     _HAS_CROP_DISEASE = True
 except (ImportError, RuntimeError):
     _HAS_CROP_DISEASE = False
-    logger = logging.getLogger("mandimitra-api")
+    logger = logging.getLogger("farmfriend-api")
     logger.info("Crop disease detection disabled (TensorFlow not installed — runs on-device)")
 
-logger = logging.getLogger("mandimitra-api")
+logger = logging.getLogger("farmfriend-api")
 logging.basicConfig(level=logging.INFO)
 
 # ============================================================================
@@ -55,7 +55,7 @@ logging.basicConfig(level=logging.INFO)
 # ============================================================================
 
 app = FastAPI(
-    title="MANDIMITRA API",
+    title="FarmFriend API",
     description="AI-Powered Agricultural Intelligence – Real ML Predictions",
     version="2.1.0",
     docs_url="/docs",
@@ -87,6 +87,29 @@ async def generic_error_handler(request: Request, exc: Exception):
         status_code=500,
         content={"detail": "अंतर्गत सर्व्हर त्रुटी. कृपया पुन्हा प्रयत्न करा. / Internal server error. Please try again."},
     )
+
+# ============================================================================
+# KEEP-ALIVE ENDPOINTS (for Render free tier anti-sleep pinging)
+# ============================================================================
+
+@app.get("/health", tags=["System"])
+async def health_check():
+    """Render health-check endpoint. Also used by external cron pings to
+    keep the free-tier service from spinning down after 15 minutes of inactivity."""
+    return {
+        "status": "ok",
+        "service": "FarmFriend API",
+        "version": "2.1.0",
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+    }
+
+
+@app.get("/ping", tags=["System"])
+async def ping():
+    """Lightweight ping endpoint. Returns 'pong' instantly.
+    Ideal target for sub-10ms external keep-alive cron jobs."""
+    return {"ping": "pong"}
+
 
 # Static file serving for upload documents
 from fastapi.staticfiles import StaticFiles
@@ -137,6 +160,12 @@ def _get_mandi_df():
 # ============================================================================
 
 LIVE_DATA_DIR = PROJECT_ROOT / "data" / "raw" / "mandi" / "current"
+OFFLINE_MODE = os.getenv("FarmFriend_OFFLINE_MODE", "").strip().lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
 
 # Global: holds the latest live prices DataFrame
 live_prices_df: Optional[pd.DataFrame] = None
@@ -174,7 +203,7 @@ def _download_live_prices() -> Optional[pd.DataFrame]:
 
     try:
         session = requests.Session()
-        session.headers.update({"User-Agent": "MANDIMITRA/2.1"})
+        session.headers.update({"User-Agent": "FarmFriend/2.1"})
 
         # Paginate through all Maharashtra records
         for page in range(1, 50):  # Safety cap: 50 pages = 25k records max
@@ -235,7 +264,11 @@ def _download_live_prices() -> Optional[pd.DataFrame]:
         return df
 
     except Exception as e:
-        logger.error(f"Failed to download live mandi prices: {e}")
+        error_text = str(e)
+        if "NameResolutionError" in error_text or "getaddrinfo failed" in error_text:
+            logger.warning("Data.gov.in DNS unavailable; falling back to cached live prices")
+        else:
+            logger.error(f"Failed to download live mandi prices: {e}")
         return None
 
 
@@ -287,6 +320,17 @@ def refresh_live_prices() -> None:
     global live_prices_df, live_prices_date
 
     today = datetime.now().strftime("%Y-%m-%d")
+
+    if OFFLINE_MODE:
+        df = _load_cached_live_prices()
+        if df is not None and not df.empty:
+            live_prices_df = df
+            date_dirs = sorted(LIVE_DATA_DIR.glob("????-??-??"), reverse=True)
+            live_prices_date = date_dirs[0].name if date_dirs else today
+            logger.info(f"Offline mode: using cached live prices from {live_prices_date}")
+            return
+        logger.warning("Offline mode enabled but no cached live prices found")
+        return
 
     # Try downloading from Data.gov.in
     df = _download_live_prices()
@@ -366,7 +410,7 @@ AVAILABLE_DISTRICTS = sorted(
 AVAILABLE_CROPS = list(lifecycle.crops.keys())
 
 logger.info("=" * 60)
-logger.info("  MANDIMITRA API – Real ML Models Loaded")
+logger.info("  FarmFriend API – Real ML Models Loaded")
 logger.info("=" * 60)
 logger.info(f"  Crop Risk Advisor : {len(crop_advisor.feature_cols)} features, "
             f"{len(AVAILABLE_CROPS)} crops")
@@ -540,7 +584,7 @@ class DashboardStats(BaseModel):
 @app.get("/")
 async def root():
     return {
-        "name": "MANDIMITRA API",
+        "name": "FarmFriend API",
         "version": "2.1.0",
         "status": "healthy",
         "models": {
@@ -848,17 +892,26 @@ app.include_router(weather_market_router)
 
 @app.on_event("startup")
 async def startup_event():
-    logger.info("MANDIMITRA API starting up…")
+    logger.info("FarmFriend API starting up…")
+    if OFFLINE_MODE:
+        logger.info("Offline mode enabled (FarmFriend_OFFLINE_MODE=1)")
+
+    db_connected = False
     # Connect to MongoDB
     try:
         await connect_db()
+        db_connected = True
     except Exception as e:
-        logger.error(f"MongoDB connection failed: {e}")
-    # Seed admin account in MongoDB
-    try:
-        await seed_admin()
-    except Exception as e:
-        logger.warning(f"Admin seed skipped: {e}")
+        logger.warning(f"MongoDB unavailable at startup: {e}")
+
+    # Seed admin account in MongoDB (only when DB is reachable)
+    if db_connected:
+        try:
+            await seed_admin()
+        except Exception as e:
+            logger.warning(f"Admin seed skipped: {e}")
+    else:
+        logger.warning("Admin seed skipped: MongoDB not connected")
     # Eagerly load live mandi prices so /api/market/* endpoints work immediately
     try:
         refresh_live_prices()
@@ -867,14 +920,14 @@ async def startup_event():
         logger.warning(f"Initial live price load failed (will retry in background): {e}")
     # Start background auto-refresh task
     asyncio.create_task(_auto_refresh_loop())
-    logger.info("✅ MANDIMITRA API ready — serving real ML predictions")
+    logger.info("✅ FarmFriend API ready — serving real ML predictions")
     logger.info("📡 Live price auto-refresh scheduled (every 24h)")
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
     await close_db()
-    logger.info("MANDIMITRA API shut down")
+    logger.info("FarmFriend API shut down")
 
 
 @app.post("/api/price/refresh")
@@ -889,5 +942,7 @@ async def manual_refresh_prices():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Render assigns a dynamic PORT env var; fall back to 8000 for local dev
+    _port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=_port)
 

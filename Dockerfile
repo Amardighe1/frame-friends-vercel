@@ -21,6 +21,10 @@ COPY configs/ ./configs/
 COPY models/crop_risk_advisor/ ./models/crop_risk_advisor/
 COPY models/price_intelligence/ ./models/price_intelligence/
 
+# Copy TFLite crop disease model (~2.7 MB — server-side fallback when Gemini is unavailable)
+COPY models/crop_disease_detector/crop_disease.tflite ./models/crop_disease_detector/crop_disease.tflite
+COPY models/crop_disease_detector/metadata.json ./models/crop_disease_detector/metadata.json
+
 # Copy only the data files the API needs at runtime
 COPY data/processed/model/mandi_weather_optimized.parquet ./data/processed/model/mandi_weather_optimized.parquet
 COPY data/processed/weather/forecast_maharashtra.parquet ./data/processed/weather/forecast_maharashtra.parquet
@@ -28,6 +32,8 @@ COPY data/processed/weather/forecast_maharashtra.parquet ./data/processed/weathe
 # Create directory for live price downloads
 RUN mkdir -p ./data/raw/mandi/current
 
+# Render injects a dynamic $PORT env var — expose a placeholder and read it at runtime
 EXPOSE 10000
 
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "10000"]
+# Use shell form (not exec form) so $PORT is expanded from Render's environment
+CMD uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-10000}

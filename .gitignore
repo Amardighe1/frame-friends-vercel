@@ -101,3 +101,7 @@ htmlcov/
 # Temp / scratch files
 _test_*.py
 _check_*.py
+
+# Junk / unrelated folders
+collage blueprint/
+uploads/
