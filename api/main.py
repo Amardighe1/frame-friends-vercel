@@ -150,7 +150,7 @@ def _get_mandi_df():
     global _mandi_df_cache
     if _mandi_df_cache is None:
         logger.info("Lazy-loading mandi price data...")
-        _mandi_df_cache = pd.read_parquet(DATA_DIR / "model" / "mandi_weather_optimized.parquet")
+        _mandi_df_cache = pd.read_parquet(DATA_DIR / "model" / "mandi_weather_optimized_lite.parquet")
         _mandi_df_cache = _mandi_df_cache.sort_values("arrival_date")
         logger.info(f"Mandi data loaded: {len(_mandi_df_cache):,} rows")
     return _mandi_df_cache
