@@ -86,10 +86,10 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
   const greeting = hour < 12 ? 'सुप्रभात' : hour < 17 ? 'नमस्कार' : 'शुभ संध्याकाळ';
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-24">
+    <div className="min-h-[100dvh] bg-slate-50" style={{ paddingBottom: 'var(--page-bottom-padding)' }}>
       {/* ── Header ────────────────────────────────── */}
-      <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 text-white">
-        <div className="px-4 pt-4 pb-6" style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))' }}>
+      <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 text-white" style={{ paddingTop: 'var(--sat, 0px)' }}>
+        <div className="px-4 pt-4 pb-6">
           {/* Top bar */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">

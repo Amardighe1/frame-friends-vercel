@@ -30,10 +30,11 @@ export function BottomNav() {
   if (pathname === '/login' || pathname === '/signup') return null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-[0_-2px_10px_rgba(0,0,0,0.06)]"
-      style={{ paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-[0_-2px_10px_rgba(0,0,0,0.06)]"
+      style={{ paddingBottom: 'var(--sab, env(safe-area-inset-bottom, 0px))' }}
     >
-      <div className="flex items-center justify-around max-w-lg mx-auto px-2 pt-1.5">
+      <div className="flex items-center justify-around max-w-lg mx-auto px-1 pt-1.5 pb-1">
         {farmerTabs.map((tab) => {
           const isActive = tab.href === '/'
             ? pathname === '/'
@@ -43,18 +44,18 @@ export function BottomNav() {
             <Link
               key={tab.href}
               href={tab.href}
-              className={`relative flex flex-col items-center gap-0.5 py-2 px-2 sm:px-3 min-w-[52px] rounded-lg transition-colors ${
+              className={`relative flex flex-col items-center gap-0.5 py-2 px-2 min-w-0 flex-1 rounded-lg transition-colors ${
                 isActive
                   ? 'text-emerald-600'
                   : 'text-slate-400 active:text-slate-600'
               }`}
             >
-              <tab.icon className={`w-5 h-5 ${isActive ? 'stroke-[2.5px]' : 'stroke-[1.8px]'}`} />
-              <span className={`text-[10px] leading-tight ${isActive ? 'font-bold' : 'font-medium'}`}>
+              <tab.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'stroke-[2.5px]' : 'stroke-[1.8px]'}`} />
+              <span className={`text-[9px] sm:text-[10px] leading-tight text-center truncate w-full ${isActive ? 'font-bold' : 'font-medium'}`}>
                 {tab.label}
               </span>
               {isActive && (
-                <div className="absolute bottom-0 w-8 h-0.5 bg-emerald-500 rounded-full" />
+                <div className="absolute bottom-0 w-6 h-0.5 bg-emerald-500 rounded-full" />
               )}
             </Link>
           );

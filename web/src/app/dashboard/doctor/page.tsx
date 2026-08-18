@@ -367,7 +367,7 @@ export default function DoctorDashboard() {
   // Loading state
   if (authLoading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-blue-50/20">
+      <div className="min-h-[100dvh] flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-blue-50/20">
         <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
       </div>
     );
@@ -404,9 +404,9 @@ export default function DoctorDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/20">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-slate-50 via-white to-blue-50/20" style={{ paddingBottom: 'var(--page-bottom-padding)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-slate-200">
+      <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-slate-200" style={{ paddingTop: 'var(--sat, 0px)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2">

@@ -334,7 +334,7 @@ export default function VeterinaryPage() {
 
   /* ── Render ─────────────────────────────────────────────────────────── */
   return (
-    <div className="min-h-screen pb-24 bg-gradient-to-br from-slate-50 via-white to-emerald-50/20">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-slate-50 via-white to-emerald-50/20" style={{ paddingBottom: 'var(--page-bottom-padding)' }}>
       <Navbar isScrolled={isScrolled} />
 
       {/* Page Header – below the navbar */}

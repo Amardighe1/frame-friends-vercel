@@ -224,7 +224,7 @@ export default function FarmerDashboard() {
 
   if (authLoading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
       </div>
     );
@@ -254,9 +254,9 @@ export default function FarmerDashboard() {
   const todayStr = new Date().toISOString().split('T')[0];
 
   return (
-    <div className="min-h-screen pb-24 bg-gradient-to-br from-slate-50 via-white to-emerald-50/20">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-slate-50 via-white to-emerald-50/20" style={{ paddingBottom: 'var(--page-bottom-padding)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-slate-200">
+      <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-slate-200" style={{ paddingTop: 'var(--sat, 0px)' }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2">
@@ -507,14 +507,15 @@ export default function FarmerDashboard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center px-4"
+            style={{ paddingBottom: 'var(--sab, 0px)', paddingTop: 'var(--sat, 0px)' }}
           >
             <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onClick={() => setBookingDoctor(null)} />
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-md max-h-[85dvh] overflow-y-auto"
             >
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
@@ -623,14 +624,15 @@ export default function FarmerDashboard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center px-4"
+            style={{ paddingBottom: 'var(--sab, 0px)', paddingTop: 'var(--sat, 0px)' }}
           >
             <div className="absolute inset-0 bg-red-900/40 backdrop-blur-sm" onClick={() => setShowSOS(false)} />
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-md max-h-[85dvh] overflow-y-auto"
             >
               <div className="p-5 sm:p-6 space-y-4">
                 <div className="flex items-center justify-between">

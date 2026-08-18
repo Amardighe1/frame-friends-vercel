@@ -100,11 +100,13 @@ export default function LoginPage() {
   const accent = accentMap[role];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 flex items-center justify-center px-4 py-8">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 flex items-start justify-center px-4 py-6 overflow-y-auto"
+      style={{ paddingTop: 'max(1.5rem, calc(var(--sat, 0px) + 1.5rem))' }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md"
+        className="w-full max-w-md pb-6"
       >
         {/* Logo */}
         <div className="text-center mb-6">

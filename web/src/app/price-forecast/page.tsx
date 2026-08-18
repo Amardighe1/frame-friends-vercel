@@ -166,7 +166,7 @@ export default function PriceForecastPage() {
   };
 
   return (
-    <main className="min-h-screen pb-24 bg-gradient-to-b from-slate-50 via-white to-amber-50/30">
+    <main className="min-h-[100dvh] bg-gradient-to-b from-slate-50 via-white to-amber-50/30" style={{ paddingBottom: 'var(--page-bottom-padding)' }}>
       {!isNativeApp && <Navbar isScrolled={isScrolled} />}
       
       <section className={`${isNativeApp ? 'pt-10 sm:pt-12' : 'pt-24 sm:pt-32'} pb-12 sm:pb-20`}>
