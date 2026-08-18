@@ -23,7 +23,7 @@ COPY models/price_intelligence/ ./models/price_intelligence/
 
 
 # Copy only the data files the API needs at runtime
-COPY data/processed/model/mandi_weather_optimized.parquet ./data/processed/model/mandi_weather_optimized.parquet
+COPY data/processed/model/mandi_weather_optimized_lite.parquet ./data/processed/model/mandi_weather_optimized_lite.parquet
 COPY data/processed/weather/forecast_maharashtra.parquet ./data/processed/weather/forecast_maharashtra.parquet
 
 # Create directory for live price downloads
