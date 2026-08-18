@@ -17,9 +17,11 @@ COPY src/ ./src/
 COPY scripts/ ./scripts/
 COPY configs/ ./configs/
 
-# Copy ML models (only LightGBM — crop risk + price intelligence, ~24 MB)
+# Copy ML models (LightGBM + TFLite crop disease detector)
 COPY models/crop_risk_advisor/ ./models/crop_risk_advisor/
 COPY models/price_intelligence/ ./models/price_intelligence/
+COPY models/crop_disease_detector/crop_disease.tflite ./models/crop_disease_detector/crop_disease.tflite
+COPY models/crop_disease_detector/metadata.json ./models/crop_disease_detector/metadata.json
 
 
 # Copy only the data files the API needs at runtime

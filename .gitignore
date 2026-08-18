@@ -20,11 +20,17 @@ kaggle.json
 # Model files (large binary files)
 models/
 !web/public/models/
+# Exception: the crop disease detector (2.7MB TFLite) is needed by Render Docker build
+!models/
+!models/crop_disease_detector/
+!models/crop_disease_detector/crop_disease.tflite
+!models/crop_disease_detector/metadata.json
 *.h5
 *.pkl
 *.pth
 *.onnx
 *.tflite
+!models/crop_disease_detector/crop_disease.tflite
 
 # Training datasets (large image folders)
 Crop Diseases/
