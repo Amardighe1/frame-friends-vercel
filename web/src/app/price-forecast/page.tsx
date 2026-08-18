@@ -166,16 +166,16 @@ export default function PriceForecastPage() {
   };
 
   return (
-    <main className="min-h-[100dvh] bg-gradient-to-b from-slate-50 via-white to-amber-50/30" style={{ paddingBottom: 'var(--page-bottom-padding)' }}>
+    <main className="min-h-[100dvh] bg-gradient-to-b from-slate-50 via-white to-amber-50/30 w-full overflow-x-hidden pb-[calc(5rem+env(safe-area-inset-bottom))] pt-4">
       {!isNativeApp && <Navbar isScrolled={isScrolled} />}
       
-      <section className={`${isNativeApp ? 'pt-10 sm:pt-12' : 'pt-24 sm:pt-32'} pb-12 sm:pb-20`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-[env(safe-area-inset-top,1rem)] pt-6 flex flex-col items-center text-center px-4 w-full">
+        <div className="w-full max-w-7xl mx-auto">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-8 sm:mb-12"
+            className="flex flex-col items-center text-center mb-8 sm:mb-12 w-full"
           >
             <div className="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm font-medium mb-4">
               <TrendingUp className="w-4 h-4 mr-2" />
@@ -184,7 +184,7 @@ export default function PriceForecastPage() {
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
               Price <span className="text-gradient-amber">अंदाज</span>
             </h1>
-            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto px-2">
+            <p className="max-w-xs text-xs sm:text-sm text-slate-600 leading-relaxed mx-auto">
               चांगले विक्रीचे निर्णय घेण्यासाठी अचूक भाव अंदाज 
               विश्वासनीयतेसह मिळवा.
             </p>
@@ -213,7 +213,7 @@ export default function PriceForecastPage() {
                     <select
                       value={selectedCommodity}
                       onChange={(e) => setSelectedCommodity(e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                      className="w-full box-border px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                       required
                     >
                       <option value="">माल निवडा...</option>
@@ -232,7 +232,7 @@ export default function PriceForecastPage() {
                     <select
                       value={selectedMarket}
                       onChange={(e) => setSelectedMarket(e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                      className="w-full box-border px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                       required
                     >
                       <option value="">बाजार निवडा...</option>
@@ -248,16 +248,16 @@ export default function PriceForecastPage() {
                       <Clock className="w-4 h-4 inline mr-1" />
                       अंदाज कालावधी
                     </label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-3 gap-2 w-full">
                       {[7, 14, 15].map((days) => (
                         <button
                           key={days}
                           type="button"
                           onClick={() => setForecastDays(days)}
-                          className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                          className={`w-full text-center text-sm py-2.5 px-2 rounded-xl whitespace-nowrap transition-all min-h-[44px] ${
                             forecastDays === days
                               ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/30'
-                              : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                           }`}
                         >
                           {days} दिवस
@@ -313,41 +313,43 @@ export default function PriceForecastPage() {
                     className="space-y-6"
                   >
                     {/* Summary Cards */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-                      <div className="bg-white rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-200/50 border border-slate-100">
-                        <div className="text-xs sm:text-sm text-slate-500 mb-1">सध्याचा भाव</div>
-                        <div className="text-lg sm:text-xl font-bold text-slate-900">{formatPrice(result.current_price)}</div>
-                        <div className="text-xs text-slate-400 mt-0.5">/क्विंटल</div>
+                    <div className="grid grid-cols-2 gap-3 w-full mt-4">
+                      <div className="bg-white rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-200/50 border border-slate-100 flex flex-col justify-between">
+                        <div className="text-xs text-slate-500 font-medium mb-1">सध्याचा भाव</div>
+                        <div>
+                          <div className="text-base sm:text-lg font-bold text-slate-900">{formatPrice(result.current_price)}</div>
+                          <div className="text-xs text-slate-400 mt-0.5">/क्विंटल</div>
+                        </div>
                         <div className="flex items-center gap-1 mt-1">
                           <span className={`inline-block w-1.5 h-1.5 rounded-full ${result.price_source === 'live' ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
-                          <span className="text-[10px] text-slate-400">
+                          <span className="text-[10px] text-slate-400 truncate">
                             {result.price_date}{result.price_source === 'live' ? ' • Live' : ''}
                           </span>
                         </div>
                       </div>
-                      <div className="bg-white rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-200/50 border border-slate-100">
-                        <div className="text-xs sm:text-sm text-slate-500 mb-1">७-दिवस अंदाज</div>
-                        <div className="text-lg sm:text-xl font-bold text-slate-900">{formatPrice(result.forecast_7d)}</div>
+                      <div className="bg-white rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-200/50 border border-slate-100 flex flex-col justify-between">
+                        <div className="text-xs text-slate-500 font-medium mb-1">७-दिवस अंदाज</div>
+                        <div className="text-base sm:text-lg font-bold text-slate-900">{formatPrice(result.forecast_7d)}</div>
                         <div className={`text-xs mt-1 ${result.forecast_7d > result.current_price ? 'text-emerald-500' : 'text-red-500'}`}>
                           {result.forecast_7d > result.current_price ? '↑' : '↓'} 
                           {Math.abs(((result.forecast_7d - result.current_price) / result.current_price) * 100).toFixed(1)}%
                         </div>
                       </div>
-                      <div className="bg-white rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-200/50 border border-slate-100">
-                        <div className="text-xs sm:text-sm text-slate-500 mb-1">१४-दिवस अंदाज</div>
-                        <div className="text-lg sm:text-xl font-bold text-slate-900">{formatPrice(result.forecast_14d)}</div>
+                      <div className="bg-white rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-200/50 border border-slate-100 flex flex-col justify-between">
+                        <div className="text-xs text-slate-500 font-medium mb-1">१४-दिवस अंदाज</div>
+                        <div className="text-base sm:text-lg font-bold text-slate-900">{formatPrice(result.forecast_14d)}</div>
                         <div className={`text-xs mt-1 ${result.forecast_14d > result.current_price ? 'text-emerald-500' : 'text-red-500'}`}>
                           {result.forecast_14d > result.current_price ? '↑' : '↓'} 
                           {Math.abs(((result.forecast_14d - result.current_price) / result.current_price) * 100).toFixed(1)}%
                         </div>
                       </div>
-                      <div className={`rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-200/50 border ${
+                      <div className={`rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-200/50 border flex flex-col justify-between ${
                         result.recommendation === 'HOLD' 
                           ? 'bg-emerald-50 border-emerald-200' 
                           : 'bg-amber-50 border-amber-200'
                       }`}>
-                        <div className="text-xs sm:text-sm text-slate-500 mb-1">शिफारस</div>
-                        <div className={`text-lg sm:text-xl font-bold ${
+                        <div className="text-xs text-slate-500 font-medium mb-1">शिफारस</div>
+                        <div className={`text-base sm:text-lg font-bold ${
                           result.recommendation === 'HOLD' ? 'text-emerald-600' : 'text-amber-600'
                         }`}>
                           {result.recommendation}
