@@ -144,7 +144,7 @@ export default function CropAnalysisPage() {
   };
 
   const handleAnalyze = async () => {
-    if (!file) return;
+    if (!file || !preview) return;
     setLoading(true);
     setError('');
     setResult(null);
@@ -155,8 +155,15 @@ export default function CropAnalysisPage() {
 
     try {
       const token = getToken();
+      
+      // FIX FOR CAPACITOR/ANDROID WEBVIEW: 
+      // Native File objects can fail in fetch() on Android. We convert the base64 preview to a pure in-memory Blob.
+      const resBlob = await fetch(preview);
+      const blob = await resBlob.blob();
+      
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', blob, file.name);
+
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 60000);
       const res = await fetch(baseUrl, {
