@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Historical Mandi Data Downloader (Kaggle)
+FarmFriend - Historical Mandi Data Downloader (Kaggle)
 
 Downloads historical AGMARKNET mandi price data from Kaggle datasets.
 Processes with chunked reading for memory safety and filters to Maharashtra-only.
@@ -523,7 +523,7 @@ def main():
     audit = AuditLogger("mandi_history_kaggle", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Kaggle Historical Mandi Downloader")
+    logger.info("FarmFriend - Kaggle Historical Mandi Downloader")
     logger.info("=" * 70)
     
     try:

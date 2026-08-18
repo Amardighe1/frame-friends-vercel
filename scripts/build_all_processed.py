@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Build All Processed Datasets (Orchestrator)
+FarmFriend - Build All Processed Datasets (Orchestrator)
 
 Master script that runs the complete data processing pipeline:
 
@@ -211,7 +211,7 @@ def main(
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Build All Processed Datasets")
+    logger.info("FarmFriend - Build All Processed Datasets")
     logger.info("=" * 70)
     logger.info(f"Started: {datetime.now().isoformat()}")
     
@@ -317,7 +317,7 @@ def main(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Run the complete MANDIMITRA data processing pipeline"
+        description="Run the complete FarmFriend data processing pipeline"
     )
     parser.add_argument(
         "--dry-run",

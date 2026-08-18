@@ -1,5 +1,5 @@
 """
-I/O utilities for MANDIMITRA data pipeline.
+I/O utilities for FarmFriend data pipeline.
 Handles file operations, path management, and receipt generation.
 """
 

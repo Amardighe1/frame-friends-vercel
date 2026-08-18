@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - NASA POWER Historical Rainfall Downloader
+FarmFriend - NASA POWER Historical Rainfall Downloader
 
 Downloads historical precipitation data (PRECTOTCORR) from NASA POWER Daily API.
 Supports multiple locations via configs/locations.csv.
@@ -11,7 +11,7 @@ Usage:
     python scripts/download_weather_power.py --all-locations --days-back 180
     python scripts/download_weather_power.py --help
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 """
 
 import argparse
@@ -422,7 +422,7 @@ def main():
     logger = setup_logger("power_download", log_file, level=log_level)
     
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - NASA POWER Historical Rainfall Downloader")
+    logger.info("FarmFriend - NASA POWER Historical Rainfall Downloader")
     logger.info("=" * 60)
     
     try:

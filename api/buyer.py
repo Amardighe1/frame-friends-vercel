@@ -1,5 +1,5 @@
 """
-MANDIMITRA - Buyer Module (MongoDB)
+FarmFriend - Buyer Module (MongoDB)
 ======================================
 Buyer sets daily crop prices at their market.
 Farmer queries market + crop to find buyers with best prices.
@@ -26,7 +26,7 @@ from pydantic import BaseModel, Field
 from api.database import get_db, utcnow
 from api.auth import _decode_token, _get_profile
 
-logger = logging.getLogger("mandimitra-buyer")
+logger = logging.getLogger("farmfriend-buyer")
 
 router = APIRouter(prefix="/api/buyer", tags=["Buyer Marketplace"])
 

@@ -1,5 +1,5 @@
 """
-Maharashtra-specific constants and utilities for MANDIMITRA.
+Maharashtra-specific constants and utilities for FarmFriend.
 This module enforces strict Maharashtra-only constraints.
 
 IMPORTANT: Data.gov.in API Filter
@@ -16,7 +16,7 @@ from typing import Any, Dict, Final, Optional
 # =============================================================================
 # HARD CONSTRAINT: MAHARASHTRA ONLY
 # These constants MUST NOT be modified or overridden.
-# The entire MANDIMITRA project exclusively serves Maharashtra farmers.
+# The entire FarmFriend project exclusively serves Maharashtra farmers.
 # =============================================================================
 
 MAHARASHTRA_STATE_NAME: Final[str] = "Maharashtra"

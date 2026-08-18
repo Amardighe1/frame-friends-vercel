@@ -1,11 +1,11 @@
 """
-Generate MandiMitra Android launcher icons using Pillow.
+Generate FarmFriend Android launcher icons using Pillow.
 Creates both regular and foreground (adaptive icon) PNGs at all required densities.
 """
 from PIL import Image, ImageDraw, ImageFont
 import os, math
 
-ANDROID_RES = r"d:\mandimitra\web\android\app\src\main\res"
+ANDROID_RES = r"d:\farmfriend\web\android\app\src\main\res"
 
 # Android mipmap sizes: (folder_suffix, icon_size, foreground_size)
 # Adaptive icon foreground is 108dp — scaled to each density
@@ -20,8 +20,8 @@ DENSITIES = [
 def lerp_color(c1, c2, t):
     return tuple(int(c1[i] + (c2[i] - c1[i]) * t) for i in range(len(c1)))
 
-def draw_mandimitra_icon(size, padding_frac=0.15):
-    """Draw the MandiMitra icon: leaf + bar chart on emerald gradient background."""
+def draw_farmfriend_icon(size, padding_frac=0.15):
+    """Draw the FarmFriend icon: leaf + bar chart on emerald gradient background."""
     img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     
@@ -108,7 +108,7 @@ def draw_foreground(size):
     # The safe zone is the inner 66/108 = ~61% of the canvas
     # We draw our icon content in the center portion
     icon_size = int(size * 0.66)
-    icon = draw_mandimitra_icon(icon_size, padding_frac=0.05)
+    icon = draw_farmfriend_icon(icon_size, padding_frac=0.05)
     
     # Remove the rounded rect background — we only want the leaf + bars
     # For foreground, draw on transparent with just white leaf and amber bars
@@ -180,11 +180,11 @@ def main():
         os.makedirs(folder, exist_ok=True)
         
         # Regular launcher icon (with background)
-        icon = draw_mandimitra_icon(icon_sz, padding_frac=0.12)
+        icon = draw_farmfriend_icon(icon_sz, padding_frac=0.12)
         icon.save(os.path.join(folder, "ic_launcher.png"), "PNG")
         
         # Round launcher icon (circle masked)
-        round_icon = draw_mandimitra_icon(icon_sz, padding_frac=0.12)
+        round_icon = draw_farmfriend_icon(icon_sz, padding_frac=0.12)
         circle_mask = Image.new("L", (icon_sz, icon_sz), 0)
         ImageDraw.Draw(circle_mask).ellipse([0, 0, icon_sz-1, icon_sz-1], fill=255)
         round_icon.putalpha(circle_mask)

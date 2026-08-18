@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Optimize Model Datasets
+FarmFriend - Optimize Model Datasets
 
 This script addresses data quality issues for ML training:
 
@@ -322,7 +322,7 @@ def generate_quality_report(
     no_mandi = coverage_df[~coverage_df["has_mandi_data"]]["district"].tolist()
     
     lines = [
-        "# MANDIMITRA Data Quality Optimization Report",
+        "# FarmFriend Data Quality Optimization Report",
         "",
         f"**Generated:** {timestamp}",
         "",
@@ -540,7 +540,7 @@ def generate_quality_report(
 def main(dry_run: bool = False):
     """Main entry point."""
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - Optimize Model Datasets")
+    logger.info("FarmFriend - Optimize Model Datasets")
     logger.info("=" * 60)
     
     if dry_run:

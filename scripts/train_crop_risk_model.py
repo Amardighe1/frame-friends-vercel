@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Model 1: Crop Risk & Suitability Advisor (Optimal)
+FarmFriend - Model 1: Crop Risk & Suitability Advisor (Optimal)
 ================================================================
 
 Production-grade hybrid (rules + ML) crop risk classification:
@@ -12,7 +12,7 @@ Production-grade hybrid (rules + ML) crop risk classification:
 
 Risk Categories: Low (0), Medium (1), High (2)
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Date: 2026-02-05
 """
 
@@ -1062,7 +1062,7 @@ def main(samples_per_crop: int = 6000) -> None:
     """Main training pipeline."""
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Crop Risk Advisor Training (Optimal)")
+    logger.info("FarmFriend - Crop Risk Advisor Training (Optimal)")
     logger.info("=" * 70)
     
     start_time = datetime.now()

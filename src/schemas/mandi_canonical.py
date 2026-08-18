@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Pandera Schemas for Canonical Mandi Data
+FarmFriend - Pandera Schemas for Canonical Mandi Data
 
 Defines strict validation schemas for the canonical mandi dataset with:
 - Maharashtra-only enforcement

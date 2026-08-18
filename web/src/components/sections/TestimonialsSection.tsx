@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
+import { useRef, useEffect } from 'react';
 
 const testimonials = [
   {
@@ -15,7 +15,7 @@ const testimonials = [
     name: 'सुनीता देशमुख',
     role: 'कापूस शेतकरी, नाशिक',
     avatar: '👩‍🌾',
-    content: 'पीक जोखीम सूचनेमुळे माझा कापूस पीक कीटकांच्या नुकसानीपासून वाचला. समस्या पसरण्याच्या 3 दिवस आधी मला इशारा मिळाला.',
+    content: 'पीक आरोग्य विश्लेषण वैशिष्ट्यामुळे मला माझ्या पिकावरील रोगाची अचूक माहिती मिळाली आणि त्वरित उपाय करता आला.',
     rating: 5,
   },
   {
@@ -34,17 +34,35 @@ const testimonials = [
   },
 ];
 
+function useFadeInOnScroll(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('scroll-visible');
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [ref]);
+}
+
 export function TestimonialsSection() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  useFadeInOnScroll(headerRef);
+  useFadeInOnScroll(gridRef);
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div ref={headerRef} className="text-center mb-16 scroll-fade">
           <span className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-4">
             अनुभव
           </span>
@@ -56,35 +74,27 @@ export function TestimonialsSection() {
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             शेतकरी मंडीमित्रबद्दल काय म्हणतात ते पाहा
           </p>
-        </motion.div>
+        </div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
+        <div ref={gridRef} className="grid md:grid-cols-2 gap-8 scroll-fade">
+          {testimonials.map((testimonial) => (
+            <div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="bg-gradient-to-br from-slate-50 to-emerald-50/30 rounded-2xl p-8 border border-slate-100 hover:shadow-lg transition-shadow"
             >
-              {/* Quote Icon */}
               <Quote className="w-10 h-10 text-emerald-200 mb-4" />
 
-              {/* Content */}
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                "{testimonial.content}"
+                &ldquo;{testimonial.content}&rdquo;
               </p>
 
-              {/* Rating */}
               <div className="flex mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
+                {Array.from({ length: testimonial.rating }, (_, i) => (
                   <Star key={i} className="w-5 h-5 text-amber-400 fill-current" />
                 ))}
               </div>
 
-              {/* Author */}
               <div className="flex items-center">
                 <div className="text-4xl mr-4">{testimonial.avatar}</div>
                 <div>
@@ -92,7 +102,7 @@ export function TestimonialsSection() {
                   <div className="text-sm text-slate-500">{testimonial.role}</div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

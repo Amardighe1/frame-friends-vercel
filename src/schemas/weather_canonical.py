@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Pandera Schemas for Canonical Weather Data
+FarmFriend - Pandera Schemas for Canonical Weather Data
 
 Defines validation schemas for weather datasets:
 - NASA POWER historical daily data (36 districts × ~10 years)

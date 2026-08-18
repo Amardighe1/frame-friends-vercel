@@ -1,5 +1,5 @@
 """
-MANDIMITRA - Authentication Module
+FarmFriend - Authentication Module
 ===================================
 All auth handled server-side via Supabase. Frontend NEVER talks to Supabase.
 
@@ -31,7 +31,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(PROJECT_ROOT / ".env")
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("mandimitra-auth")
+logger = logging.getLogger("farmfriend-auth")
 
 # ---------------------------------------------------------------------------
 # Supabase clients

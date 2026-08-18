@@ -22,13 +22,18 @@ function resolveApiBase(): string {
   // 1) Build-time env var
   if (ENV_API_URL) return ENV_API_URL.replace(/\/+$/, '');
 
-  // 2) Capacitor APK — call Render backend directly over HTTPS
-  if (typeof window !== 'undefined' && (window as any).Capacitor) {
+  // 2) Always use Render backend directly to avoid Vercel rewrite limits and proxy connection errors
+  if (typeof window !== 'undefined') {
+    // If we're on localhost, we can still use relative paths for dev rewrites,
+    // but on Vercel production, we MUST use the direct Render URL.
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return '';
+    }
     return RENDER_API_URL;
   }
 
-  // 3) Vercel & localhost dev: relative URLs — Next.js rewrites proxy /api/* to Render
-  return '';
+  // Server-side / fallback
+  return RENDER_API_URL;
 }
 
 /**

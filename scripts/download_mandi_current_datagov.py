@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Current Daily Mandi Data Downloader (Data.gov.in)
+FarmFriend - Current Daily Mandi Data Downloader (Data.gov.in)
 
 Downloads current/live mandi data from Data.gov.in API.
 Saves data partitioned by date with health check and fallback support.
@@ -366,7 +366,7 @@ def main():
     audit = AuditLogger("mandi_current_download", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Current Mandi Data Downloader")
+    logger.info("FarmFriend - Current Mandi Data Downloader")
     logger.info("=" * 70)
     
     try:

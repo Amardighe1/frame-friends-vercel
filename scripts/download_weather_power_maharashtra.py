@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - NASA POWER Historical Weather Data Downloader
+FarmFriend - NASA POWER Historical Weather Data Downloader
 
 Downloads historical daily weather data from NASA POWER API for all 36
 Maharashtra district headquarters.
@@ -440,7 +440,7 @@ def main():
     audit = AuditLogger("weather_power_download", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - NASA POWER Weather Downloader")
+    logger.info("FarmFriend - NASA POWER Weather Downloader")
     logger.info("=" * 70)
     
     try:

@@ -1,5 +1,5 @@
 """
-MANDIMITRA -- Capstone Project Report PDF Generator
+FarmFriend -- Capstone Project Report PDF Generator
 """
 from fpdf import FPDF
 import os
@@ -13,7 +13,7 @@ class Report(FPDF):
         if self.page_no() > 1:
             self.set_font("Helvetica", "I", 8)
             self.set_text_color(120, 120, 120)
-            self.cell(0, 8, "MANDIMITRA - AI-Powered Agricultural Intelligence | Capstone Project Report", align="C")
+            self.cell(0, 8, "FarmFriend - AI-Powered Agricultural Intelligence | Capstone Project Report", align="C")
             self.ln(4)
             self.set_draw_color(16, 185, 129)
             self.set_line_width(0.5)
@@ -103,7 +103,7 @@ def build():
     pdf.ln(30)
     pdf.set_font("Helvetica", "B", 28)
     pdf.set_text_color(5, 100, 60)
-    pdf.cell(0, 15, "MANDIMITRA", align="C", ln=True)
+    pdf.cell(0, 15, "FarmFriend", align="C", ln=True)
     pdf.set_font("Helvetica", "", 14)
     pdf.set_text_color(80, 80, 80)
     pdf.cell(0, 8, "AI-Powered Agricultural Intelligence", align="C", ln=True)
@@ -136,7 +136,7 @@ def build():
     pdf.add_page()
     pdf.section_title("1", "Abstract")
     pdf.body_text(
-        "MANDIMITRA is a production-grade, AI-powered agricultural decision support system built for "
+        "FarmFriend is a production-grade, AI-powered agricultural decision support system built for "
         "Maharashtra farmers. It transforms 3.5M+ government mandi records, satellite weather data, and "
         "crop disease imagery into actionable intelligence through three trained ML models -- Crop Risk "
         "Advisor (LightGBM, 87.4% accuracy), Price Intelligence Engine (LightGBM, R2=0.933), and Crop "
@@ -159,7 +159,7 @@ def build():
     )
     pdf.sub_title("2.2 Proposed Solution")
     pdf.body_text(
-        "MANDIMITRA provides an integrated, Marathi-first platform combining three ML models with real-time "
+        "FarmFriend provides an integrated, Marathi-first platform combining three ML models with real-time "
         "data from government APIs. Farmers can assess crop risk before sowing, forecast commodity prices "
         "with confidence intervals, detect crop diseases via phone camera, track live mandi prices, and "
         "request emergency veterinary help -- all in one application."
@@ -454,7 +454,7 @@ def build():
     # ===== 13. CONCLUSION =====
     pdf.section_title("13", "Conclusion")
     pdf.body_text(
-        "MANDIMITRA successfully demonstrates that AI and ML can be applied to real agricultural problems "
+        "FarmFriend successfully demonstrates that AI and ML can be applied to real agricultural problems "
         "at production scale. The system processes 3.5M+ government records, delivers 93.47% disease "
         "detection accuracy, and provides actionable price forecasts with R2=0.933. The Marathi-first "
         "approach ensures accessibility for the target user base. The three-model architecture (Risk + "
@@ -480,7 +480,7 @@ def build():
     pdf.bullet("FAO - Food and Agriculture Organization Plant Health Guidelines.")
 
     # Save
-    out_path = os.path.join(os.path.dirname(__file__), "MANDIMITRA_Project_Report.pdf")
+    out_path = os.path.join(os.path.dirname(__file__), "FarmFriend_Project_Report.pdf")
     pdf.output(out_path)
     print(f"Report saved to: {out_path}")
     return out_path

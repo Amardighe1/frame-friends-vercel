@@ -1,5 +1,5 @@
 """
-MANDIMITRA - Pandera Schemas for Mandi Data
+FarmFriend - Pandera Schemas for Mandi Data
 
 Defines strict validation schemas for mandi price data with:
 - Maharashtra-only enforcement

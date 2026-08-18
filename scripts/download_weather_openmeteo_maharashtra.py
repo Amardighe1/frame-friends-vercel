@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Open-Meteo 16-Day Forecast Weather Downloader
+FarmFriend - Open-Meteo 16-Day Forecast Weather Downloader
 
 Downloads 16-day weather forecasts from Open-Meteo API for all 36
 Maharashtra district headquarters.
@@ -413,7 +413,7 @@ def main():
     audit = AuditLogger("weather_openmeteo_download", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Open-Meteo Forecast Downloader")
+    logger.info("FarmFriend - Open-Meteo Forecast Downloader")
     logger.info("=" * 70)
     
     try:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - District Name Normalization
+FarmFriend - District Name Normalization
 
 Maps raw district names from various sources to canonical Maharashtra district names.
 Uses configs/maharashtra_locations.csv as the authoritative source of 36 districts.

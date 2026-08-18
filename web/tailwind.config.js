@@ -50,7 +50,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom MANDIMITRA colors
+        // Custom FarmFriend colors
         emerald: {
           50: '#ecfdf5',
           100: '#d1fae5',

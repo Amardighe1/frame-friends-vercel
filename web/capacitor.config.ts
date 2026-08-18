@@ -10,10 +10,10 @@ const config: CapacitorConfig = {
     ? {}
     : {
         server: {
-          url: 'https://mandimitra-rose.vercel.app',
+          url: 'https://frame-friends.vercel.app',
           androidScheme: 'https',
           allowNavigation: [
-            'mandimitra-rose.vercel.app',
+            'frame-friends.vercel.app',
             '*.vercel.app',
             'frame-friends.onrender.com',
             '*.onrender.com',

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Self-Check Validation Script
+FarmFriend - Self-Check Validation Script
 
 Validates that the codebase meets production-grade standards:
 1. Security: No exposed API keys
@@ -13,7 +13,7 @@ Usage:
     python scripts/self_check.py --verbose
     python scripts/self_check.py --fix  # Auto-fix some issues
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Version: 1.0.0
 """
 
@@ -381,13 +381,13 @@ def check_progress_tracking() -> Tuple[bool, List[str]]:
 # =============================================================================
 
 def main():
-    parser = argparse.ArgumentParser(description="MANDIMITRA Self-Check Validation")
+    parser = argparse.ArgumentParser(description="FarmFriend Self-Check Validation")
     parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed output")
     parser.add_argument("--fix", action="store_true", help="Auto-fix some issues (not implemented)")
     args = parser.parse_args()
     
     print(f"{Colors.BOLD}{'=' * 60}")
-    print("MANDIMITRA - Self-Check Validation")
+    print("FarmFriend - Self-Check Validation")
     print(f"{'=' * 60}{Colors.RESET}\n")
     
     all_passed = True

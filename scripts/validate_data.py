@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Maharashtra Data Validation Script
+FarmFriend - Maharashtra Data Validation Script
 
 Validates downloaded mandi and weather data using strict Pandera schemas.
 Enforces HARD CONSTRAINT: Maharashtra-only data.
@@ -13,7 +13,7 @@ Usage:
     python scripts/validate_data.py --strict
     python scripts/validate_data.py --help
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 """
 
 import argparse
@@ -527,7 +527,7 @@ def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
         description=(
-            "Validate downloaded mandi and weather data for MANDIMITRA.\n"
+            "Validate downloaded mandi and weather data for FarmFriend.\n"
             "This script validates MAHARASHTRA-ONLY data with strict checks."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -628,7 +628,7 @@ def main():
     logger = setup_logger("validate_data", log_file, level=log_level)
     
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - Maharashtra Data Validation")
+    logger.info("FarmFriend - Maharashtra Data Validation")
     logger.info("=" * 60)
     
     results: List[ValidationResult] = []

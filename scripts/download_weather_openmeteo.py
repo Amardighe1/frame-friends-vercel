@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Open-Meteo 16-Day Rainfall Forecast Downloader
+FarmFriend - Open-Meteo 16-Day Rainfall Forecast Downloader
 
 Downloads rainfall forecast data from Open-Meteo API.
 Supports multiple locations via configs/locations.csv.
@@ -11,7 +11,7 @@ Usage:
     python scripts/download_weather_openmeteo.py --all-locations
     python scripts/download_weather_openmeteo.py --help
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 """
 
 import argparse
@@ -369,7 +369,7 @@ def main():
     logger = setup_logger("openmeteo_download", log_file, level=log_level)
     
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - Open-Meteo Rainfall Forecast Downloader")
+    logger.info("FarmFriend - Open-Meteo Rainfall Forecast Downloader")
     logger.info("=" * 60)
     
     try:

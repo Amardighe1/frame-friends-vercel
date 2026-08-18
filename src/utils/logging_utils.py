@@ -1,5 +1,5 @@
 """
-Logging utilities for MANDIMITRA data pipeline.
+Logging utilities for FarmFriend data pipeline.
 Provides consistent logging configuration across all scripts.
 """
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Mandi Price Data Downloader
+FarmFriend - Mandi Price Data Downloader
 
 Downloads daily commodity prices from AGMARKNET via Data.gov.in API.
 Supports filtering by state, district, commodity, market with full pagination.
@@ -10,7 +10,7 @@ Usage:
     python scripts/download_mandi.py --state "Karnataka" --all-commodities
     python scripts/download_mandi.py --help
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 """
 
 import argparse
@@ -328,7 +328,7 @@ def main():
     logger = setup_logger("mandi_download", log_file, level=log_level)
     
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - Mandi Price Data Downloader")
+    logger.info("FarmFriend - Mandi Price Data Downloader")
     logger.info("=" * 60)
     
     try:

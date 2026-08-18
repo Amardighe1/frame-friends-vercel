@@ -1,4 +1,4 @@
-# Utility modules for MANDIMITRA
+# Utility modules for FarmFriend
 """
 Shared utility functions for I/O, HTTP, logging, and Maharashtra-specific operations.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Maharashtra Mandi Data Downloader (Production-Grade)
+FarmFriend - Maharashtra Mandi Data Downloader (Production-Grade)
 
 Downloads mandi price data EXCLUSIVELY for Maharashtra with:
 - Single count fetch per chunk (no duplicate API calls)
@@ -23,7 +23,7 @@ Output:
     data/raw/mandi/maharashtra/<district>/<timestamp>/mandi.csv
     data/raw/mandi/maharashtra/merged/<timestamp>/mandi_merged.csv
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Version: 2.0.0 (Production Refactor)
 """
 
@@ -673,7 +673,7 @@ def main():
     audit = AuditLogger("mandi_download", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Maharashtra Mandi Downloader")
+    logger.info("FarmFriend - Maharashtra Mandi Downloader")
     logger.info(f"Workers: {max_workers} | Rate limit: {args.rate_limit}")
     logger.info("=" * 70)
     

@@ -1,9 +1,9 @@
-# MANDIMITRA Project Configuration
+# FarmFriend Project Configuration
 # Central configuration for data download pipelines
 # ⚠️  THIS PROJECT IS STRICTLY MAHARASHTRA-ONLY
 
 project:
-  name: "MANDIMITRA"
+  name: "FarmFriend"
   version: "2.0.0"
   description: "Maharashtra Mandi Price Intelligence + Rainfall/Crop-Risk Models"
   

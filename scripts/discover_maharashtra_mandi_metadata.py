@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Maharashtra Mandi Metadata Discovery Script (Production-Grade)
+FarmFriend - Maharashtra Mandi Metadata Discovery Script (Production-Grade)
 
 Discovers unique districts, markets, and commodities for Maharashtra with:
 - CONSTANT MEMORY: Streams records, never stores all in memory
@@ -21,7 +21,7 @@ Output:
     data/metadata/maharashtra/commodities.csv
     data/metadata/maharashtra/discovery_receipt.json
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Version: 2.0.0 (Production Refactor)
 """
 
@@ -360,7 +360,7 @@ def main():
     audit = AuditLogger("discovery", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Maharashtra Metadata Discovery")
+    logger.info("FarmFriend - Maharashtra Metadata Discovery")
     logger.info("Mode: STREAMING (constant memory)")
     logger.info(f"Max pages: {max_pages or 'unlimited'}")
     logger.info("=" * 70)

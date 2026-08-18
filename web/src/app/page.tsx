@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import {
   Leaf,
@@ -14,28 +14,41 @@ import {
   AlertTriangle,
   ArrowRight,
   Sun,
-  Droplets,
-  Wind,
   Bell,
-  Search,
 } from 'lucide-react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
-import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { StatsSection } from '@/components/sections/StatsSection';
-import { HowItWorksSection } from '@/components/sections/HowItWorksSection';
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
-import { CTASection } from '@/components/sections/CTASection';
-import { Footer } from '@/components/layout/Footer';
 import { apiUrl } from '@/lib/api-config';
 
-/* ── Quick-action grid items ─────────────────────────────── */
+// ── Lazy-load below-the-fold sections (not needed for FCP) ────────────────
+const FeaturesSection = dynamic(
+  () => import('@/components/sections/FeaturesSection').then((m) => m.FeaturesSection),
+  { ssr: false, loading: () => <div className="h-32" /> }
+);
+const HowItWorksSection = dynamic(
+  () => import('@/components/sections/HowItWorksSection').then((m) => m.HowItWorksSection),
+  { ssr: false, loading: () => <div className="h-32" /> }
+);
+const TestimonialsSection = dynamic(
+  () => import('@/components/sections/TestimonialsSection').then((m) => m.TestimonialsSection),
+  { ssr: false, loading: () => <div className="h-32" /> }
+);
+const CTASection = dynamic(
+  () => import('@/components/sections/CTASection').then((m) => m.CTASection),
+  { ssr: false, loading: () => <div className="h-16" /> }
+);
+const Footer = dynamic(
+  () => import('@/components/layout/Footer').then((m) => m.Footer),
+  { ssr: false, loading: () => <div className="h-16" /> }
+);
+
 const quickActions = [
   { label: 'पीक तपासा', desc: 'फोटो काढा, रोग ओळखा', icon: Camera, color: 'from-emerald-500 to-emerald-600', href: '/crop-analysis' },
   { label: 'भाव अंदाज', desc: '15 दिवसांचा अंदाज', icon: TrendingUp, color: 'from-amber-500 to-orange-500', href: '/price-forecast' },
-  { label: 'पीक जोखीम', desc: 'AI जोखीम मूल्यांकन', icon: Shield, color: 'from-blue-500 to-blue-600', href: '/crop-risk' },
   { label: 'मंडी भाव', desc: 'आजचे बाजारभाव', icon: BarChart3, color: 'from-purple-500 to-purple-600', href: '/markets' },
   { label: 'हवामान', desc: 'स्थानिक अंदाज', icon: Cloud, color: 'from-sky-500 to-cyan-500', href: '/weather' },
   { label: 'मंडी विक्री', desc: 'खरेदीदार शोधा', icon: ShoppingCart, color: 'from-rose-500 to-pink-500', href: '/mandi' },
@@ -53,20 +66,18 @@ const dailyTips = [
 
 /* ── Farmer Dashboard Component ──────────────────────────── */
 function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
-  const [weather, setWeather] = useState<any>(null);
   const [tipIndex, setTipIndex] = useState(0);
 
-  // Rotate tips
+  // Rotate tips every 5s
   useEffect(() => {
     const t = setInterval(() => setTipIndex((i) => (i + 1) % dailyTips.length), 5000);
     return () => clearInterval(t);
   }, []);
 
-  // Fetch weather summary (lightweight)
+  // Fetch market summary (non-blocking, best-effort — result not shown but primes cache)
   useEffect(() => {
     fetch(apiUrl('/api/market/summary'))
-      .then((r) => r.ok ? r.json() : null)
-      .then((d) => d && setWeather(d))
+      .then((r) => (r.ok ? r.json() : null))
       .catch(() => {});
   }, []);
 
@@ -125,13 +136,13 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
           <h2 className="text-base font-bold text-slate-800">सेवा</h2>
           <span className="text-xs text-slate-400">सर्व वैशिष्ट्ये</span>
         </div>
-        <div className="grid grid-cols-4 gap-2 sm:gap-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
           {quickActions.map((action, i) => (
             <Link key={action.href} href={action.href} className="group">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
+                transition={{ delay: i * 0.04 }}
                 className="flex flex-col items-center"
               >
                 <div className={`w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br ${action.color} rounded-2xl flex items-center justify-center shadow-md mb-1.5 group-active:scale-95 transition-transform`}>
@@ -146,13 +157,10 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
         </div>
       </div>
 
-
-
       {/* ── Feature Highlight Cards ─────────────────── */}
       <div className="px-4 mt-6 space-y-3">
         <h2 className="text-base font-bold text-slate-800">प्रमुख वैशिष्ट्ये</h2>
 
-        {/* Crop Analysis */}
         <Link href="/crop-analysis" className="block">
           <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-4 text-white shadow-md flex items-center gap-4">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -166,7 +174,6 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
           </div>
         </Link>
 
-        {/* Price Forecast */}
         <Link href="/price-forecast" className="block">
           <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-4 text-white shadow-md flex items-center gap-4">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -180,7 +187,6 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
           </div>
         </Link>
 
-        {/* Market Prices */}
         <Link href="/markets" className="block">
           <div className="bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl p-4 text-white shadow-md flex items-center gap-4">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -217,12 +223,24 @@ function FarmerHome({ user }: { user: { full_name: string; role: string } }) {
 /* ── Landing Page (for non-logged-in visitors) ───────────── */
 function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const rafRef = useRef<number | null>(null);
+
+  // Throttle scroll handler with requestAnimationFrame — fires at most once per frame
+  const handleScroll = useCallback(() => {
+    if (rafRef.current !== null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      setIsScrolled(window.scrollY > 50);
+      rafRef.current = null;
+    });
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [handleScroll]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-emerald-50/30">
@@ -242,7 +260,7 @@ function LandingPage() {
 export default function HomePage() {
   const { user, loading } = useAuth();
 
-  // Show nothing while checking auth
+  // loading is now false on first render when a cached user exists
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
@@ -256,11 +274,9 @@ export default function HomePage() {
     );
   }
 
-  // Logged-in farmer → Dashboard
   if (user && user.role === 'farmer') {
     return <FarmerHome user={user} />;
   }
 
-  // Everyone else → Landing page
   return <LandingPage />;
 }

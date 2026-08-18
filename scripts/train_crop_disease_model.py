@@ -1,5 +1,5 @@
 """
-MANDIMITRA — Crop Disease Detection Model Training
+FarmFriend — Crop Disease Detection Model Training
 ====================================================
 Transfer learning with MobileNetV2 on the "Top Agriculture Crop Disease India" dataset.
 Produces a lightweight model (~14 MB) suitable for real-time API serving.

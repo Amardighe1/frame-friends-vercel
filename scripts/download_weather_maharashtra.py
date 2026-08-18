@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Maharashtra Weather Data Downloader (Production-Grade)
+FarmFriend - Maharashtra Weather Data Downloader (Production-Grade)
 
 Downloads weather data EXCLUSIVELY for Maharashtra district headquarters:
 - Historical rainfall from NASA POWER (PRECTOTCORR)
@@ -26,7 +26,7 @@ Output:
     data/raw/weather/power_daily/maharashtra/<district>/power_daily_*.csv
     data/raw/weather/openmeteo_forecast/maharashtra/<district>/forecast_*.csv
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Version: 2.0.0 (Production Refactor)
 """
 
@@ -612,7 +612,7 @@ def main():
     audit = AuditLogger("weather_download", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Maharashtra Weather Data Downloader")
+    logger.info("FarmFriend - Maharashtra Weather Data Downloader")
     logger.info(f"Workers: {max_workers} | Rate limit: {args.rate_limit}")
     logger.info("⚠️  HARD CONSTRAINT: MAHARASHTRA ONLY")
     logger.info("=" * 70)

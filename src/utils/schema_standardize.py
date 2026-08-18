@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Schema Standardization Utilities
+FarmFriend - Schema Standardization Utilities
 
 Helpers for column renaming, data type conversion, and date parsing.
 Ensures consistent schema across historical and current mandi data sources.

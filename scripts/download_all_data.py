@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Full Data Pipeline Orchestrator
+FarmFriend - Full Data Pipeline Orchestrator
 
-Downloads, processes, and validates all data for the MANDIMITRA crop-risk model:
+Downloads, processes, and validates all data for the FarmFriend crop-risk model:
 1. Historical mandi data (Kaggle OR local import)
 2. Current daily mandi data (Data.gov.in)
 3. Merged/upserted mandi dataset
@@ -69,7 +69,7 @@ from src.utils.logging_utils import setup_logger, get_utc_timestamp_safe
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="MANDIMITRA full data pipeline orchestrator",
+        description="FarmFriend full data pipeline orchestrator",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -399,14 +399,14 @@ def main():
     logger = setup_logger("orchestrator", log_file, level=log_level)
     
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - Full Data Pipeline Orchestrator")
+    logger.info("FarmFriend - Full Data Pipeline Orchestrator")
     logger.info("=" * 60)
     logger.info(f"Started: {datetime.now(timezone.utc).isoformat()}")
     logger.info(f"Dry run: {args.dry_run}")
     
     # Print configuration
     print("\n" + "=" * 60)
-    print("🚀 MANDIMITRA - Full Data Pipeline")
+    print("🚀 FarmFriend - Full Data Pipeline")
     print("=" * 60)
     
     if args.dry_run:

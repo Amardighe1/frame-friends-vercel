@@ -415,7 +415,7 @@ export default function DoctorDashboard() {
               </div>
               <div>
                 <span className="font-bold text-lg text-slate-900">डॉक्टर पोर्टल</span>
-                <span className="hidden sm:inline text-xs text-slate-400 ml-2">MANDIMITRA</span>
+                <span className="hidden sm:inline text-xs text-slate-400 ml-2">FarmFriend</span>
               </div>
             </Link>
             <div className="flex items-center gap-3">

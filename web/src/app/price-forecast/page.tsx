@@ -59,6 +59,7 @@ interface PriceResult {
 
 export default function PriceForecastPage() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNativeApp, setIsNativeApp] = useState(false);
   const [selectedCommodity, setSelectedCommodity] = useState('');
   const [selectedMarket, setSelectedMarket] = useState('');
   const [forecastDays, setForecastDays] = useState(14);
@@ -72,6 +73,13 @@ export default function PriceForecastPage() {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const isNative =
+      typeof window !== 'undefined' &&
+      (window as any).Capacitor?.isNativePlatform?.() === true;
+    setIsNativeApp(isNative);
   }, []);
 
   // Fetch real commodity list from API
@@ -159,9 +167,9 @@ export default function PriceForecastPage() {
 
   return (
     <main className="min-h-screen pb-24 bg-gradient-to-b from-slate-50 via-white to-amber-50/30">
-      <Navbar isScrolled={isScrolled} />
+      {!isNativeApp && <Navbar isScrolled={isScrolled} />}
       
-      <section className="pt-24 sm:pt-32 pb-12 sm:pb-20">
+      <section className={`${isNativeApp ? 'pt-10 sm:pt-12' : 'pt-24 sm:pt-32'} pb-12 sm:pb-20`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <motion.div
@@ -372,7 +380,7 @@ export default function PriceForecastPage() {
                         </div>
                       </div>
 
-                      <div className="h-[220px] sm:h-[300px]">
+                      <div className="h-[220px] sm:h-[300px] touch-pan-y">
                         <ResponsiveContainer width="100%" height="100%">
                           <ComposedChart data={result.forecasts} margin={{ left: -10, right: 5, top: 5, bottom: 5 }}>
                             <defs>
@@ -439,8 +447,8 @@ export default function PriceForecastPage() {
                       <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-4">
                         दैनंदिन अंदाज
                       </h3>
-                      <div className="overflow-x-auto -mx-2 sm:mx-0">
-                        <table className="w-full min-w-[480px]">
+                      <div className="overflow-x-auto -mx-2 sm:mx-0 pb-1 touch-pan-x">
+                        <table className="w-full min-w-[420px] sm:min-w-[480px]">
                           <thead>
                             <tr className="text-left text-xs sm:text-sm text-slate-500 border-b border-slate-100">
                               <th className="pb-3 pl-2 sm:pl-0 font-medium">तारीख</th>
@@ -513,7 +521,7 @@ export default function PriceForecastPage() {
         </div>
       </section>
 
-      <Footer />
+      {!isNativeApp && <Footer />}
 
       <style jsx global>{`
         .text-gradient-amber {

@@ -1,5 +1,5 @@
 """
-MANDIMITRA — Weather & Market API Endpoints
+FarmFriend — Weather & Market API Endpoints
 =============================================
 GET /api/weather/forecast       Live 16-day weather forecast from Open-Meteo
 GET /api/weather/districts      Available districts with coordinates
@@ -16,7 +16,7 @@ import httpx
 import pandas as pd
 from fastapi import APIRouter, HTTPException, Query
 
-logger = logging.getLogger("mandimitra-api")
+logger = logging.getLogger("farmfriend-api")
 
 router = APIRouter(tags=["Weather & Market Analytics"])
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA — Optimal Diagram Generator
+FarmFriend — Optimal Diagram Generator
 ========================================
 Generates 18 high-quality, publication-ready diagrams at 300 DPI
 for the MSBTE Capstone Project Report.
@@ -93,7 +93,7 @@ def diagram_system_architecture():
     fig.set_facecolor(C["bg"])
     ax.set_xlim(0, 12); ax.set_ylim(0, 8)
     ax.axis("off")
-    ax.set_title("System Architecture — MANDIMITRA", pad=20, fontsize=16, color=C["primary"])
+    ax.set_title("System Architecture — FarmFriend", pad=20, fontsize=16, color=C["primary"])
 
     # Tier labels
     tiers = [
@@ -150,7 +150,7 @@ def diagram_dfd_level0():
     # Central system
     circle = plt.Circle((6, 3.5), 1.2, facecolor=C["light_green"], edgecolor=C["primary"], linewidth=2.5)
     ax.add_patch(circle)
-    ax.text(6, 3.5, "MANDIMITRA\nSystem", ha="center", va="center", fontsize=11, fontweight="bold", color=C["primary"])
+    ax.text(6, 3.5, "FarmFriend\nSystem", ha="center", va="center", fontsize=11, fontweight="bold", color=C["primary"])
 
     # External entities
     entities = [
@@ -196,13 +196,13 @@ def diagram_use_cases():
     fig.set_facecolor(C["bg"])
     ax.set_xlim(0, 12); ax.set_ylim(0, 9)
     ax.axis("off")
-    ax.set_title("Use Case Diagram — MANDIMITRA", pad=20, fontsize=16, color=C["primary"])
+    ax.set_title("Use Case Diagram — FarmFriend", pad=20, fontsize=16, color=C["primary"])
 
     # System boundary
     rect = FancyBboxPatch((2.5, 0.5), 7, 8, boxstyle="round,pad=0.1",
                           facecolor="#F5F5F5", edgecolor=C["primary"], linewidth=2, linestyle="--")
     ax.add_patch(rect)
-    ax.text(6, 8.2, "MANDIMITRA System", ha="center", fontsize=12, fontweight="bold", color=C["primary"])
+    ax.text(6, 8.2, "FarmFriend System", ha="center", fontsize=12, fontweight="bold", color=C["primary"])
 
     # Actors
     actors = [(0.8, 5.5, "[Farmer]"), (11.2, 5.5, "[Doctor]"), (11.2, 1.5, "[Admin]")]
@@ -492,7 +492,7 @@ def diagram_scope():
     fig.set_facecolor(C["bg"])
     ax.set_xlim(0, 10); ax.set_ylim(0, 7)
     ax.axis("off")
-    ax.set_title("Project Scope — MANDIMITRA", pad=20, fontsize=16, color=C["primary"])
+    ax.set_title("Project Scope — FarmFriend", pad=20, fontsize=16, color=C["primary"])
 
     # In-scope box
     rect_in = FancyBboxPatch((0.5, 2.5), 4.2, 4, boxstyle="round,pad=0.08",
@@ -938,7 +938,7 @@ def diagram_deployment():
 # Main
 # ════════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
-    print("Generating MANDIMITRA diagrams (300 DPI)...\n")
+    print("Generating FarmFriend diagrams (300 DPI)...\n")
     diagram_system_architecture()
     diagram_dfd_level0()
     diagram_use_cases()

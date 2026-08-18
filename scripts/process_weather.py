@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Process Weather Data
+FarmFriend - Process Weather Data
 
 This script standardizes and validates weather datasets:
 - NASA POWER historical daily data
@@ -500,7 +500,7 @@ def main(dry_run: bool = False):
         dry_run: If True, don't save outputs
     """
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - Process Weather Data")
+    logger.info("FarmFriend - Process Weather Data")
     logger.info("=" * 60)
     
     if dry_run:

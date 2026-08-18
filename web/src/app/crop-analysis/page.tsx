@@ -107,6 +107,13 @@ export default function CropAnalysisPage() {
     }
   }, [user, authLoading, router]);
 
+  useEffect(() => {
+    // Warm up TF.js model in background for faster first analysis tap.
+    if (!isModelLoaded()) {
+      preloadModel().catch(() => {});
+    }
+  }, []);
+
   const handleFileSelect = (selectedFile: File) => {
     if (!selectedFile.type.startsWith('image/')) {
       setError('कृपया एक इमेज फाइल निवडा (JPG, PNG)');
@@ -151,7 +158,7 @@ export default function CropAnalysisPage() {
       const formData = new FormData();
       formData.append('file', file);
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 30000);
+      const timeout = setTimeout(() => controller.abort(), 60000);
       const res = await fetch(baseUrl, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
@@ -234,7 +241,7 @@ export default function CropAnalysisPage() {
                 <Leaf className="w-5 h-5 text-white" />
               </div>
               <span className="font-bold text-lg bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">
-                MANDIMITRA
+                FarmFriend
               </span>
             </Link>
             <div className="hidden sm:flex items-center gap-1.5 text-slate-300">

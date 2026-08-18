@@ -32,7 +32,7 @@ if not token:
     exit(1)
 
 # Test analyze with a Corn Common Rust image
-test_image = "d:/mandimitra/Crop Diseases/Corn___Common_Rust/image (1).JPG"
+test_image = "d:/farmfriend/Crop Diseases/Corn___Common_Rust/image (1).JPG"
 with open(test_image, "rb") as f:
     r = requests.post(
         f"{BASE}/api/crop-disease/analyze",
@@ -55,7 +55,7 @@ print(f"Model accuracy: {result.get('model_accuracy')}%")
 
 # Test with a healthy crop image
 import glob
-healthy_images = glob.glob("d:/mandimitra/Crop Diseases/Wheat___Healthy/*")
+healthy_images = glob.glob("d:/farmfriend/Crop Diseases/Wheat___Healthy/*")
 if healthy_images:
     with open(healthy_images[0], "rb") as f:
         r2 = requests.post(

@@ -1,5 +1,5 @@
 """
-Production-grade HTTP utilities for MANDIMITRA data pipeline.
+Production-grade HTTP utilities for FarmFriend data pipeline.
 
 Features:
 - Connection pooling with configurable pool sizes
@@ -9,7 +9,7 @@ Features:
 - Response header-based rate limit adaptation
 - API key redaction in logs/receipts
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Version: 2.0.0 (Production Refactor)
 """
 

@@ -1,5 +1,5 @@
 """
-MANDIMITRA - Pandera Schemas for Weather Data
+FarmFriend - Pandera Schemas for Weather Data
 
 Defines validation schemas for:
 - NASA POWER historical daily data

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Model 2: Price Intelligence Engine
+FarmFriend - Model 2: Price Intelligence Engine
 ================================================
 
 Production-grade 15-day price forecasting model using LightGBM with:
@@ -10,7 +10,7 @@ Production-grade 15-day price forecasting model using LightGBM with:
 - HOLD/SELL recommendations
 - SHAP explainability
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Date: 2026-02-05
 """
 
@@ -669,7 +669,7 @@ def main(dry_run: bool = False, cv_only: bool = False):
     """Main training pipeline."""
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Price Intelligence Engine Training")
+    logger.info("FarmFriend - Price Intelligence Engine Training")
     logger.info("=" * 70)
     
     start_time = datetime.now()

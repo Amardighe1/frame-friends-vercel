@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Merge Mandi Datasets (Historical + Current)
+FarmFriend - Merge Mandi Datasets (Historical + Current)
 
 Merges historical and current mandi data into a unified training dataset.
 Uses deterministic upsert: current data overwrites historical for same keys.
@@ -418,7 +418,7 @@ def main():
     audit = AuditLogger("mandi_merge", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Mandi Dataset Merger")
+    logger.info("FarmFriend - Mandi Dataset Merger")
     logger.info("=" * 70)
     
     try:

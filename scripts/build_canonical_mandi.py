@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Build Canonical Mandi Dataset
+FarmFriend - Build Canonical Mandi Dataset
 
 This script creates the canonical, deduplicated mandi dataset from:
 - Historical Kaggle data (mandi_maharashtra_2001_2025.parquet)
@@ -484,7 +484,7 @@ def main(dry_run: bool = False, validate_only: bool = False):
         validate_only: If True, only validate existing output
     """
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - Build Canonical Mandi Dataset")
+    logger.info("FarmFriend - Build Canonical Mandi Dataset")
     logger.info("=" * 60)
     
     if dry_run:

@@ -1,5 +1,5 @@
 -- =============================================================================
--- MANDIMITRA - Veterinary Service System Migration
+-- FarmFriend - Veterinary Service System Migration
 -- =============================================================================
 -- Run this AFTER supabase_setup.sql in Supabase Dashboard → SQL Editor
 -- =============================================================================

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Build Model-Ready Datasets
+FarmFriend - Build Model-Ready Datasets
 
 Creates final join-ready datasets for ML training:
 
@@ -255,7 +255,7 @@ def generate_model_report(
         Report as string
     """
     lines = [
-        "# MANDIMITRA Model Dataset Report",
+        "# FarmFriend Model Dataset Report",
         "",
         f"**Generated:** {datetime.now().isoformat()}",
         "",
@@ -388,7 +388,7 @@ def main(dry_run: bool = False):
         dry_run: If True, don't save outputs
     """
     logger.info("=" * 60)
-    logger.info("MANDIMITRA - Build Model Datasets")
+    logger.info("FarmFriend - Build Model Datasets")
     logger.info("=" * 60)
     
     if dry_run:

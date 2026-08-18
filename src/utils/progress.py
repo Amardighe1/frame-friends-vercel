@@ -1,5 +1,5 @@
 """
-Production-grade progress tracking for MANDIMITRA data pipeline.
+Production-grade progress tracking for FarmFriend data pipeline.
 
 Features:
 - Batched saves to reduce I/O overhead
@@ -8,7 +8,7 @@ Features:
 - Automatic flush on exit via atexit
 - Resume capability with chunk-level granularity
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Version: 2.0.0 (Production Refactor)
 """
 

@@ -1,6 +1,6 @@
 """
-Generate MandiMitra Project Report (DOCX + PDF)
-Follows the reference report format but with real MandiMitra project content.
+Generate FarmFriend Project Report (DOCX + PDF)
+Follows the reference report format but with real FarmFriend project content.
 """
 
 from docx import Document
@@ -13,10 +13,10 @@ import os
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ═══════════════════════════════════════════════════════════════════
-#  REPORT CONTENT - MandiMitra
+#  REPORT CONTENT - FarmFriend
 # ═══════════════════════════════════════════════════════════════════
 
-TITLE = "MandiMitra - AI-Powered Agricultural Intelligence Platform"
+TITLE = "FarmFriend - AI-Powered Agricultural Intelligence Platform"
 
 SECTIONS = [
     # ── 1. Introduction ──
@@ -24,7 +24,7 @@ SECTIONS = [
         "heading": "1. Introduction",
         "paragraphs": [
             (
-                'MandiMitra ("Market Friend") is an AI-powered agricultural intelligence platform '
+                'FarmFriend ("Market Friend") is an AI-powered agricultural intelligence platform '
                 "built exclusively for Maharashtra state farmers. The project combines real-time "
                 "mandi (market) price data, weather forecasts, ML-based crop risk assessment, "
                 "price forecasting, crop disease detection, a buyer marketplace, and veterinary "
@@ -34,7 +34,7 @@ SECTIONS = [
                 "The platform is designed to empower Maharashtra's farming community by providing "
                 "data-driven insights that help farmers make informed decisions about when to sell "
                 "their crops, assess weather-related risks, detect crop diseases early, and access "
-                "veterinary services in emergencies. MandiMitra covers all 36 districts of "
+                "veterinary services in emergencies. FarmFriend covers all 36 districts of "
                 "Maharashtra with pre-configured district headquarters coordinates."
             ),
         ],
@@ -60,7 +60,7 @@ SECTIONS = [
                 "subheading": "3.1 Project Directory Structure",
                 "body": "The project is organized as follows:",
                 "code": (
-                    "mandimitra/\n"
+                    "farmfriend/\n"
                     "  |-- api/              # FastAPI backend (auth, buyer, vet, crop_disease, weather)\n"
                     "  |-- configs/          # crop_lifecycle.json, project.yaml, locations CSV\n"
                     "  |-- Crop Diseases/    # Training images (17 classes, 5 crops)\n"
@@ -112,7 +112,7 @@ SECTIONS = [
                 "subheading": "4.1 Data Collection",
                 "paragraphs": [
                     (
-                        "MandiMitra uses a robust, resumable data pipeline to collect agricultural data "
+                        "FarmFriend uses a robust, resumable data pipeline to collect agricultural data "
                         "from multiple sources. Current mandi prices are fetched daily from the Data.gov.in "
                         "AGMARKNET API. Historical price data (3.5M+ records) is sourced from Kaggle archives. "
                         "Weather data is collected from NASA POWER (10 years of daily precipitation, temperature, "
@@ -283,14 +283,14 @@ SECTIONS = [
         "heading": "8. Conclusion",
         "paragraphs": [
             (
-                "MandiMitra aims to bridge the gap between agricultural data and actionable intelligence "
+                "FarmFriend aims to bridge the gap between agricultural data and actionable intelligence "
                 "for Maharashtra's farming community. By combining real-time mandi prices, ML-powered "
                 "price forecasting, crop risk advisory, disease detection, and veterinary services into "
                 "a single platform, the system empowers farmers to make data-driven decisions."
             ),
             (
                 "With production-grade ML models trained on 3.5M+ real records, on-device deep learning "
-                "for offline disease detection, and a bilingual buyer marketplace, MandiMitra demonstrates "
+                "for offline disease detection, and a bilingual buyer marketplace, FarmFriend demonstrates "
                 "how AI and modern software engineering can directly impact rural livelihoods. The platform "
                 "is deployed and accessible as both a web application and an Android APK, serving all 36 "
                 "districts of Maharashtra."
@@ -426,7 +426,7 @@ class ReportPDF(FPDF):
         if self.page_no() > 1:
             self.set_font("Times", "I", 8)
             self.set_text_color(120, 120, 120)
-            self.cell(0, 6, "MandiMitra - AI-Powered Agricultural Intelligence Platform", align="C")
+            self.cell(0, 6, "FarmFriend - AI-Powered Agricultural Intelligence Platform", align="C")
             self.ln(8)
 
     def footer(self):
@@ -528,8 +528,8 @@ def generate_pdf(filepath: str):
 
 # ═══════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
-    docx_path = os.path.join(OUTPUT_DIR, "MandiMitra_Project_Report.docx")
-    pdf_path = os.path.join(OUTPUT_DIR, "MandiMitra_Project_Report.pdf")
+    docx_path = os.path.join(OUTPUT_DIR, "FarmFriend_Project_Report.docx")
+    pdf_path = os.path.join(OUTPUT_DIR, "FarmFriend_Project_Report.pdf")
     generate_docx(docx_path)
     generate_pdf(pdf_path)
     print("\nDone! Both files generated.")

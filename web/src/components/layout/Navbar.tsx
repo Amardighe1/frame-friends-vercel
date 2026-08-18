@@ -28,7 +28,6 @@ interface NavbarProps {
 const navLinks: { name: string; href: string }[] = [];
 
 const productLinks = [
-  { name: 'पीक जोखीम सल्लागार', href: '/crop-risk', icon: Shield, description: 'AI-आधारित पीक जोखीम मूल्यांकन' },
   { name: 'भाव अंदाज', href: '/price-forecast', icon: TrendingUp, description: '15-दिवसांचा भाव अंदाज' },
   { name: 'हवामान माहिती', href: '/weather', icon: Cloud, description: 'स्थानिक हवामान अंदाज' },
   { name: 'बाजार विश्लेषण', href: '/markets', icon: BarChart3, description: 'रिअल-टाइम बाजार माहिती' },
@@ -67,12 +66,10 @@ export function Navbar({ isScrolled }: NavbarProps) {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-[env(safe-area-inset-top)] ${
-          isScrolled 
-            ? 'bg-white/90 backdrop-blur-xl shadow-lg shadow-slate-200/50' 
+      <nav
+        className={`navbar-slide-down fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-[env(safe-area-inset-top)] ${
+          isScrolled
+            ? 'bg-white/90 backdrop-blur-xl shadow-lg shadow-slate-200/50'
             : 'bg-transparent'
         }`}
       >
@@ -86,7 +83,7 @@ export function Navbar({ isScrolled }: NavbarProps) {
                 </div>
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full animate-pulse" />
               </div>
-              <span className="text-xl font-bold text-gradient">MANDIMITRA</span>
+              <span className="text-xl font-bold text-gradient">FarmFriend</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -227,7 +224,7 @@ export function Navbar({ isScrolled }: NavbarProps) {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -252,7 +249,7 @@ export function Navbar({ isScrolled }: NavbarProps) {
                     <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
                       <Leaf className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-lg font-bold text-gradient">MANDIMITRA</span>
+                    <span className="text-lg font-bold text-gradient">FarmFriend</span>
                   </Link>
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}

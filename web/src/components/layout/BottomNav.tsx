@@ -43,7 +43,7 @@ export function BottomNav() {
             <Link
               key={tab.href}
               href={tab.href}
-              className={`flex flex-col items-center gap-0.5 py-1.5 px-3 min-w-[56px] rounded-lg transition-colors ${
+              className={`relative flex flex-col items-center gap-0.5 py-2 px-2 sm:px-3 min-w-[52px] rounded-lg transition-colors ${
                 isActive
                   ? 'text-emerald-600'
                   : 'text-slate-400 active:text-slate-600'

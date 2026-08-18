@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Data.gov.in API Self-Check Script
+FarmFriend - Data.gov.in API Self-Check Script
 
 Comprehensive diagnostic tool to verify API connectivity and filter behavior.
 Run this before any downloads to catch issues early.
@@ -22,7 +22,7 @@ Exit codes:
     1 = Some checks failed (non-critical)
     2 = Critical failure (cannot proceed with downloads)
 
-Author: MANDIMITRA Team
+Author: FarmFriend Team
 Version: 1.0.0
 """
 
@@ -467,7 +467,7 @@ def check_data_availability(api_url: str, api_key: str) -> CheckResult:
 def print_report(report: SelfCheckReport) -> None:
     """Print formatted report to console."""
     print("\n" + "=" * 60)
-    print("MANDIMITRA - Data.gov.in Self-Check Report")
+    print("FarmFriend - Data.gov.in Self-Check Report")
     print(f"Timestamp: {report.timestamp_utc}")
     print("=" * 60 + "\n")
     

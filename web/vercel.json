@@ -4,11 +4,11 @@
   "rewrites": [
     {
       "source": "/health",
-      "destination": "http://56.228.42.84:8000/health"
+      "destination": "https://frame-friends.onrender.com/health"
     },
     {
       "source": "/api/:path*",
-      "destination": "http://56.228.42.84:8000/api/:path*"
+      "destination": "https://frame-friends.onrender.com/api/:path*"
     }
   ]
 }

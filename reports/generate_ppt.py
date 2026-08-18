@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Final Year Capstone PPT Generator
+FarmFriend - Final Year Capstone PPT Generator
 ================================================
 Generates a professional 13-slide PowerPoint for MSBTE Capstone (316004).
 Visual-heavy: diagrams, flowcharts, figures on every slide. Minimal text.
@@ -19,7 +19,7 @@ PROJECT_DIR = Path(__file__).parent.parent
 REPORTS_DIR = Path(__file__).parent
 DIAG        = REPORTS_DIR / "diagrams"
 LOGO        = PROJECT_DIR / "download.jpg"
-OUTPUT      = REPORTS_DIR / "MANDIMITRA_Capstone_Presentation.pptx"
+OUTPUT      = REPORTS_DIR / "FarmFriend_Capstone_Presentation.pptx"
 
 # ─── Constants ───────────────────────────────────────────────
 COLLEGE_LINE1 = "K.E. Society's"
@@ -27,7 +27,7 @@ COLLEGE_LINE2 = "Rajarambapu Institute of Technology (Polytechnic)"
 COLLEGE_LINE3 = "Lohegaon, Pune - 47"
 DEPT_NAME     = "Artificial Intelligence and Machine Learning"
 YEAR          = "2025-2026"
-TITLE         = "MANDIMITRA"
+TITLE         = "FarmFriend"
 SUBTITLE      = "Maharashtra Agricultural Market Intelligence\n& Veterinary Services Platform"
 COURSE_CODE   = "316004"
 
@@ -311,8 +311,8 @@ def slide_title(prs):
 
     add_speaker_notes(slide,
         "Good morning respected jury members, guide, and fellow students. "
-        "We are students from the AIML department presenting our capstone project MANDIMITRA. "
-        "MANDIMITRA means 'Market Friend' in Marathi. It is a comprehensive agricultural "
+        "We are students from the AIML department presenting our capstone project FarmFriend. "
+        "FarmFriend means 'Market Friend' in Marathi. It is a comprehensive agricultural "
         "market intelligence and veterinary services platform built specifically for Maharashtra. "
         "This project falls under the national thrust areas of Digitization, Agriculture modernization, "
         "and Rural Development. Let me introduce our team...")
@@ -375,7 +375,7 @@ def slide_introduction(prs):
         "veterinary doctors - roughly 1 per 50,000 livestock. "
         "No existing platform combines agricultural market intelligence WITH veterinary services. "
         "E-NAM is pan-India with no ML. MSAMB is static data only. "
-        "This is the gap MANDIMITRA fills. As the DFD shows, our system interacts with farmers, "
+        "This is the gap FarmFriend fills. As the DFD shows, our system interacts with farmers, "
         "doctors, admins, and external data sources like Data.gov.in and NASA POWER.")
 
 
@@ -398,7 +398,7 @@ def slide_literature(prs):
         ("MSAMB Portal",  "No",  "No",  "No",  "Yes"),
         ("CropIn",        "Ltd", "Ltd", "No",  "No"),
         ("Kisan Suvidha", "No",  "No",  "No",  "No"),
-        ("MANDIMITRA",    "Yes", "Yes", "Yes", "Yes"),
+        ("FarmFriend",    "Yes", "Yes", "Yes", "Yes"),
     ]
 
     table_left = Inches(0.5)
@@ -423,21 +423,21 @@ def slide_literature(prs):
     for ri, (sys_name, *vals) in enumerate(systems):
         x = table_left
         row_top = table_top + Inches(0.57) + Inches(ri * 0.42)
-        is_mandimitra = sys_name == "MANDIMITRA"
-        bg = RGBColor(0xE8, 0xF5, 0xE9) if is_mandimitra else (LIGHT_GREY if ri % 2 == 0 else WHITE)
+        is_farmfriend = sys_name == "FarmFriend"
+        bg = RGBColor(0xE8, 0xF5, 0xE9) if is_farmfriend else (LIGHT_GREY if ri % 2 == 0 else WHITE)
 
         for ci, val in enumerate([sys_name] + list(vals)):
             shape = add_shape(slide, x, row_top, col_widths[ci], Inches(0.40), bg)
             p = shape.text_frame.paragraphs[0]
             p.text = val
             p.font.size = Pt(10)
-            p.font.bold = is_mandimitra
+            p.font.bold = is_farmfriend
             p.alignment = PP_ALIGN.CENTER
             if val == "Yes":
                 p.font.color.rgb = MEDIUM_GREEN
             elif val == "No":
                 p.font.color.rgb = RED
-            elif is_mandimitra:
+            elif is_farmfriend:
                 p.font.color.rgb = DARK_GREEN
             else:
                 p.font.color.rgb = DARK_GREY
@@ -470,7 +470,7 @@ def slide_literature(prs):
         "Our ML design was heavily influenced by recent NeurIPS and ICML papers. "
         "From NeuralCrop 2025, we adopted physics-informed features like GDD and VPD. "
         "From MT-CYP-Net, we used focal-loss inspired class weighting for handling imbalanced risk classes. "
-        "The comparative chart shows MANDIMITRA achieves R-squared 0.93 for price prediction "
+        "The comparative chart shows FarmFriend achieves R-squared 0.93 for price prediction "
         "and 87.4% crop risk accuracy - both competitive with or exceeding published results.")
 
 
@@ -598,7 +598,7 @@ def slide_scope(prs):
                        out_scope, font_size=12, color=DARK_GREY)
 
     add_speaker_notes(slide,
-        "The scope of MANDIMITRA is strictly limited to Maharashtra state. We enforce this "
+        "The scope of FarmFriend is strictly limited to Maharashtra state. We enforce this "
         "as a hard constraint in the data pipeline using the special 'filters[state.keyword]' "
         "parameter in the Data.gov.in API. This ensures zero contamination from other states. "
         "We cover all 36 districts with 400+ mandis. We support 3 user roles with distinct dashboards. "
@@ -781,7 +781,7 @@ def slide_design1(prs):
                      font_size=9, color=DARK_GREY, alignment=PP_ALIGN.CENTER)
 
     add_speaker_notes(slide,
-        "MANDIMITRA uses a three-tier architecture. The Presentation Layer is Next.js 14 with "
+        "FarmFriend uses a three-tier architecture. The Presentation Layer is Next.js 14 with "
         "server-side rendering, Tailwind CSS, and Framer Motion animations. The Application Layer "
         "has FastAPI with 2 main modules: auth.py and vet.py with 15 endpoints. ML models load "
         "from .joblib files. The Data Layer uses a dual-database strategy: Supabase PostgreSQL "
@@ -966,7 +966,7 @@ def slide_conclusion(prs):
                       Inches(7.0), Inches(6.6), Inches(5.8))
 
     add_speaker_notes(slide,
-        "In conclusion, MANDIMITRA successfully achieves all 6 objectives. We built a "
+        "In conclusion, FarmFriend successfully achieves all 6 objectives. We built a "
         "complete end-to-end system from data pipeline to web application. "
         "Our 3 key technical contributions are: applying physics-informed ML features to "
         "Maharashtra agriculture for the first time, using conformal prediction for farmer-facing "
@@ -1091,7 +1091,7 @@ def slide_thankyou(prs):
 # BUILD
 # ══════════════════════════════════════════════════════════════
 def main():
-    print("Building MANDIMITRA Capstone Presentation (.pptx)...")
+    print("Building FarmFriend Capstone Presentation (.pptx)...")
     print(f"  Output: {OUTPUT}")
 
     prs = Presentation()

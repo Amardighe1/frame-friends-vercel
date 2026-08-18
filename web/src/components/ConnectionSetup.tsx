@@ -6,46 +6,45 @@ import { apiUrl } from '@/lib/api-config';
 /**
  * ConnectionSetup — Checks whether the FastAPI backend is reachable.
  *
- * In a Capacitor static-export build, relative API URLs resolve to local HTML
- * files (not the backend). This component:
- *  1. Pings the /health endpoint
- *  2. Validates the response is actually JSON (not an HTML page)
- *  3. If unreachable OR returns HTML → shows a prompt for the server URL
+ * Production (Vercel / Capacitor APK):
+ *   - NEXT_PUBLIC_API_URL is set at build time → pings Render directly → never shows dev modal
  *
- * Works on both emulator and real devices regardless of Capacitor detection.
+ * Local dev (no NEXT_PUBLIC_API_URL, no saved URL):
+ *   - Pings relative /health (fails) → shows the IP input modal for local server setup
  */
+
+// True when built for Vercel / Capacitor production (URL baked in at build time)
+const IS_PRODUCTION_BUILD = !!process.env.NEXT_PUBLIC_API_URL;
+
 export function ConnectionSetup() {
-  const [checking, setChecking] = useState(true);
-  const [connected, setConnected] = useState(false);
-  const [showSetup, setShowSetup] = useState(false);
-  const [serverUrl, setServerUrl] = useState('http://');
+  const [showDevSetup, setShowDevSetup] = useState(false);
+  const [serverUrl, setServerUrl] = useState('http://localhost:10000');
   const [testError, setTestError] = useState('');
   const [testing, setTesting] = useState(false);
 
   useEffect(() => {
-    // If a server URL is already saved in localStorage, pre-fill it
-    const saved = localStorage.getItem('mandimitra_api_url');
+    // Restore any previously saved local dev URL
+    const saved = localStorage.getItem('farmfriend_api_url');
     if (saved) setServerUrl(saved);
 
-    // Always verify the backend is reachable — don't rely on Capacitor detection
+    // Always ping /health first — for production this is the Render URL, for local dev it's relative
     const healthUrl = apiUrl('/health');
 
-    // Ping the /health endpoint (proxied through Vercel rewrites on web).
-    fetch(healthUrl, { method: 'GET', signal: AbortSignal.timeout(5000) })
+    fetch(healthUrl, { method: 'GET', signal: AbortSignal.timeout(15000) })
       .then(async (r) => {
         const ct = r.headers.get('content-type') || '';
         if (r.ok && ct.includes('application/json')) {
-          // Backend is reachable and returning JSON — all good
-          setConnected(true);
+          // Backend reachable — never show any modal
+          setShowDevSetup(false);
         } else {
-          // Got HTML or error status — backend not reachable
-          setShowSetup(true);
+          // Got HTML or bad status — only show dev modal in local dev
+          if (!IS_PRODUCTION_BUILD) setShowDevSetup(true);
         }
       })
       .catch(() => {
-        setShowSetup(true);
-      })
-      .finally(() => setChecking(false));
+        // Network error — only prompt for IP in local dev, not in production
+        if (!IS_PRODUCTION_BUILD) setShowDevSetup(true);
+      });
   }, []);
 
   const handleTestAndSave = async () => {
@@ -68,11 +67,8 @@ export function ConnectionSetup() {
       if (!r.ok || !ct.includes('application/json')) {
         throw new Error(`Server returned non-JSON response (status ${r.status})`);
       }
-      // Save to localStorage — apiUrl() picks this up on every call
-      localStorage.setItem('mandimitra_api_url', url);
-      setConnected(true);
-      setShowSetup(false);
-      // Reload so all components pick up the new base URL
+      localStorage.setItem('farmfriend_api_url', url);
+      setShowDevSetup(false);
       window.location.reload();
     } catch (e: any) {
       setTestError(
@@ -88,12 +84,8 @@ export function ConnectionSetup() {
     }
   };
 
-  // While checking, don't render anything (fast — <5s)
-  if (checking) return null;
-  // Backend is confirmed reachable
-  if (connected) return null;
-  // No setup needed
-  if (!showSetup) return null;
+  // Only render the modal in local dev and only when the backend is unreachable
+  if (!showDevSetup) return null;
 
   return (
     <div className="fixed inset-0 z-[99999] bg-black/70 flex items-center justify-center p-4">
@@ -106,7 +98,7 @@ export function ConnectionSetup() {
           </div>
           <h2 className="text-xl font-bold text-slate-900">Connect to Server</h2>
           <p className="text-sm text-slate-500 mt-1">
-            Enter the IP address of the MANDIMITRA API server running on your computer.
+            Enter the IP address of the FarmFriend API server running on your computer.
           </p>
         </div>
 

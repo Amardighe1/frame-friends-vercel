@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - MSBTE Capstone Project Report (50-60 pages)
+FarmFriend - MSBTE Capstone Project Report (50-60 pages)
 =========================================================
 Exactly matches the MSBTE sample format:
   - Cover page: colored text, logo, MSBTE submission block
@@ -33,7 +33,7 @@ COLLEGE_LINE3 = "(polytechnic) Lohegaon, Pune, 47"
 COLLEGE_FULL  = "K.E. Society's Rajarambapu Institute of Technology polytechnic"
 DEPT_NAME     = "Artificial Intelligence and Machine Learning"
 YEAR          = "2025-2026"
-TITLE         = "MANDIMITRA"
+TITLE         = "FarmFriend"
 SUBTITLE_L1   = "MAHARASHTRA AGRICULTURAL MARKET INTELLIGENCE AND"
 SUBTITLE_L2   = "VETERINARY SERVICES PLATFORM"
 
@@ -333,7 +333,7 @@ def acknowledgement(story):
         "for his invaluable guidance, constant encouragement, and constructive suggestions "
         "throughout the development of this capstone project. His expertise in Artificial "
         "Intelligence and Machine Learning was instrumental in shaping our approach to "
-        "building MANDIMITRA.",
+        "building FarmFriend.",
 
         f"We are deeply thankful to <b>Mr. {HOD_NAME}</b>, Head of the Department of "
         f"{DEPT_NAME}, for providing the necessary laboratory facilities, technical "
@@ -380,7 +380,7 @@ def abstract(story):
                            S("absT", alignment=TA_CENTER, spaceAfter=24)))
 
     paras = [
-        "MANDIMITRA is a comprehensive agricultural market intelligence and veterinary "
+        "FarmFriend is a comprehensive agricultural market intelligence and veterinary "
         "services platform designed exclusively for Maharashtra state. The system addresses "
         "two critical challenges faced by over 1.5 crore Maharashtra farmers: unreliable "
         "commodity price information leading to estimated 15-25% revenue loss annually, and "
@@ -609,7 +609,7 @@ def chapter1(story):
     story.append(p(
         "The advent of digital technologies, machine learning, and open data initiatives "
         "by the Government of India (such as Data.gov.in) has created an opportunity to "
-        "bridge these information gaps. MANDIMITRA (literally 'Market Friend' in Marathi) "
+        "bridge these information gaps. FarmFriend (literally 'Market Friend' in Marathi) "
         "was conceived as a technology solution that combines agricultural market intelligence "
         "with veterinary services in a single platform, designed specifically for Maharashtra."
     ))
@@ -664,13 +664,13 @@ def chapter1(story):
     ))
     story.append(p(
         "No existing platform combines agricultural market intelligence with veterinary "
-        "services in a unified, Maharashtra-focused solution. MANDIMITRA addresses this gap "
+        "services in a unified, Maharashtra-focused solution. FarmFriend addresses this gap "
         "by providing a comprehensive platform that integrates data engineering, machine "
         "learning, and full-stack web development."
     ))
 
     story.append(h2("1.3 Objectives"))
-    story.append(p("The primary objectives of MANDIMITRA are:"))
+    story.append(p("The primary objectives of FarmFriend are:"))
     objs = [
         "Design and implement a production-quality data pipeline that ingests, validates, "
         "deduplicates, and processes 6.1+ million mandi price records from multiple sources "
@@ -704,7 +704,7 @@ def chapter1(story):
     story.append(h2("1.4 Scope of the Project"))
     img(story, "scope_diagram.png", "Figure 1.1: Project Scope - In-Scope vs Out-of-Scope")
     story.append(p(
-        "MANDIMITRA is strictly scoped to Maharashtra state. The hard constraint ensures that "
+        "FarmFriend is strictly scoped to Maharashtra state. The hard constraint ensures that "
         "all data ingestion, validation, and display is limited to Maharashtra's 36 districts. "
         "Any non-Maharashtra data is automatically dropped during pipeline processing. The "
         "platform serves three user roles:"
@@ -774,7 +774,7 @@ def chapter2(story):
         "agricultural information (prices, weather, disease identification), <b>no existing "
         "platform</b> provides: (a) Maharashtra-specific ML-based price forecasting, "
         "(b) crop risk advisory with physics-informed features, and (c) integrated veterinary "
-        "services with booking and emergency SOS capability. MANDIMITRA fills this critical gap."
+        "services with booking and emergency SOS capability. FarmFriend fills this critical gap."
     ))
 
     story.append(h2("2.2 Research Papers Referenced"))
@@ -801,12 +801,12 @@ def chapter2(story):
     story.append(h2("2.3 Comparative Analysis"))
     img(story, "lit_survey_comparison.png", "Figure 2.1: Comparative Performance Analysis with Existing Works")
     story.append(p(
-        "As shown in Figure 2.1, MANDIMITRA achieves superior performance in both price "
+        "As shown in Figure 2.1, FarmFriend achieves superior performance in both price "
         "prediction accuracy (R-squared = 0.93 for 1-day horizon) and risk classification "
         "accuracy (87.4%). The key differentiators that contribute to this performance are:"
     ))
     story.append(bullet(
-        "<b>Physics-Informed Feature Engineering:</b> Unlike generic ML approaches, MANDIMITRA "
+        "<b>Physics-Informed Feature Engineering:</b> Unlike generic ML approaches, FarmFriend "
         "incorporates domain-specific features: Growing Degree Days (GDD) for crop growth "
         "monitoring, Vapor Pressure Deficit (VPD) for evapotranspiration stress, and Drought "
         "Stress Index for water availability assessment."
@@ -824,10 +824,10 @@ def chapter2(story):
     story.append(h2("2.4 Gaps Identified"))
     story.append(p(
         "Based on the literature review and analysis of existing systems, the following "
-        "critical gaps were identified that MANDIMITRA addresses:"
+        "critical gaps were identified that FarmFriend addresses:"
     ))
     tbl(story,
-        ["Gap", "Description", "MANDIMITRA Solution"],
+        ["Gap", "Description", "FarmFriend Solution"],
         [
             ["No MH-specific\nML platform", "Existing platforms provide\ngeneric pan-India data\nwithout state-specific ML", "Dedicated Maharashtra pipeline\nwith 36-district coverage,\nMH-only hard constraint"],
             ["No price\nforecasting", "Current mandi portals\nshow only historical/\ncurrent prices", "5-horizon LightGBM\nforecasting with conformal\nprediction intervals"],
@@ -836,7 +836,7 @@ def chapter2(story):
             ["No uncertainty\nquantification", "ML predictions lack\nconfidence information", "Conformal prediction\nintervals at 80/90/95%\nconfidence levels"],
         ],
         widths=[75, 135, 165],
-        caption="Table 2.3: Gaps Identified and MANDIMITRA Solutions"
+        caption="Table 2.3: Gaps Identified and FarmFriend Solutions"
     )
     story.append(PageBreak())
 
@@ -849,7 +849,7 @@ def chapter3(story):
 
     story.append(h2("3.1 System Architecture"))
     story.append(p(
-        "MANDIMITRA follows a <b>three-tier architecture</b> that separates concerns across "
+        "FarmFriend follows a <b>three-tier architecture</b> that separates concerns across "
         "Presentation, Application, and Data layers. This modular design enables independent "
         "development, testing, and deployment of each layer."
     ))
@@ -878,7 +878,7 @@ def chapter3(story):
     story.append(h2("3.2 Data Flow Diagram"))
     img(story, "dfd_level0.png", "Figure 3.2: Data Flow Diagram - Level 0")
     story.append(p(
-        "The Level 0 Data Flow Diagram shows MANDIMITRA as a central system interacting with "
+        "The Level 0 Data Flow Diagram shows FarmFriend as a central system interacting with "
         "five external entities. Farmers submit booking requests and emergency SOS alerts and "
         "receive price information, risk advisories, and booking confirmations. Veterinary "
         "doctors receive emergency broadcasts and booking notifications, and update case "
@@ -1248,7 +1248,7 @@ def chapter5(story):
         "requires <b>filters[state.keyword]</b> for exact string matching. The simpler "
         "<b>filters[state]</b> performs fuzzy/partial matching, which can return records "
         "from other states (e.g., 'Madhya Pradesh' matches when filtering for 'Maharashtra'). "
-        "All MANDIMITRA scripts enforce the keyword filter to maintain data integrity."
+        "All FarmFriend scripts enforce the keyword filter to maintain data integrity."
     ))
     story.append(code(
         "# CORRECT - exact matching (Maharashtra ONLY)\n"
@@ -1343,7 +1343,7 @@ def chapter5(story):
 
     story.append(h3("5.4.1 Conformal Prediction Intervals"))
     story.append(p(
-        "A key innovation in MANDIMITRA is the use of <b>residual-based conformal prediction</b> "
+        "A key innovation in FarmFriend is the use of <b>residual-based conformal prediction</b> "
         "to provide calibrated uncertainty estimates for price forecasts. This is critical "
         "because farmers need to know not just the predicted price, but how reliable that "
         "prediction is."
@@ -1692,7 +1692,7 @@ def chapter7(story):
     story.append(h2("7.4 System Performance"))
     story.append(p(
         "End-to-end system performance was measured across key user workflows. The results "
-        "confirm that MANDIMITRA meets all non-functional performance requirements:"
+        "confirm that FarmFriend meets all non-functional performance requirements:"
     ))
     story.append(bullet("<b>Frontend:</b> Landing page loads in 1.8 seconds (target: <3s). Dashboard pages render in under 2 seconds with tab-based lazy loading."))
     story.append(bullet("<b>Backend API:</b> Average response time of 150ms for read operations and 210ms for write operations (target: <500ms)."))
@@ -1710,7 +1710,7 @@ def chapter8(story):
 
     story.append(h2("8.1 Project Cost Estimation"))
     story.append(p(
-        "MANDIMITRA is built primarily using open-source and free-tier services, minimizing "
+        "FarmFriend is built primarily using open-source and free-tier services, minimizing "
         "the financial cost while maintaining production quality:"
     ))
     tbl(story,
@@ -1735,7 +1735,7 @@ def chapter8(story):
 
     story.append(h2("8.2 Future Enhancements"))
     story.append(p(
-        "While MANDIMITRA provides a comprehensive solution in its current form, several "
+        "While FarmFriend provides a comprehensive solution in its current form, several "
         "enhancements are planned for future development phases:"
     ))
 
@@ -1807,7 +1807,7 @@ def chapter9(story):
     story.append(h1("Chapter 9: Conclusion"))
 
     story.append(p(
-        "MANDIMITRA successfully demonstrates that a comprehensive, Maharashtra-focused "
+        "FarmFriend successfully demonstrates that a comprehensive, Maharashtra-focused "
         "agricultural intelligence platform can be built by combining modern data engineering "
         "practices with machine learning and full-stack web development. The project achieves "
         "all six stated objectives, as summarized below."
@@ -1856,7 +1856,7 @@ def chapter9(story):
 
     story.append(h2("9.2 Technical Contributions"))
     story.append(p(
-        "The key technical contributions of MANDIMITRA that advance the state of practice "
+        "The key technical contributions of FarmFriend that advance the state of practice "
         "in agricultural technology are:"
     ))
     story.append(bullet(
@@ -1872,7 +1872,7 @@ def chapter9(story):
         "more informed decision-making."
     ))
     story.append(bullet(
-        "<b>Unified Agri-Vet Platform:</b> MANDIMITRA is the first platform to combine "
+        "<b>Unified Agri-Vet Platform:</b> FarmFriend is the first platform to combine "
         "agricultural market intelligence (prices, risk advisory, forecasting) with "
         "veterinary services (verification, booking, emergency SOS) in a single application "
         "designed for Maharashtra farmers."
@@ -1887,7 +1887,7 @@ def chapter9(story):
     img(story, "deployment_architecture.png",
         "Figure 9.1: Production Deployment Architecture")
     story.append(p(
-        "MANDIMITRA is designed for production deployment with the architecture shown in "
+        "FarmFriend is designed for production deployment with the architecture shown in "
         "Figure 9.1. The frontend can be deployed to Vercel (free tier) as a static export. "
         "The FastAPI backend runs on a Python server (VPS or cloud instance). Supabase "
         "handles authentication, database, and file storage as a managed service. ML model "
@@ -1896,12 +1896,12 @@ def chapter9(story):
 
     story.append(h2("9.4 Final Remarks"))
     story.append(p(
-        "MANDIMITRA demonstrates that it is feasible to build a comprehensive agricultural "
+        "FarmFriend demonstrates that it is feasible to build a comprehensive agricultural "
         "intelligence platform using entirely open-source tools and free-tier cloud services, "
         "making it financially accessible for deployment in developing regions. The modular "
         "architecture ensures independent scaling and maintenance of each component. With "
         "the identified future enhancements (mobile app, Marathi language, advanced ML "
-        "models), MANDIMITRA has the potential to serve as a model for state-specific "
+        "models), FarmFriend has the potential to serve as a model for state-specific "
         "agricultural intelligence systems across India, ultimately improving the "
         "livelihoods of millions of farmers."
     ))
@@ -1985,7 +1985,7 @@ def appendices(story):
 
     story.append(h2("Appendix A: Project Directory Structure"))
     story.append(code(
-        "mandimitra/\n"
+        "farmfriend/\n"
         "  configs/\n"
         "    project.yaml\n"
         "    data_sources.yaml\n"
@@ -2097,7 +2097,7 @@ def appendices(story):
     story.append(h3("D.1 project.yaml (excerpt)"))
     story.append(code(
         "project:\n"
-        "  name: mandimitra\n"
+        "  name: farmfriend\n"
         "  version: 1.0.0\n\n"
         "maharashtra:\n"
         "  state_name: Maharashtra\n"
@@ -2121,7 +2121,7 @@ def appendices(story):
 # BUILD
 # ══════════════════════════════════════════════════════════════
 def main():
-    print("Building MANDIMITRA MSBTE Report (50-60 pages)...")
+    print("Building FarmFriend MSBTE Report (50-60 pages)...")
     print(f"  Output: {OUTPUT}")
     print(f"  Logo: {LOGO} (exists={LOGO.exists()})")
 
@@ -2132,7 +2132,7 @@ def main():
         bottomMargin=60,
         leftMargin=55,
         rightMargin=55,
-        title="MANDIMITRA - MSBTE Capstone Project Report",
+        title="FarmFriend - MSBTE Capstone Project Report",
         author=", ".join(s[0] for s in STUDENTS),
     )
 

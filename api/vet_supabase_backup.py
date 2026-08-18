@@ -1,5 +1,5 @@
 """
-MANDIMITRA - Veterinary Service Module
+FarmFriend - Veterinary Service Module
 =======================================
 Handles doctor verification, bookings, and emergency SOS system.
 Emergency requests are auto-assigned to the nearest verified doctor.
@@ -39,7 +39,7 @@ from pydantic import BaseModel, Field
 
 from api.auth import supabase_admin, _get_profile
 
-logger = logging.getLogger("mandimitra-vet")
+logger = logging.getLogger("farmfriend-vet")
 
 router = APIRouter(prefix="/api/vet", tags=["Veterinary Services"])
 

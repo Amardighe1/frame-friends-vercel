@@ -64,7 +64,7 @@ manifest = [{
 
 tfjs_model = {
     "format": "layers-model",
-    "generatedBy": "MANDIMITRA manual converter",
+    "generatedBy": "FarmFriend manual converter",
     "convertedBy": "manual_tfjs_convert.py",
     "modelTopology": model_config,
     "weightsManifest": manifest,

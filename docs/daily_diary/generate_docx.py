@@ -20,7 +20,7 @@ STUDENTS = [
             {  # Week 1
                 "week": 1,
                 "rows": [
-                    ("Monday",    "08/12/25", "Review of problem statement and project objective", "Clear understanding of MANDIMITRA scope and goals"),
+                    ("Monday",    "08/12/25", "Review of problem statement and project objective", "Clear understanding of FarmFriend scope and goals"),
                     ("Tuesday",   "09/12/25", "Study of AGMARKNET API documentation and data.gov.in portal", "API structure and data fields understood"),
                     ("Wednesday", "10/12/25", "Literature survey on data pipeline architectures for agricultural data", "Knowledge of ETL patterns for large-scale data gained"),
                     ("Thursday",  "11/12/25", "Analysis of existing agricultural data platforms and their limitations", "Performance gaps and feature gaps identified"),
@@ -147,7 +147,7 @@ STUDENTS = [
             {
                 "week": 1,
                 "rows": [
-                    ("Monday",    "08/12/25", "Review of problem statement and project objective", "Clear understanding of MANDIMITRA AI requirements"),
+                    ("Monday",    "08/12/25", "Review of problem statement and project objective", "Clear understanding of FarmFriend AI requirements"),
                     ("Tuesday",   "09/12/25", "Study of previously implemented ML models in agriculture", "Individual model roles and architectures understood"),
                     ("Wednesday", "10/12/25", "Literature survey on ensemble and hybrid models (MT-CYP-Net, NeuralCrop)", "Knowledge of hybrid ML techniques for agriculture gained"),
                     ("Thursday",  "11/12/25", "Analysis of model performance metrics — precision, recall, F1, AUC", "Performance evaluation criteria for all models identified"),
@@ -277,7 +277,7 @@ STUDENTS = [
                     ("Monday",    "08/12/25", "Review of problem statement and project objective", "Clear understanding of user-facing features required"),
                     ("Tuesday",   "09/12/25", "Study of existing agricultural apps and farmer-facing platforms", "UX patterns and usability gaps in current apps identified"),
                     ("Wednesday", "10/12/25", "Literature survey on mobile-first design for rural users", "Low-literacy UI principles and accessibility standards studied"),
-                    ("Thursday",  "11/12/25", "Analysis of MANDIMITRA feature requirements for frontend", "Dashboard, price view, disease scan, vet services scoped"),
+                    ("Thursday",  "11/12/25", "Analysis of FarmFriend feature requirements for frontend", "Dashboard, price view, disease scan, vet services scoped"),
                     ("Friday",    "12/12/25", "Environment setup — Node.js, React, Flutter SDK, VS Code extensions", "Frontend and mobile dev environments configured"),
                 ],
             },
@@ -295,7 +295,7 @@ STUDENTS = [
                 "week": 3,
                 "rows": [
                     ("Monday",    "22/12/25", "Implementation of responsive navigation bar and sidebar", "Navigation component with mobile hamburger menu working"),
-                    ("Tuesday",   "23/12/25", "Homepage development — hero section, feature cards, CTA buttons", "Landing page with MANDIMITRA branding and feature overview"),
+                    ("Tuesday",   "23/12/25", "Homepage development — hero section, feature cards, CTA buttons", "Landing page with FarmFriend branding and feature overview"),
                     ("Wednesday", "24/12/25", "Dashboard layout — grid system for price cards and chart areas", "Responsive grid layout adapting to mobile/tablet/desktop"),
                     ("Thursday",  "25/12/25", "Implementation of Supabase authentication UI — login/signup forms", "User registration and login forms with validation working"),
                     ("Friday",    "26/12/25", "Auth state management — protected routes and session handling", "Authenticated routing with Supabase JWT integration done"),
@@ -365,7 +365,7 @@ STUDENTS = [
                 "week": 10,
                 "rows": [
                     ("Monday",    "09/02/26", "Web app deployment — build optimization and static hosting", "Production build deployed with optimized bundle size"),
-                    ("Tuesday",   "10/02/26", "Mobile APK build — release signing and APK generation", "mandimitra-release.apk built and signed for distribution"),
+                    ("Tuesday",   "10/02/26", "Mobile APK build — release signing and APK generation", "farmfriend-release.apk built and signed for distribution"),
                     ("Wednesday", "11/02/26", "Cross-browser testing — Chrome, Firefox, Safari, Edge", "All features working consistently across browsers"),
                     ("Thursday",  "12/02/26", "Mobile device testing — Android phones and tablets", "APK tested on 5+ Android devices with different screen sizes"),
                     ("Friday",    "13/02/26", "UI bug fixes from user testing feedback", "All visual and interaction bugs resolved"),
@@ -401,7 +401,7 @@ STUDENTS = [
             {
                 "week": 1,
                 "rows": [
-                    ("Monday",    "08/12/25", "Review of problem statement and project objective", "Clear understanding of MANDIMITRA quality and delivery goals"),
+                    ("Monday",    "08/12/25", "Review of problem statement and project objective", "Clear understanding of FarmFriend quality and delivery goals"),
                     ("Tuesday",   "09/12/25", "Study of software testing methodologies for ML-based projects", "Unit, integration, and system testing approaches understood"),
                     ("Wednesday", "10/12/25", "Literature survey on CI/CD and deployment for Python applications", "Knowledge of Docker, Render, and cloud deployment gained"),
                     ("Thursday",  "11/12/25", "Analysis of documentation standards for MSBTE capstone projects", "Report format, chapter structure, and submission norms identified"),
@@ -411,7 +411,7 @@ STUDENTS = [
             {
                 "week": 2,
                 "rows": [
-                    ("Monday",    "15/12/25", "Design of test plan for MANDIMITRA — scope, categories, priorities", "Comprehensive test plan document with 50+ test cases drafted"),
+                    ("Monday",    "15/12/25", "Design of test plan for FarmFriend — scope, categories, priorities", "Comprehensive test plan document with 50+ test cases drafted"),
                     ("Tuesday",   "16/12/25", "Study of project.yaml and data_sources.yaml for config validation", "Configuration file schemas and valid ranges documented"),
                     ("Wednesday", "17/12/25", "Setup of project Git repository — branching strategy and .gitignore", "Git workflow with feature branches and review process established"),
                     ("Thursday",  "18/12/25", "Initial README.md structure — sections, badges, and quick start guide", "README skeleton with all required sections outlined"),

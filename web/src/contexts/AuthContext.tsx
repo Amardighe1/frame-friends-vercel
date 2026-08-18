@@ -150,18 +150,23 @@ async function apiFetch(path: string, body: object, retries = 2) {
 // ---------------------------------------------------------------------------
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  // ── Client-side init from localStorage ──────────────────────────────────
+  // Initialize to null to match Server-Side Rendering (SSR) and prevent hydration errors.
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
-  // Validate stored token on mount
+  // Background token validation on mount
   useEffect(() => {
     const stored = getStoredUser();
+    setUser(stored);
+    
+    // We have initialized from localStorage, so we are no longer loading
+    setLoading(false);
+
     const token = getToken();
     if (stored && token) {
-      // Quick hydrate from cache
-      setUser(stored);
-      // Background validate - gracefully handle missing backend
+      // Silently validate token against the server without blocking UI
       fetch(apiUrl('/api/auth/me'), {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -171,19 +176,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setUser(data.user);
             localStorage.setItem(USER_KEY, JSON.stringify(data.user));
           } else if (data === null) {
-            // Token invalid, clear session
+            // Token invalid — clear session and go to login
             clearSession();
             setUser(null);
           }
-          // If data is undefined (network error), keep cached user
+          // If data is undefined (network error), keep cached user silently
         })
-        .catch((err) => {
-          // Network error or backend unavailable - keep cached user
-          console.warn('[Auth] Backend unavailable, using cached session:', err.message);
-        })
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
+        .catch(() => {
+          // Backend unavailable — keep cached session, no disruption
+        });
     }
   }, []);
 

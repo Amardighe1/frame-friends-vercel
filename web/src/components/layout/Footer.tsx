@@ -5,7 +5,6 @@ import { Leaf, Twitter, Github, Linkedin, Mail, Phone, MapPin } from 'lucide-rea
 
 const footerLinks = {
   products: [
-    { name: 'पीक जोखीम सल्लागार', href: '/crop-risk' },
     { name: 'भाव बुद्धिमत्ता', href: '/price-forecast' },
     { name: 'हवामान माहिती', href: '/weather' },
     { name: 'बाजार विश्लेषण', href: '/markets' },
@@ -41,7 +40,7 @@ export function Footer() {
               <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
                 <Leaf className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-white">MANDIMITRA</span>
+              <span className="text-xl font-bold text-white">FarmFriend</span>
             </Link>
             <p className="text-slate-400 mb-6 max-w-sm">
               भारतीय शेतकऱ्यांना AI-आधारित शेती बुद्धिमत्तेच्या माध्यमातून हुशार आणि 
@@ -108,8 +107,8 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-emerald-500" />
-                <a href="mailto:support@mandimitra.in" className="hover:text-emerald-400 transition-colors break-all sm:break-normal text-sm">
-                  support@mandimitra.in
+                <a href="mailto:support@farmfriend.in" className="hover:text-emerald-400 transition-colors break-all sm:break-normal text-sm">
+                  support@farmfriend.in
                 </a>
               </li>
               <li className="flex items-center">
@@ -132,7 +131,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-slate-500">
-                            © 2026 मंडीमित्र. सर्व हक्क राखीव. भारतीय शेतकऱ्यांसाठी ❤️ने बनवले
+                            © 2026 FarmFriend. सर्व हक्क राखीव. भारतीय शेतकऱ्यांसाठी ❤️ने बनवले
             </p>
             <div className="flex flex-wrap justify-center md:justify-end gap-4 sm:gap-6">
               {footerLinks.legal.map((link) => (

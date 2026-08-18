@@ -1,5 +1,5 @@
 """
-MANDIMITRA — Crop Disease Detection API
+FarmFriend — Crop Disease Detection API
 ========================================
 POST /api/crop-disease/analyze   Upload crop image → classification + advice
 GET  /api/crop-disease/classes   List supported crops and diseases
@@ -25,7 +25,7 @@ from PIL import Image
 
 load_dotenv()
 
-logger = logging.getLogger("mandimitra-api")
+logger = logging.getLogger("farmfriend-api")
 
 router = APIRouter(prefix="/api/crop-disease", tags=["Crop Disease Detection"])
 

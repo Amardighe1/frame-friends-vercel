@@ -1,5 +1,5 @@
 """
-HTTP utilities for MANDIMITRA data pipeline.
+HTTP utilities for FarmFriend data pipeline.
 Provides robust HTTP client with retries, backoff, and error handling.
 """
 

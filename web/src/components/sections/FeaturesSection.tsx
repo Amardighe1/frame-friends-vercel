@@ -1,16 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Shield, TrendingUp, Cloud, BarChart3, Zap, Globe } from 'lucide-react';
+import { useRef, useEffect } from 'react';
 
 const features = [
-  {
-    icon: Shield,
-    title: 'पीक जोखीम मूल्यांकन',
-    description: 'हवामान, वाढीचे टप्पे आणि ऐतिहासिक माहितीवर आधारित AI-आधारित जोखीम विश्लेषण. कीटक, रोग आणि प्रतिकूल हवामानाची आगाऊ सूचना मिळवा.',
-    color: 'emerald',
-    gradient: 'from-emerald-500 to-emerald-600',
-  },
   {
     icon: TrendingUp,
     title: 'भाव बुद्धिमत्ता',
@@ -57,17 +50,36 @@ const colorClasses: Record<string, string> = {
   teal: 'bg-teal-100 text-teal-600 group-hover:bg-teal-500',
 };
 
+// Lightweight IntersectionObserver fade-in hook — replaces framer-motion whileInView
+function useFadeInOnScroll(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('scroll-visible');
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [ref]);
+}
+
 export function FeaturesSection() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  useFadeInOnScroll(headerRef);
+  useFadeInOnScroll(gridRef);
+
   return (
     <section id="features" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div ref={headerRef} className="text-center mb-16 scroll-fade">
           <span className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-4">
             वैशिष्ट्ये
           </span>
@@ -77,20 +89,16 @@ export function FeaturesSection() {
             <span className="text-gradient">सर्व काही</span>
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            भारतीय शेतकऱ्यांसाठी खास तयार केलेली संपूर्ण शेती बुद्धिमत्ता साधने, 
+            भारतीय शेतकऱ्यांसाठी खास तयार केलेली संपूर्ण शेती बुद्धिमत्ता साधने,
             अत्याधुनिक AI आणि रिअल-टाइम माहितीद्वारे संचालित.
           </p>
-        </motion.div>
+        </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
+        <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 scroll-fade">
+          {features.map((feature) => (
+            <div
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="group relative bg-white rounded-2xl p-6 sm:p-8 border border-slate-100 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-300"
             >
               {/* Icon */}
@@ -102,13 +110,11 @@ export function FeaturesSection() {
               <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
                 {feature.title}
               </h3>
-              <p className="text-slate-600 leading-relaxed">
-                {feature.description}
-              </p>
+              <p className="text-slate-600 leading-relaxed">{feature.description}</p>
 
               {/* Hover Gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`} />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

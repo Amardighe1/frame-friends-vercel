@@ -1,5 +1,5 @@
 """
-MANDIMITRA Schemas Package
+FarmFriend Schemas Package
 
 Pandera schemas for data validation:
 - mandi.py: Mandi price data schemas

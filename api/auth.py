@@ -1,5 +1,5 @@
 """
-MANDIMITRA - Authentication Module (MongoDB + JWT)
+FarmFriend - Authentication Module (MongoDB + JWT)
 ====================================================
 All auth handled server-side via MongoDB + JWT tokens.
 Frontend NEVER talks to the database directly.
@@ -37,12 +37,12 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(PROJECT_ROOT / ".env")
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("mandimitra-auth")
+logger = logging.getLogger("farmfriend-auth")
 
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-JWT_SECRET = os.getenv("JWT_SECRET", "mandimitra-jwt-secret-2025-xK9pL3mQ7vR1wZ4y")
+JWT_SECRET = os.getenv("JWT_SECRET", "farmfriend-jwt-secret-2025-xK9pL3mQ7vR1wZ4y")
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRY_HOURS = 24 * 7  # 7 days
 

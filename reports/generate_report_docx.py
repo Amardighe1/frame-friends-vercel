@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - MSBTE Capstone Project Report (.docx Word Document)
+FarmFriend - MSBTE Capstone Project Report (.docx Word Document)
 ================================================================
 Generates a 50-60 page Word document matching the MSBTE sample format.
 Same content as the PDF version but in editable .docx format.
@@ -29,7 +29,7 @@ COLLEGE_LINE3 = "(polytechnic) Lohegaon, Pune, 47"
 COLLEGE_FULL  = "K.E. Society's Rajarambapu Institute of Technology polytechnic"
 DEPT_NAME     = "Artificial Intelligence and Machine Learning"
 YEAR          = "2025-2026"
-TITLE         = "MANDIMITRA"
+TITLE         = "FarmFriend"
 SUBTITLE_L1   = "MAHARASHTRA AGRICULTURAL MARKET INTELLIGENCE AND"
 SUBTITLE_L2   = "VETERINARY SERVICES PLATFORM"
 
@@ -364,7 +364,7 @@ def acknowledgement_page(doc):
         "for his invaluable guidance, constant encouragement, and constructive suggestions "
         "throughout the development of this capstone project. His expertise in Artificial "
         "Intelligence and Machine Learning was instrumental in shaping our approach to "
-        "building MANDIMITRA.",
+        "building FarmFriend.",
 
         f"We are deeply thankful to Mr. {HOD_NAME}, Head of the Department of "
         f"{DEPT_NAME}, for providing the necessary laboratory facilities, technical "
@@ -416,7 +416,7 @@ def abstract_page(doc):
     centered_para(doc, "ABSTRACT", BLACK, True, 16, 24)
 
     paras = [
-        "MANDIMITRA is a comprehensive agricultural market intelligence and veterinary "
+        "FarmFriend is a comprehensive agricultural market intelligence and veterinary "
         "services platform designed exclusively for Maharashtra state. The system addresses "
         "two critical challenges faced by over 1.5 crore Maharashtra farmers: unreliable "
         "commodity price information leading to estimated 15-25% revenue loss annually, and "
@@ -666,7 +666,7 @@ def chapter1(doc):
     body_para(doc,
         "The advent of digital technologies, machine learning, and open data initiatives "
         "by the Government of India (such as Data.gov.in) has created an opportunity to "
-        "bridge these information gaps. MANDIMITRA (literally 'Market Friend' in Marathi) "
+        "bridge these information gaps. FarmFriend (literally 'Market Friend' in Marathi) "
         "was conceived as a technology solution that combines agricultural market intelligence "
         "with veterinary services in a single platform, designed specifically for Maharashtra.")
 
@@ -694,12 +694,12 @@ def chapter1(doc):
     add_bullet(doc, "Economic Impact: Preventable livestock losses are valued at thousands of crores annually across Maharashtra.")
     body_para(doc,
         "No existing platform combines agricultural market intelligence with veterinary "
-        "services in a unified, Maharashtra-focused solution. MANDIMITRA addresses this gap "
+        "services in a unified, Maharashtra-focused solution. FarmFriend addresses this gap "
         "by providing a comprehensive platform that integrates data engineering, machine "
         "learning, and full-stack web development.")
 
     add_heading_styled(doc, "1.3 Objectives", 2)
-    body_para(doc, "The primary objectives of MANDIMITRA are:")
+    body_para(doc, "The primary objectives of FarmFriend are:")
     objs = [
         "Objective 1: Design and implement a production-quality data pipeline that ingests, validates, deduplicates, and processes 6.1+ million mandi price records from multiple sources (AGMARKNET via Data.gov.in API, Kaggle historical datasets) with strict Maharashtra-only filtering using the critical filters[state.keyword] parameter for exact matching.",
         "Objective 2: Integrate weather data from NASA POWER (10-year daily historical: precipitation, temperature, relative humidity) and Open-Meteo (16-day forecasts) for all 36 Maharashtra district headquarters, creating ML-ready joined datasets.",
@@ -714,7 +714,7 @@ def chapter1(doc):
     add_heading_styled(doc, "1.4 Scope of the Project", 2)
     add_image(doc, "scope_diagram.png", "Figure 1.1: Project Scope - In-Scope vs Out-of-Scope")
     body_para(doc,
-        "MANDIMITRA is strictly scoped to Maharashtra state. The hard constraint ensures that "
+        "FarmFriend is strictly scoped to Maharashtra state. The hard constraint ensures that "
         "all data ingestion, validation, and display is limited to Maharashtra's 36 districts. "
         "Any non-Maharashtra data is automatically dropped during pipeline processing. The "
         "platform serves three user roles:")
@@ -773,7 +773,7 @@ def chapter2(doc):
         "agricultural information (prices, weather, disease identification), no existing "
         "platform provides: (a) Maharashtra-specific ML-based price forecasting, "
         "(b) crop risk advisory with physics-informed features, and (c) integrated veterinary "
-        "services with booking and emergency SOS capability. MANDIMITRA fills this critical gap.")
+        "services with booking and emergency SOS capability. FarmFriend fills this critical gap.")
 
     add_heading_styled(doc, "2.2 Research Papers Referenced", 2)
     body_para(doc,
@@ -796,19 +796,19 @@ def chapter2(doc):
     add_heading_styled(doc, "2.3 Comparative Analysis", 2)
     add_image(doc, "lit_survey_comparison.png", "Figure 2.1: Comparative Performance Analysis with Existing Works")
     body_para(doc,
-        "As shown in Figure 2.1, MANDIMITRA achieves superior performance in both price "
+        "As shown in Figure 2.1, FarmFriend achieves superior performance in both price "
         "prediction accuracy (R-squared = 0.93 for 1-day horizon) and risk classification "
         "accuracy (87.4%). The key differentiators that contribute to this performance are:")
-    add_bullet(doc, "Physics-Informed Feature Engineering: Unlike generic ML approaches, MANDIMITRA incorporates domain-specific features: Growing Degree Days (GDD) for crop growth monitoring, Vapor Pressure Deficit (VPD) for evapotranspiration stress, and Drought Stress Index for water availability assessment.")
+    add_bullet(doc, "Physics-Informed Feature Engineering: Unlike generic ML approaches, FarmFriend incorporates domain-specific features: Growing Degree Days (GDD) for crop growth monitoring, Vapor Pressure Deficit (VPD) for evapotranspiration stress, and Drought Stress Index for water availability assessment.")
     add_bullet(doc, "Conformal Prediction Intervals: The Price Intelligence Engine provides calibrated uncertainty estimates, allowing farmers to understand the reliability of price forecasts - a feature absent in all existing platforms.")
     add_bullet(doc, "Integrated Veterinary Services: No agricultural intelligence platform currently combines market analytics with veterinary booking and emergency SOS.")
 
     add_heading_styled(doc, "2.4 Gaps Identified", 2)
     body_para(doc,
         "Based on the literature review and analysis of existing systems, the following "
-        "critical gaps were identified that MANDIMITRA addresses:")
+        "critical gaps were identified that FarmFriend addresses:")
     add_table(doc,
-        ["Gap", "Description", "MANDIMITRA Solution"],
+        ["Gap", "Description", "FarmFriend Solution"],
         [
             ["No MH-specific ML platform", "Existing platforms provide generic pan-India data without state-specific ML", "Dedicated Maharashtra pipeline with 36-district coverage, MH-only hard constraint"],
             ["No price forecasting", "Current mandi portals show only historical/current prices", "5-horizon LightGBM forecasting with conformal prediction intervals"],
@@ -816,7 +816,7 @@ def chapter2(doc):
             ["No vet-agri integration", "Veterinary and agricultural services are separate systems", "Unified platform with booking, verification, emergency SOS"],
             ["No uncertainty quantification", "ML predictions lack confidence information", "Conformal prediction intervals at 80/90/95% confidence levels"],
         ],
-        caption="Table 2.3: Gaps Identified and MANDIMITRA Solutions")
+        caption="Table 2.3: Gaps Identified and FarmFriend Solutions")
     doc.add_page_break()
 
 
@@ -828,7 +828,7 @@ def chapter3(doc):
 
     add_heading_styled(doc, "3.1 System Architecture", 2)
     body_para(doc,
-        "MANDIMITRA follows a three-tier architecture that separates concerns across "
+        "FarmFriend follows a three-tier architecture that separates concerns across "
         "Presentation, Application, and Data layers. This modular design enables independent "
         "development, testing, and deployment of each layer.")
     add_image(doc, "system_architecture.png", "Figure 3.1: Three-Tier System Architecture")
@@ -853,7 +853,7 @@ def chapter3(doc):
     add_heading_styled(doc, "3.2 Data Flow Diagram", 2)
     add_image(doc, "dfd_level0.png", "Figure 3.2: Data Flow Diagram - Level 0")
     body_para(doc,
-        "The Level 0 Data Flow Diagram shows MANDIMITRA as a central system interacting with "
+        "The Level 0 Data Flow Diagram shows FarmFriend as a central system interacting with "
         "five external entities. Farmers submit booking requests and emergency SOS alerts and "
         "receive price information, risk advisories, and booking confirmations. Veterinary "
         "doctors receive emergency broadcasts and booking notifications, and update case "
@@ -1178,7 +1178,7 @@ def chapter5(doc):
         "requires filters[state.keyword] for exact string matching. The simpler "
         "filters[state] performs fuzzy/partial matching, which can return records "
         "from other states (e.g., 'Madhya Pradesh' matches when filtering for 'Maharashtra'). "
-        "All MANDIMITRA scripts enforce the keyword filter to maintain data integrity.")
+        "All FarmFriend scripts enforce the keyword filter to maintain data integrity.")
     add_code_block(doc,
         "# CORRECT - exact matching (Maharashtra ONLY)\n"
         "params = {'filters[state.keyword]': 'Maharashtra'}\n\n"
@@ -1262,7 +1262,7 @@ def chapter5(doc):
 
     add_heading_styled(doc, "5.4.1 Conformal Prediction Intervals", 3)
     body_para(doc,
-        "A key innovation in MANDIMITRA is the use of residual-based conformal prediction "
+        "A key innovation in FarmFriend is the use of residual-based conformal prediction "
         "to provide calibrated uncertainty estimates for price forecasts. This is critical "
         "because farmers need to know not just the predicted price, but how reliable that "
         "prediction is.")
@@ -1547,7 +1547,7 @@ def chapter7(doc):
     add_heading_styled(doc, "7.4 System Performance", 2)
     body_para(doc,
         "End-to-end system performance was measured across key user workflows. The results "
-        "confirm that MANDIMITRA meets all non-functional performance requirements:")
+        "confirm that FarmFriend meets all non-functional performance requirements:")
     add_bullet(doc, "Frontend: Landing page loads in 1.8 seconds (target: <3s). Dashboard pages render in under 2 seconds with tab-based lazy loading.")
     add_bullet(doc, "Backend API: Average response time of 150ms for read operations and 210ms for write operations (target: <500ms).")
     add_bullet(doc, "ML Inference: Crop risk prediction completes in 340ms. Full 5-horizon price forecast completes in 890ms.")
@@ -1564,7 +1564,7 @@ def chapter8(doc):
 
     add_heading_styled(doc, "8.1 Project Cost Estimation", 2)
     body_para(doc,
-        "MANDIMITRA is built primarily using open-source and free-tier services, minimizing "
+        "FarmFriend is built primarily using open-source and free-tier services, minimizing "
         "the financial cost while maintaining production quality:")
     add_table(doc,
         ["Component", "Service / Tool", "Cost", "Notes"],
@@ -1586,7 +1586,7 @@ def chapter8(doc):
 
     add_heading_styled(doc, "8.2 Future Enhancements", 2)
     body_para(doc,
-        "While MANDIMITRA provides a comprehensive solution in its current form, several "
+        "While FarmFriend provides a comprehensive solution in its current form, several "
         "enhancements are planned for future development phases:")
 
     add_heading_styled(doc, "8.2.1 High Priority (Phase 2)", 3)
@@ -1617,7 +1617,7 @@ def chapter9(doc):
     add_heading_styled(doc, "Chapter 9: Conclusion", 1)
 
     body_para(doc,
-        "MANDIMITRA successfully demonstrates that a comprehensive, Maharashtra-focused "
+        "FarmFriend successfully demonstrates that a comprehensive, Maharashtra-focused "
         "agricultural intelligence platform can be built by combining modern data engineering "
         "practices with machine learning and full-stack web development. The project achieves "
         "all six stated objectives, as summarized below.")
@@ -1632,17 +1632,17 @@ def chapter9(doc):
 
     add_heading_styled(doc, "9.2 Technical Contributions", 2)
     body_para(doc,
-        "The key technical contributions of MANDIMITRA that advance the state of practice "
+        "The key technical contributions of FarmFriend that advance the state of practice "
         "in agricultural technology are:")
     add_bullet(doc, "Physics-Informed ML for Agriculture: The integration of Growing Degree Days, Vapor Pressure Deficit, and Drought Stress Index into a tabular ML model, validated by feature importance analysis, demonstrates the value of domain knowledge in agricultural risk prediction.")
     add_bullet(doc, "Conformal Prediction for Farmers: Applying residual-based conformal prediction to agricultural price forecasting provides farmers with calibrated uncertainty estimates - a feature absent in all existing agricultural platforms.")
-    add_bullet(doc, "Unified Agri-Vet Platform: MANDIMITRA is the first platform to combine agricultural market intelligence (prices, risk advisory, forecasting) with veterinary services (verification, booking, emergency SOS) in a single application designed for Maharashtra farmers.")
+    add_bullet(doc, "Unified Agri-Vet Platform: FarmFriend is the first platform to combine agricultural market intelligence (prices, risk advisory, forecasting) with veterinary services (verification, booking, emergency SOS) in a single application designed for Maharashtra farmers.")
     add_bullet(doc, "Data Pipeline Engineering: The production-quality pipeline with adaptive rate limiting, chunked resumable downloads, DuckDB-based deduplication, and comprehensive audit reporting sets a standard for agricultural data engineering.")
 
     add_heading_styled(doc, "9.3 Deployment Architecture", 2)
     add_image(doc, "deployment_architecture.png", "Figure 9.1: Production Deployment Architecture")
     body_para(doc,
-        "MANDIMITRA is designed for production deployment with the architecture shown in "
+        "FarmFriend is designed for production deployment with the architecture shown in "
         "Figure 9.1. The frontend can be deployed to Vercel (free tier) as a static export. "
         "The FastAPI backend runs on a Python server (VPS or cloud instance). Supabase "
         "handles authentication, database, and file storage as a managed service. ML model "
@@ -1650,12 +1650,12 @@ def chapter9(doc):
 
     add_heading_styled(doc, "9.4 Final Remarks", 2)
     body_para(doc,
-        "MANDIMITRA demonstrates that it is feasible to build a comprehensive agricultural "
+        "FarmFriend demonstrates that it is feasible to build a comprehensive agricultural "
         "intelligence platform using entirely open-source tools and free-tier cloud services, "
         "making it financially accessible for deployment in developing regions. The modular "
         "architecture ensures independent scaling and maintenance of each component. With "
         "the identified future enhancements (mobile app, Marathi language, advanced ML "
-        "models), MANDIMITRA has the potential to serve as a model for state-specific "
+        "models), FarmFriend has the potential to serve as a model for state-specific "
         "agricultural intelligence systems across India, ultimately improving the "
         "livelihoods of millions of farmers.")
     doc.add_page_break()
@@ -1708,7 +1708,7 @@ def appendices_page(doc):
 
     add_heading_styled(doc, "Appendix A: Project Directory Structure", 2)
     add_code_block(doc,
-        "mandimitra/\n"
+        "farmfriend/\n"
         "  configs/\n"
         "    project.yaml\n"
         "    data_sources.yaml\n"
@@ -1814,7 +1814,7 @@ def appendices_page(doc):
     add_heading_styled(doc, "D.1 project.yaml (excerpt)", 3)
     add_code_block(doc,
         "project:\n"
-        "  name: mandimitra\n"
+        "  name: farmfriend\n"
         "  version: 1.0.0\n\n"
         "maharashtra:\n"
         "  state_name: Maharashtra\n"
@@ -1837,7 +1837,7 @@ def appendices_page(doc):
 # BUILD
 # ══════════════════════════════════════════════════════════════
 def main():
-    print("Building MANDIMITRA MSBTE Report (.docx Word Document)...")
+    print("Building FarmFriend MSBTE Report (.docx Word Document)...")
     print(f"  Output: {OUTPUT}")
     print(f"  Logo: {LOGO} (exists={LOGO.exists()})")
 

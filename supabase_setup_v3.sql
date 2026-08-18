@@ -1,5 +1,5 @@
 -- =============================================================================
--- MANDIMITRA - Emergency Proximity System Migration (v3)
+-- FarmFriend - Emergency Proximity System Migration (v3)
 -- =============================================================================
 -- Run this AFTER supabase_setup_v2.sql in Supabase Dashboard → SQL Editor
 -- =============================================================================

@@ -261,7 +261,7 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <span className="font-bold text-lg text-slate-900">अॅडमिन पॅनेल</span>
-                <span className="hidden sm:inline text-xs text-slate-400 ml-2">MANDIMITRA</span>
+                <span className="hidden sm:inline text-xs text-slate-400 ml-2">FarmFriend</span>
               </div>
             </Link>
             <div className="flex items-center gap-3">

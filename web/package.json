@@ -1,18 +1,23 @@
 {
-  "name": "mandimitra-web",
+  "name": "farmfriend-web",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NEXT_TELEMETRY_DISABLED=1 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "build:mobile:emulator": "cross-env CAPACITOR_BUILD=true NEXT_PUBLIC_API_URL=http://10.0.2.2:8000 next build",
+    "build:mobile:local": "cross-env CAPACITOR_BUILD=true CAPACITOR_LOCAL_BUILD=true NEXT_PUBLIC_API_URL=http://192.168.169.198:8000 next build",
     "build:mobile": "cross-env CAPACITOR_BUILD=true next build",
     "cap:sync": "npx cap sync android",
+    "cap:sync:local": "cross-env CAPACITOR_LOCAL_BUILD=true npx cap sync android",
     "cap:open": "npx cap open android",
     "mobile:emulator": "npm run build:mobile:emulator && npm run cap:sync",
-    "mobile": "npm run build:mobile && npm run cap:sync"
+    "mobile:local": "npm run build:mobile:local && npm run cap:sync:local",
+    "mobile": "npm run build:mobile && npm run cap:sync",
+    "apk:local:debug": "npm run mobile:local && cd android && gradlew.bat assembleDebug",
+    "apk:local:release": "npm run mobile:local && cd android && gradlew.bat assembleRelease"
   },
   "dependencies": {
     "@capacitor/android": "^8.1.0",

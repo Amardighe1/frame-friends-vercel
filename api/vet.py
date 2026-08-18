@@ -1,5 +1,5 @@
 ﻿"""
-MANDIMITRA - Veterinary Service Module (MongoDB)
+FarmFriend - Veterinary Service Module (MongoDB)
 ==================================================
 Handles doctor verification, bookings, and emergency SOS system.
 Emergency requests are auto-assigned to the nearest verified doctor.
@@ -42,7 +42,7 @@ from pydantic import BaseModel, Field
 from api.auth import _decode_token, _get_profile
 from api.database import get_db, utcnow
 
-logger = logging.getLogger("mandimitra-vet")
+logger = logging.getLogger("farmfriend-vet")
 
 router = APIRouter(prefix="/api/vet", tags=["Veterinary Services"])
 
@@ -429,7 +429,13 @@ async def doctor_emergency_cases(authorization: str = Header(None)):
     _require_role(user, "doctor")
 
     if user.get("verification_status") != "active":
-        raise HTTPException(403, "Your account is not yet verified")
+        # During onboarding, doctor dashboard still polls this endpoint.
+        # Return an empty list instead of 403 to keep the UI stable.
+        return {
+            "emergencies": [],
+            "verification_status": user.get("verification_status", "pending_verification"),
+            "message": "Doctor account is not yet verified",
+        }
 
     try:
         db = await get_db()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MANDIMITRA - Historical Mandi Data Import (Local File)
+FarmFriend - Historical Mandi Data Import (Local File)
 
 Imports historical mandi data from a local CSV/ZIP file provided by the user.
 Processes with chunked reading for memory safety and filters to Maharashtra-only.
@@ -197,7 +197,7 @@ def get_csv_files_from_path(
     
     if suffix == ".zip":
         # Extract to temp directory
-        temp_dir = Path(tempfile.mkdtemp(prefix="mandimitra_import_"))
+        temp_dir = Path(tempfile.mkdtemp(prefix="farmfriend_import_"))
         logger.info(f"Extracting ZIP to: {temp_dir}")
         
         with zipfile.ZipFile(input_path, 'r') as zf:
@@ -532,7 +532,7 @@ def main():
     audit = AuditLogger("mandi_history_import", PROJECT_ROOT / "logs", timestamp)
     
     logger.info("=" * 70)
-    logger.info("MANDIMITRA - Local Mandi Data Import")
+    logger.info("FarmFriend - Local Mandi Data Import")
     logger.info("=" * 70)
     
     try:
