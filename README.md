@@ -1,4 +1,4 @@
-# 🌾 MANDIMITRA - Maharashtra Agricultural Data Pipelinea.
+# 🌾 MANDIMITRA - Maharashtra Agricultural Data Pipelinea
 
 **Production-quality, competition-grade data pipeline for Mandi Price Intelligence + Rainfall/Crop-Risk Models**
 
