@@ -89,7 +89,7 @@ export function ConnectionSetup() {
 
   return (
     <div className="fixed inset-0 z-[99999] bg-black/70 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 space-y-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 space-y-4 box-border">
         <div className="text-center">
           <div className="w-14 h-14 mx-auto bg-emerald-100 rounded-full flex items-center justify-center mb-3">
             <svg className="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,7 +111,7 @@ export function ConnectionSetup() {
             value={serverUrl}
             onChange={(e) => setServerUrl(e.target.value)}
             placeholder="http://192.168.1.100:8000"
-            className="w-full px-4 py-3 border border-slate-300 rounded-xl text-base focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-slate-300 rounded-xl text-base focus:ring-2 focus:ring-emerald-500 focus:border-transparent box-border"
             autoCapitalize="off"
             autoCorrect="off"
           />
@@ -129,7 +129,7 @@ export function ConnectionSetup() {
         <button
           onClick={handleTestAndSave}
           disabled={testing || !serverUrl || serverUrl === 'http://' || serverUrl === 'https://'}
-          className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-semibold rounded-xl transition-colors text-sm flex items-center justify-center gap-2"
+          className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-semibold rounded-xl transition-colors text-sm flex items-center justify-center gap-2 box-border"
         >
           {testing ? (
             <>

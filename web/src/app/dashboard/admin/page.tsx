@@ -584,7 +584,7 @@ export default function AdminDashboard() {
             ) : (
               <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <table className="w-full box-border">
                     <thead className="bg-slate-50 border-b border-slate-100">
                       <tr>
                         <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">डॉक्टर</th>
@@ -676,7 +676,7 @@ export default function AdminDashboard() {
             ) : (
               <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <table className="w-full box-border">
                     <thead className="bg-slate-50 border-b border-slate-100">
                       <tr>
                         <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">शेतकरी</th>

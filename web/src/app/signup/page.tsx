@@ -122,7 +122,7 @@ export default function SignupPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md pb-8"
+        className="w-full max-w-md pb-8 box-border"
       >
         {/* Logo */}
         <div className="text-center mb-5">
@@ -192,7 +192,7 @@ export default function SignupPage() {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                 placeholder="तुमचे पूर्ण नाव टाका"
               />
             </div>
@@ -204,7 +204,7 @@ export default function SignupPage() {
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                 placeholder="१० अंकी मोबाईल नंबर"
                 pattern="[0-9]{10}"
               />
@@ -217,7 +217,7 @@ export default function SignupPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                 placeholder="you@example.com"
               />
             </div>
@@ -231,7 +231,7 @@ export default function SignupPage() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 pr-12"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 pr-12 box-border"
                   placeholder="किमान ६ अक्षरे"
                 />
                 <button
@@ -269,7 +269,7 @@ export default function SignupPage() {
                       required={role === 'doctor'}
                       value={vetLicense}
                       onChange={(e) => setVetLicense(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                       placeholder="e.g. MH/VET/2024/12345"
                     />
                   </div>
@@ -280,7 +280,7 @@ export default function SignupPage() {
                       type="text"
                       value={vetCollege}
                       onChange={(e) => setVetCollege(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                       placeholder="महाविद्यालय / विद्यापीठ नाव"
                     />
                   </div>
@@ -291,7 +291,7 @@ export default function SignupPage() {
                       <select
                         value={specialization}
                         onChange={(e) => setSpecialization(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 box-border"
                       >
                         <option value="">निवडा</option>
                         <option value="Large Animal">मोठे प्राणी</option>
@@ -310,7 +310,7 @@ export default function SignupPage() {
                         max="60"
                         value={experience}
                         onChange={(e) => setExperience(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 box-border"
                         placeholder="0"
                       />
                     </div>
@@ -379,7 +379,7 @@ export default function SignupPage() {
                       required={role === 'buyer'}
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                       placeholder="उदा. शर्मा ट्रेडिंग कंपनी"
                     />
                   </div>
@@ -392,7 +392,7 @@ export default function SignupPage() {
                       required={role === 'buyer'}
                       value={marketName}
                       onChange={(e) => setMarketName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 box-border"
                     >
                       <option value="">मंडी निवडा</option>
                       <option value="पुणे मंडी">पुणे मंडी</option>
@@ -421,7 +421,7 @@ export default function SignupPage() {
                       type="text"
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                       placeholder="उदा. पुणे"
                     />
                   </div>

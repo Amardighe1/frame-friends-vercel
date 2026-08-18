@@ -248,7 +248,7 @@ export default function BuyerDashboard() {
                   required
                   value={selectedMarket}
                   onChange={(e) => setSelectedMarket(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 box-border"
                 >
                   <option value="">मंडी निवडा</option>
                   {markets.map((m) => (
@@ -267,7 +267,7 @@ export default function BuyerDashboard() {
                   required
                   value={selectedCrop}
                   onChange={(e) => setSelectedCrop(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 box-border"
                 >
                   <option value="">पीक निवडा</option>
                   {crops.map((c) => (
@@ -293,7 +293,7 @@ export default function BuyerDashboard() {
                     step="0.01"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 text-lg font-semibold"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 text-lg font-semibold box-border"
                     placeholder="0.00"
                   />
                 </div>
@@ -302,7 +302,7 @@ export default function BuyerDashboard() {
               <button
                 type="submit"
                 disabled={submitting || !selectedCrop || !selectedMarket || !price}
-                className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-semibold rounded-xl shadow-lg shadow-purple-500/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-semibold rounded-xl shadow-lg shadow-purple-500/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50 box-border"
               >
                 {submitting ? (
                   <Loader2 className="w-5 h-5 animate-spin" />

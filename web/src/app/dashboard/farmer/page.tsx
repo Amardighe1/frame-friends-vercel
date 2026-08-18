@@ -317,7 +317,7 @@ export default function FarmerDashboard() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="नाव किंवा विशेषतेनुसार डॉक्टर शोधा..."
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                 />
               </div>
             </div>
@@ -377,7 +377,7 @@ export default function FarmerDashboard() {
                         setBookAnimal('');
                         setBookDesc('');
                       }}
-                      className="mt-4 w-full py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
+                      className="mt-4 w-full py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition-colors box-border"
                     >
                       अपॉइंटमेंट बुक करा
                     </button>
@@ -515,7 +515,7 @@ export default function FarmerDashboard() {
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-md max-h-[85dvh] overflow-y-auto"
+              className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-md max-h-[85dvh] overflow-y-auto box-border"
             >
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
@@ -544,7 +544,7 @@ export default function FarmerDashboard() {
                     min={todayStr}
                     value={bookDate}
                     onChange={(e) => setBookDate(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 box-border"
                     required
                   />
                 </div>
@@ -576,7 +576,7 @@ export default function FarmerDashboard() {
                   <select
                     value={bookAnimal}
                     onChange={(e) => setBookAnimal(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 box-border"
                   >
                     <option value="">प्राणी निवडा</option>
                     {ANIMAL_TYPES.map((a) => (
@@ -592,7 +592,7 @@ export default function FarmerDashboard() {
                     value={bookDesc}
                     onChange={(e) => setBookDesc(e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400 resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400 resize-none box-border"
                     placeholder="समस्येचे वर्णन करा..."
                   />
                 </div>
@@ -600,7 +600,7 @@ export default function FarmerDashboard() {
                 <button
                   onClick={handleBook}
                   disabled={bookLoading || !bookDate || !bookSlot}
-                  className="w-full py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 box-border"
                 >
                   {bookLoading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -632,7 +632,7 @@ export default function FarmerDashboard() {
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-md max-h-[85dvh] overflow-y-auto"
+              className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-md max-h-[85dvh] overflow-y-auto box-border"
             >
               <div className="p-5 sm:p-6 space-y-4">
                 <div className="flex items-center justify-between">
@@ -655,7 +655,7 @@ export default function FarmerDashboard() {
                   <select
                     value={sosAnimal}
                     onChange={(e) => setSosAnimal(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none transition-all text-slate-900"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none transition-all text-slate-900 box-border"
                     required
                   >
                     <option value="">प्राणी निवडा</option>
@@ -672,7 +672,7 @@ export default function FarmerDashboard() {
                     value={sosDesc}
                     onChange={(e) => setSosDesc(e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none transition-all text-slate-900 placeholder-slate-400 resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none transition-all text-slate-900 placeholder-slate-400 resize-none box-border"
                     placeholder="आपत्कालीन परिस्थितीचे वर्णन करा..."
                     required
                   />
@@ -685,7 +685,7 @@ export default function FarmerDashboard() {
                     type="text"
                     value={sosLocation}
                     onChange={(e) => setSosLocation(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                     placeholder="गाव / परिसराचे नाव"
                   />
                 </div>
@@ -693,7 +693,7 @@ export default function FarmerDashboard() {
                 <button
                   onClick={handleSOS}
                   disabled={sosLoading || !sosAnimal || !sosDesc}
-                  className="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-red-500/30"
+                  className="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-red-500/30 box-border"
                 >
                   {sosLoading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />

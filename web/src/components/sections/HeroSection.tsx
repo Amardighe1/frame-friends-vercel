@@ -63,14 +63,14 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link
                 href="/crop-analysis"
-                className="group inline-flex items-center justify-center px-6 sm:px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-semibold rounded-xl hover:from-emerald-700 hover:to-emerald-600 transition-all shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105 w-full sm:w-auto"
+                className="group inline-flex items-center justify-center px-6 sm:px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-semibold rounded-xl hover:from-emerald-700 hover:to-emerald-600 transition-all shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105 w-full sm:w-auto box-border"
               >
                 पीक तपासा
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/price-forecast"
-                className="group inline-flex items-center justify-center px-6 sm:px-8 py-4 bg-white text-slate-700 font-semibold rounded-xl border-2 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all hover:scale-105 w-full sm:w-auto"
+                className="group inline-flex items-center justify-center px-6 sm:px-8 py-4 bg-white text-slate-700 font-semibold rounded-xl border-2 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all hover:scale-105 w-full sm:w-auto box-border"
               >
                 <Play className="mr-2 w-5 h-5 text-emerald-500" />
                 भाव अंदाज पाहा

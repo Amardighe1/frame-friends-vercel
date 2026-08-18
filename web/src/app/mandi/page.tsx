@@ -179,7 +179,7 @@ export default function MandiPage() {
                 <select
                   value={selectedMarket}
                   onChange={(e) => { setSelectedMarket(e.target.value); setSearched(false); }}
-                  className="w-full appearance-none px-4 py-3.5 pr-10 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 font-medium"
+                  className="w-full appearance-none px-4 py-3.5 pr-10 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 font-medium box-border"
                 >
                   <option value="">मंडी निवडा...</option>
                   {markets.map((m) => (
@@ -200,7 +200,7 @@ export default function MandiPage() {
                 <select
                   value={selectedCrop}
                   onChange={(e) => { setSelectedCrop(e.target.value); setSearched(false); }}
-                  className="w-full appearance-none px-4 py-3.5 pr-10 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 font-medium"
+                  className="w-full appearance-none px-4 py-3.5 pr-10 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-slate-900 font-medium box-border"
                 >
                   <option value="">पीक निवडा...</option>
                   {crops.map((c) => (
@@ -218,7 +218,7 @@ export default function MandiPage() {
           <button
             onClick={searchBuyers}
             disabled={!selectedMarket || !selectedCrop || loading}
-            className="mt-6 w-full sm:w-auto sm:min-w-[240px] sm:mx-auto sm:flex py-3.5 px-8 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-bold rounded-xl shadow-lg shadow-purple-500/25 transition-all flex items-center justify-center gap-2.5 disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-purple-500/40 active:scale-[0.98]"
+            className="mt-6 w-full sm:w-auto sm:min-w-[240px] sm:mx-auto sm:flex py-3.5 px-8 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-bold rounded-xl shadow-lg shadow-purple-500/25 transition-all flex items-center justify-center gap-2.5 disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-purple-500/40 active:scale-[0.98] box-border"
           >
             {loading ? (
               <Loader2 className="w-5 h-5 animate-spin" />

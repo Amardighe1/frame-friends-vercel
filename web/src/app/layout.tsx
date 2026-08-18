@@ -47,11 +47,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="mr" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden w-full bg-slate-50 text-slate-900`}>
         <CapacitorInit />
         <ConnectionSetup />
         <Providers>
-          {children}
+          <main className="flex flex-col min-h-[100dvh] w-full max-w-[100vw] overflow-x-hidden pb-24 box-border">
+            {children}
+          </main>
           <BottomNav />
         </Providers>
       </body>

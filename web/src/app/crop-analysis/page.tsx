@@ -336,7 +336,7 @@ export default function CropAnalysisPage() {
                     <img
                       src={preview}
                       alt="पीक पूर्वावलोकन"
-                      className="w-full h-72 sm:h-80 object-cover rounded-2xl"
+                      className="w-full h-72 sm:h-80 object-cover rounded-2xl box-border"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-2xl transition-colors" />
                     <button
@@ -543,7 +543,7 @@ export default function CropAnalysisPage() {
               <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
                 <button
                   onClick={() => setShowDetails(!showDetails)}
-                  className="w-full flex items-center justify-between p-6 hover:bg-slate-50/50 transition-colors"
+                  className="w-full flex items-center justify-between p-6 hover:bg-slate-50/50 transition-colors box-border"
                 >
                   <h3 className="text-base font-bold text-slate-800 flex items-center gap-2.5">
                     <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">

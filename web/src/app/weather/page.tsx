@@ -204,7 +204,7 @@ export default function WeatherPage() {
           <div className="relative flex-1">
             <button
               onClick={() => setShowDistrictPicker(!showDistrictPicker)}
-              className="w-full flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition"
+              className="w-full flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition box-border"
             >
               <span className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-blue-400" />
@@ -219,7 +219,7 @@ export default function WeatherPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute z-50 top-full mt-2 w-full bg-slate-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden"
+                  className="absolute z-50 top-full mt-2 w-full bg-slate-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden box-border"
                 >
                   <div className="p-3 border-b border-white/10">
                     <input
@@ -227,7 +227,7 @@ export default function WeatherPage() {
                       placeholder="जिल्हा शोधा..."
                       value={searchQuery}
                       onChange={e => setSearchQuery(e.target.value)}
-                      className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder-white/40 focus:outline-none focus:border-blue-500/50"
+                      className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder-white/40 focus:outline-none focus:border-blue-500/50 box-border"
                       autoFocus
                     />
                   </div>
@@ -482,7 +482,7 @@ export default function WeatherPage() {
                         {/* Mini temp bar */}
                         <div className="relative w-1.5 h-16 bg-white/5 rounded-full my-1">
                           <div
-                            className="absolute w-full rounded-full bg-gradient-to-b from-orange-400 to-blue-400"
+                            className="absolute w-full rounded-full bg-gradient-to-b from-orange-400 to-blue-400 box-border"
                             style={{
                               bottom: `${lowPct}%`,
                               height: `${highPct - lowPct}%`,

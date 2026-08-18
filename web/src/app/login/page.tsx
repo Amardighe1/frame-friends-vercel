@@ -106,7 +106,7 @@ export default function LoginPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md pb-6"
+        className="w-full max-w-md pb-6 box-border"
       >
         {/* Logo */}
         <div className="text-center mb-6">
@@ -183,7 +183,7 @@ export default function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                     placeholder="you@example.com"
                   />
                 </div>
@@ -195,7 +195,7 @@ export default function LoginPage() {
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 pr-12"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 outline-none transition-all text-slate-900 pr-12 box-border"
                       placeholder="••••••••"
                     />
                     <button
@@ -246,14 +246,14 @@ export default function LoginPage() {
                     required
                     value={adminId}
                     onChange={(e) => setAdminId(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all text-slate-900 placeholder-slate-400 text-center tracking-widest text-lg"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all text-slate-900 placeholder-slate-400 text-center tracking-widest text-lg box-border"
                     placeholder="अॅडमिन ID टाका"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 shadow-lg shadow-amber-500/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 shadow-lg shadow-amber-500/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50 box-border"
                 >
                   {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>पडताळणी करा <ArrowRight className="w-4 h-4" /></>}
                 </button>
@@ -284,7 +284,7 @@ export default function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all text-slate-900 placeholder-slate-400 box-border"
                     placeholder="admin@example.com"
                   />
                 </div>
@@ -296,7 +296,7 @@ export default function LoginPage() {
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all text-slate-900 pr-12"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all text-slate-900 pr-12 box-border"
                       placeholder="••••••••"
                     />
                     <button
@@ -311,14 +311,14 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 shadow-lg shadow-amber-500/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 shadow-lg shadow-amber-500/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50 box-border"
                 >
                   {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>अॅडमिन लॉग इन <ArrowRight className="w-4 h-4" /></>}
                 </button>
                 <button
                   type="button"
                   onClick={() => { setAdminStep(1); setError(''); }}
-                  className="w-full text-sm text-slate-400 hover:text-slate-600 transition-colors"
+                  className="w-full text-sm text-slate-400 hover:text-slate-600 transition-colors box-border"
                 >
                   ← ID पडताळणीवर परत जा
                 </button>

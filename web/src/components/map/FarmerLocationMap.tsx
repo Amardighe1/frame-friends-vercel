@@ -194,7 +194,7 @@ export default function FarmerLocationMap({
       />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 box-border">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-gradient-to-r from-red-50 to-orange-50">
           <div className="flex items-center gap-3">
@@ -219,11 +219,11 @@ export default function FarmerLocationMap({
         {/* Map */}
         <div
           ref={mapRef}
-          className="w-full h-[350px] bg-slate-100"
+          className="w-full h-[350px] bg-slate-100 box-border"
           style={{ minHeight: 350 }}
         >
           {!mapReady && (
-            <div className="w-full h-full flex items-center justify-center">
+            <div className="w-full h-full flex items-center justify-center box-border">
               <Loader2 className="w-8 h-8 text-slate-400 animate-spin" />
             </div>
           )}
